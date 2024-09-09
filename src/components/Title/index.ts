@@ -1,1 +1,1 @@
-export { default as Title } from './Title.hbs?raw';
+export { default as Title } from "./Title.hbs?raw";
