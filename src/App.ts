@@ -44,7 +44,7 @@ export default class App {
   constructor() {
     this.appElement = document.getElementById("app");
     this.state = {
-      currentPage: "profile",
+      currentPage: "login",
       preventPage: "",
       profileState: {
         isDraft: false,

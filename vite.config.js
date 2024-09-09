@@ -1,21 +1,16 @@
-import { defineConfig } from 'vite'
-import { resolve } from 'path';
-import postcssPresetEnv from 'postcss-preset-env';
-import autoprefixer from 'autoprefixer';
+/* eslint-disable no-undef */
+import { defineConfig } from "vite";
+import { resolve } from "path";
 
 export default defineConfig({
   build: {
     rollupOptions: {
       input: {
-          main: resolve(__dirname, 'index.html'),
+        main: resolve(__dirname, "index.html"),
       },
     },
   },
   css: {
-    postcss: {
-      plugins: [
-        postcssPresetEnv(),
-        autoprefixer(),
-    ]},
+    postcss: "./postcss.config.js",
   },
 });
