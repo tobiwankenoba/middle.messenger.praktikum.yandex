@@ -1,0 +1,5 @@
+<div class="avatar-block">
+  <img class="avatar" src="{{#if avatarUrl }}{{avatarUrl}}{{else}}src/assets/defaultAvatar.svg{{/if}}"  />
+
+  {{#if isDraft }}{{else}}<div class="avatar-title">{{name}}</div>{{/if}}
+</div>

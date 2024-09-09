@@ -1,0 +1,11 @@
+<div class="profile-row">
+  <label class="row-label">{{label}}</label>
+  <input
+    class="hidden-border row-input"
+    type="{{#if type}}{{type}}{{else}}text{{/if}}"
+    placeholder="{{placeholder}}"
+    value="{{value}}"
+    name="{{name}}"
+    {{#if (eq isDraft false) }}readonly{{/if}}
+  />
+</div>
