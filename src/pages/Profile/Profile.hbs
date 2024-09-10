@@ -6,12 +6,12 @@
         {{> Avatar avatarUrl=profileState.profile.avatar isDraft=profileState.isDraft name=profileState.profile.name   }}
 
         <div class="profile-info">
-            {{> ProfileRow isDraft=profileState.isDraft name="email" label="Почта" value=profileState.profile.email }}
-            {{> ProfileRow isDraft=profileState.isDraft name="login" label="Логин" value=profileState.profile.login }}
-            {{> ProfileRow isDraft=profileState.isDraft name="name" label="Имя" value=profileState.profile.name }}
-            {{> ProfileRow isDraft=profileState.isDraft name="lastname" label="Фамилия" value=profileState.profile.lastname }}
-            {{> ProfileRow isDraft=profileState.isDraft name="chatLogin" label="Имя в чате" value=profileState.profile.chatLogin }}
-            {{> ProfileRow isDraft=profileState.isDraft name="phone" label="Телефон" value=profileState.profile.phone }}
+            {{> ProfileRow isDraft=profileState.isDraft id="email" name="email" label="Почта" value=profileState.profile.email }}
+            {{> ProfileRow isDraft=profileState.isDraft id="login" name="login" label="Логин" value=profileState.profile.login }}
+            {{> ProfileRow isDraft=profileState.isDraft id="firstName" name="first_name" label="Имя" value=profileState.profile.name }}
+            {{> ProfileRow isDraft=profileState.isDraft id="secondName" name="second_name" label="Фамилия" value=profileState.profile.lastname }}
+            {{> ProfileRow isDraft=profileState.isDraft id="displayName" name="display_name" label="Имя в чате" value=profileState.profile.chatLogin }}
+            {{> ProfileRow isDraft=profileState.isDraft id="phone" name="phone" label="Телефон" value=profileState.profile.phone }}
         </div>
 
         {{> ButtonBlockProfile }}

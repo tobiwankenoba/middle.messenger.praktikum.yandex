@@ -49,11 +49,11 @@ export default class App {
       profileState: {
         isDraft: false,
         profile: {
-          name: "Иван",
-          lastname: "Иванов",
+          firstName: "Иван",
+          secondName: "Иванов",
           email: "pochta@yandex.ru",
           phone: "+7 (909) 967 30 30",
-          chatLogin: "Ванька",
+          displayName: "Ванька",
           login: "ivanivanov",
           avatar: "https://iconape.com/wp-content/png_logo_vector/avatar.png",
           password: "dLKE39v7|kT",
@@ -64,12 +64,10 @@ export default class App {
   }
 
   render() {
-    let template;
-
     if (this.appElement !== null) {
       const { currentPage } = this.state;
 
-      template = Handlebars.compile(this.#getPage(currentPage));
+      const template = Handlebars.compile(this.#getPage(currentPage));
 
       const { error, preventPage, profileState } = this.state;
 
@@ -92,15 +90,13 @@ export default class App {
       link.addEventListener("click", (e) => {
         e.preventDefault();
         if (e.target && e.target instanceof HTMLElement) {
-          this.#changePage(e.target.dataset.url ?? "");
+          this.#changePage(String(e.target.dataset.url));
         }
       });
     });
 
     if (this.state.currentPage === "changeProfileData") {
       const inputs = document.querySelectorAll("input[type='text']");
-
-      console.log(inputs);
 
       this.#updateNeedUpdateFields(inputs);
     }
@@ -114,6 +110,7 @@ export default class App {
         e.preventDefault();
 
         this.#updateProfile(this.state.needUpdateValue);
+
         this.#changePage("profile");
       });
     }
@@ -124,28 +121,19 @@ export default class App {
 
     inputs.forEach((input) => {
       input.addEventListener("change", (e) => {
-        if (
-          e.target &&
-          e.target instanceof HTMLInputElement &&
-          input instanceof HTMLInputElement
-        ) {
+        if (e.target instanceof HTMLInputElement) {
           objectValues = {
             ...objectValues,
-            ...{ [input.name]: e.target.value },
+            ...{ [(input as HTMLInputElement).id]: e.target.value },
           };
         }
         this.state.needUpdateValue = objectValues;
-        console.log(this.state.needUpdateValue);
       });
     });
   }
 
   #updateProfile(object: Partial<IProfile>) {
-    if (Object.keys(object).length === 0) {
-      return;
-    }
-
-    if (this.state.profileState) {
+    if (Object.keys(object).length !== 0 && this.state.profileState) {
       this.state.profileState.profile = {
         ...this.state.profileState.profile,
         ...object,
@@ -165,8 +153,6 @@ export default class App {
     switch (currentPage) {
       case "notFound":
         this.state.error = { statusCode: 404, message: "Не туда попали" };
-
-        console.log(this.state);
 
         return Pages.ErrorPage;
 

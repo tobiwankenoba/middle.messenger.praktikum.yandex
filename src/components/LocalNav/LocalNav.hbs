@@ -1,9 +1,11 @@
-<div class="local-nav">
-    {{> LinkButton text="Авторизация" url="login" }}
-    {{> LinkButton text="Регистрация" url="register" }}
-    {{> LinkButton text="Профиль" url="profile" }}
-    {{> LinkButton text="Изменить данные" url="changeProfileData" }}
-    {{> LinkButton text="Изменить пароль" url="changeProfilePassword" }}
-    {{> LinkButton text="404" url="notFound" }}
-    {{> LinkButton text="500" url="serverError" }}
-</div>
+<nav>
+    <ul class="local-nav">
+        <li>{{> LinkButton text="Авторизация" url="login" }}</li>
+        <li>{{> LinkButton text="Регистрация" url="register" }}</li>
+        <li>{{> LinkButton text="Профиль" url="profile" }}</li>
+        <li>{{> LinkButton text="Изменить данные" url="changeProfileData" }}</li>
+        <li>{{> LinkButton text="Изменить пароль" url="changeProfilePassword" }}</li>
+        <li>{{> LinkButton text="404" url="notFound" }}</li>
+        <li>{{> LinkButton text="500" url="serverError" }}</li>
+    </ul>
+</nav>
