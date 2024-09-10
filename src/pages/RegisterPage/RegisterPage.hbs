@@ -1,0 +1,21 @@
+<div class="container">
+    {{> LocalNav }}
+    <div class="wrapper register-wrapper">
+        {{> Title content="Регистрация"}}
+        <form class="form" onclick="return false;">
+            <div class="inputs-block">
+                {{> Input type="text" label="Почта" id="email" name="email" placeholder="Введите почту"}}
+                {{> Input type="text" label="Логин" id="login" name="login" placeholder="Введите логин"}}
+                {{> Input type="text" label="Имя" id="name" name="first_name" placeholder="Введите имя"}}
+                {{> Input type="text" label="Фамилия" id="lastname" name="second_name" placeholder="Введите фамилию"}}
+                {{> Input type="text" label="Телефон" id="phone" name="phone" placeholder="Введите телефон"}}
+                {{> Input type="text" label="Пароль" id="password" name="password" placeholder="Введите пароль"}}
+                {{> Input type="text" label="Пароль (ещё раз)" id="passwordRepeat" name="passwordRepeat" placeholder="Повторите пароль"}}
+            </div>
+            <div class="btns-block">
+                {{> Button text="Зарегистрироваться" fullWidth="true" }}
+                {{> LinkButton text="Войти" url="login"}}
+            </div>
+        </form>
+    </div>
+</div>
