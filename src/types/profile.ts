@@ -4,11 +4,11 @@ export interface IProfileState {
 }
 
 export interface IProfile {
-  name: string;
-  lastname: string;
+  firstName: string;
+  secondName: string;
   email: string;
   login: string;
-  chatLogin: string;
+  displayName: string;
   phone: string;
   avatar: string | null;
   password: string;
