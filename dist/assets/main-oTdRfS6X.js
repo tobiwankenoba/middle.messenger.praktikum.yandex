@@ -43,8 +43,8 @@ Expecting `+x.join(", ")+", got '"+(this.terminals_[k]||k)+"'":F="Parse error on
             <div class="inputs-block">
                 {{> Input type="text" label="Почта" id="email" name="email" placeholder="Введите почту"}}
                 {{> Input type="text" label="Логин" id="login" name="login" placeholder="Введите логин"}}
-                {{> Input type="text" label="Имя" id="name" name="name" placeholder="Введите имя"}}
-                {{> Input type="text" label="Фамилия" id="lastname" name="lastname" placeholder="Введите фамилию"}}
+                {{> Input type="text" label="Имя" id="name" name="first_name" placeholder="Введите имя"}}
+                {{> Input type="text" label="Фамилия" id="lastname" name="second_name" placeholder="Введите фамилию"}}
                 {{> Input type="text" label="Телефон" id="phone" name="phone" placeholder="Введите телефон"}}
                 {{> Input type="text" label="Пароль" id="password" name="password" placeholder="Введите пароль"}}
                 {{> Input type="text" label="Пароль (ещё раз)" id="passwordRepeat" name="passwordRepeat" placeholder="Повторите пароль"}}
@@ -64,12 +64,12 @@ Expecting `+x.join(", ")+", got '"+(this.terminals_[k]||k)+"'":F="Parse error on
         {{> Avatar avatarUrl=profileState.profile.avatar isDraft=profileState.isDraft name=profileState.profile.name   }}
 
         <div class="profile-info">
-            {{> ProfileRow isDraft=profileState.isDraft name="email" label="Почта" value=profileState.profile.email }}
-            {{> ProfileRow isDraft=profileState.isDraft name="login" label="Логин" value=profileState.profile.login }}
-            {{> ProfileRow isDraft=profileState.isDraft name="name" label="Имя" value=profileState.profile.name }}
-            {{> ProfileRow isDraft=profileState.isDraft name="lastname" label="Фамилия" value=profileState.profile.lastname }}
-            {{> ProfileRow isDraft=profileState.isDraft name="chatLogin" label="Имя в чате" value=profileState.profile.chatLogin }}
-            {{> ProfileRow isDraft=profileState.isDraft name="phone" label="Телефон" value=profileState.profile.phone }}
+            {{> ProfileRow isDraft=profileState.isDraft id="email" name="email" label="Почта" value=profileState.profile.email }}
+            {{> ProfileRow isDraft=profileState.isDraft id="login" name="login" label="Логин" value=profileState.profile.login }}
+            {{> ProfileRow isDraft=profileState.isDraft id="firstName" name="first_name" label="Имя" value=profileState.profile.name }}
+            {{> ProfileRow isDraft=profileState.isDraft id="secondName" name="second_name" label="Фамилия" value=profileState.profile.lastname }}
+            {{> ProfileRow isDraft=profileState.isDraft id="displayName" name="display_name" label="Имя в чате" value=profileState.profile.chatLogin }}
+            {{> ProfileRow isDraft=profileState.isDraft id="phone" name="phone" label="Телефон" value=profileState.profile.phone }}
         </div>
 
         {{> ButtonBlockProfile }}
@@ -120,15 +120,17 @@ Expecting `+x.join(", ")+", got '"+(this.terminals_[k]||k)+"'":F="Parse error on
   data-url="{{url}}"
   class="button-link {{theme}}"
 >{{text}}</a>
-`,Wn=`<div class="local-nav">
-    {{> LinkButton text="Авторизация" url="login" }}
-    {{> LinkButton text="Регистрация" url="register" }}
-    {{> LinkButton text="Профиль" url="profile" }}
-    {{> LinkButton text="Изменить данные" url="changeProfileData" }}
-    {{> LinkButton text="Изменить пароль" url="changeProfilePassword" }}
-    {{> LinkButton text="404" url="notFound" }}
-    {{> LinkButton text="500" url="serverError" }}
-</div>
+`,Wn=`<nav>
+    <ul class="local-nav">
+        <li>{{> LinkButton text="Авторизация" url="login" }}</li>
+        <li>{{> LinkButton text="Регистрация" url="register" }}</li>
+        <li>{{> LinkButton text="Профиль" url="profile" }}</li>
+        <li>{{> LinkButton text="Изменить данные" url="changeProfileData" }}</li>
+        <li>{{> LinkButton text="Изменить пароль" url="changeProfilePassword" }}</li>
+        <li>{{> LinkButton text="404" url="notFound" }}</li>
+        <li>{{> LinkButton text="500" url="serverError" }}</li>
+    </ul>
+</nav>
 `,Kn=`<div class="sidebar">
   <button
     class="hidden-border sidebar-button"
@@ -137,14 +139,15 @@ Expecting `+x.join(", ")+", got '"+(this.terminals_[k]||k)+"'":F="Parse error on
   />
 </div>
 `,Jn=`<div class="avatar-block">
-  <img class="avatar" src="{{#if avatarUrl }}{{avatarUrl}}{{else}}src/assets/defaultAvatar.svg{{/if}}"  />
-
+  <img class="avatar" alt="аватар {{name}}" src="{{#if avatarUrl }}{{avatarUrl}}{{else}}src/assets/defaultAvatar.svg{{/if}}"  />
+  <input type="hidden" name="avatar"/>
   {{#if isDraft }}{{else}}<div class="avatar-title">{{name}}</div>{{/if}}
 </div>
 `,zn=`<div class="profile-row">
   <label class="row-label">{{label}}</label>
   <input
     class="hidden-border row-input"
+    id="{{id}}"
     type="{{#if type}}{{type}}{{else}}text{{/if}}"
     placeholder="{{placeholder}}"
     value="{{value}}"
@@ -163,4 +166,4 @@ Expecting `+x.join(", ")+", got '"+(this.terminals_[k]||k)+"'":F="Parse error on
     {{> Button buttonName="saveChanges" text="Сохранить" fullWidth="true" }}
 </div>
 {{/if}}
-`;N.registerHelper({eq:(e,t)=>e===t});N.registerPartial("Title",Fn);N.registerPartial("Input",Vn);N.registerPartial("Button",Gn);N.registerPartial("LinkButton",Un);N.registerPartial("LocalNav",Wn);N.registerPartial("Sidebar",Kn);N.registerPartial("Avatar",Jn);N.registerPartial("ProfileRow",zn);N.registerPartial("ButtonBlockProfile",Qn);var A,Mt,Ot,Fe,At;class Yn{constructor(){Qe(this,A);se(this,"appElement");se(this,"state");this.appElement=document.getElementById("app"),this.state={currentPage:"login",preventPage:"",profileState:{isDraft:!1,profile:{name:"Иван",lastname:"Иванов",email:"pochta@yandex.ru",phone:"+7 (909) 967 30 30",chatLogin:"Ванька",login:"ivanivanov",avatar:"https://iconape.com/wp-content/png_logo_vector/avatar.png",password:"dLKE39v7|kT"}},needUpdateValue:{}}}render(){let t;if(this.appElement!==null){const{currentPage:o}=this.state;t=N.compile(G(this,A,At).call(this,o));const{error:h,preventPage:f,profileState:p}=this.state;this.appElement.innerHTML=t({preventPage:f,profileState:p,error:h}),this.attachEventListners()}else throw new qe.Exception("missing app container")}attachEventListners(){if(document.querySelectorAll("[data-name='pageLink']").forEach(h=>{h.addEventListener("click",f=>{f.preventDefault(),f.target&&f.target instanceof HTMLElement&&G(this,A,Fe).call(this,f.target.dataset.url??"")})}),this.state.currentPage==="changeProfileData"){const h=document.querySelectorAll("input[type='text']");console.log(h),G(this,A,Mt).call(this,h)}const o=document.querySelector("[data-name='saveChanges']");o&&o.addEventListener("click",h=>{h.preventDefault(),G(this,A,Ot).call(this,this.state.needUpdateValue),G(this,A,Fe).call(this,"profile")})}}A=new WeakSet,Mt=function(t){let o={};t.forEach(h=>{h.addEventListener("change",f=>{f.target&&f.target instanceof HTMLInputElement&&h instanceof HTMLInputElement&&(o={...o,[h.name]:f.target.value}),this.state.needUpdateValue=o,console.log(this.state.needUpdateValue)})})},Ot=function(t){Object.keys(t).length!==0&&this.state.profileState&&(this.state.profileState.profile={...this.state.profileState.profile,...t})},Fe=function(t){this.state.preventPage=this.state.currentPage,this.state.currentPage=t,this.render()},At=function(t){switch(t){case"notFound":return this.state.error={statusCode:404,message:"Не туда попали"},console.log(this.state),pt;case"serverError":return this.state.error={statusCode:500,message:"Уже фиксим"},pt;case"register":return Tn;case"login":case"logout":return Hn;case"profile":return this.state.profileState&&(this.state.profileState.isDraft=!1),ht;case"changeProfileData":return this.state.profileState&&(this.state.profileState.isDraft=!0),ht;case"changeProfilePassword":return this.state.profileState&&(this.state.profileState.isDraft=!0),qn;default:throw new qe.Exception("page not exist")}};document.addEventListener("DOMContentLoaded",()=>{new Yn().render()});
+`;N.registerHelper({eq:(e,t)=>e===t});N.registerPartial("Title",Fn);N.registerPartial("Input",Vn);N.registerPartial("Button",Gn);N.registerPartial("LinkButton",Un);N.registerPartial("LocalNav",Wn);N.registerPartial("Sidebar",Kn);N.registerPartial("Avatar",Jn);N.registerPartial("ProfileRow",zn);N.registerPartial("ButtonBlockProfile",Qn);var A,Mt,Ot,Fe,At;class Yn{constructor(){Qe(this,A);se(this,"appElement");se(this,"state");this.appElement=document.getElementById("app"),this.state={currentPage:"login",preventPage:"",profileState:{isDraft:!1,profile:{firstName:"Иван",secondName:"Иванов",email:"pochta@yandex.ru",phone:"+7 (909) 967 30 30",displayName:"Ванька",login:"ivanivanov",avatar:"https://iconape.com/wp-content/png_logo_vector/avatar.png",password:"dLKE39v7|kT"}},needUpdateValue:{}}}render(){if(this.appElement!==null){const{currentPage:t}=this.state,o=N.compile(G(this,A,At).call(this,t)),{error:h,preventPage:f,profileState:p}=this.state;this.appElement.innerHTML=o({preventPage:f,profileState:p,error:h}),this.attachEventListners()}else throw new qe.Exception("missing app container")}attachEventListners(){if(document.querySelectorAll("[data-name='pageLink']").forEach(h=>{h.addEventListener("click",f=>{f.preventDefault(),f.target&&f.target instanceof HTMLElement&&G(this,A,Fe).call(this,String(f.target.dataset.url))})}),this.state.currentPage==="changeProfileData"){const h=document.querySelectorAll("input[type='text']");G(this,A,Mt).call(this,h)}const o=document.querySelector("[data-name='saveChanges']");o&&o.addEventListener("click",h=>{h.preventDefault(),G(this,A,Ot).call(this,this.state.needUpdateValue),G(this,A,Fe).call(this,"profile")})}}A=new WeakSet,Mt=function(t){let o={};t.forEach(h=>{h.addEventListener("change",f=>{f.target instanceof HTMLInputElement&&(o={...o,[h.id]:f.target.value}),this.state.needUpdateValue=o})})},Ot=function(t){Object.keys(t).length!==0&&this.state.profileState&&(this.state.profileState.profile={...this.state.profileState.profile,...t})},Fe=function(t){this.state.preventPage=this.state.currentPage,this.state.currentPage=t,this.render()},At=function(t){switch(t){case"notFound":return this.state.error={statusCode:404,message:"Не туда попали"},pt;case"serverError":return this.state.error={statusCode:500,message:"Уже фиксим"},pt;case"register":return Tn;case"login":case"logout":return Hn;case"profile":return this.state.profileState&&(this.state.profileState.isDraft=!1),ht;case"changeProfileData":return this.state.profileState&&(this.state.profileState.isDraft=!0),ht;case"changeProfilePassword":return this.state.profileState&&(this.state.profileState.isDraft=!0),qn;default:throw new qe.Exception("page not exist")}};document.addEventListener("DOMContentLoaded",()=>{new Yn().render()});
