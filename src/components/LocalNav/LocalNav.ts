@@ -30,7 +30,7 @@ export class LocalNav extends Block {
         url: "notFound",
       }),
       ServerErrorLink: new LinkButton({
-        text: "505",
+        text: "500",
         url: "serverError",
       }),
     });

@@ -1,4 +1,10 @@
-import { Button, Input, LinkButton, LocalNav, Title } from "../../components";
+import {
+  Button,
+  InputBlock,
+  LinkButton,
+  LocalNav,
+  Title,
+} from "../../components";
 import { Block } from "../../framework/Block";
 
 export class LoginPage extends Block {
@@ -10,21 +16,19 @@ export class LoginPage extends Block {
         text: "Нет аккаунта?",
         url: "register",
       }),
-      InputLogin: new Input({
+      InputLogin: new InputBlock({
         label: "Логин",
         id: "login",
         placeholder: "Введите логин",
         type: "text",
         name: "login",
-        value: "",
       }),
-      InputPassword: new Input({
+      InputPassword: new InputBlock({
         label: "Пароль",
         id: "password",
         placeholder: "Введите пароль",
         name: "password",
         type: "text",
-        value: "",
       }),
       LocalNav: new LocalNav(),
     });

@@ -1,33 +1,17 @@
 import { Block } from "../../framework/Block";
+import { IInput } from "../../types/input";
 import "./styles.pcss";
 
-interface IInputProps {
-  id: string;
-  type: string;
-  name: string;
-  label: string;
-  value: string;
-  placeholder: string;
-}
+type TInputProps = IInput;
 
 export class Input extends Block {
-  constructor(props: IInputProps) {
+  constructor(props: TInputProps) {
     super({
       ...props,
     });
   }
 
-  override render(): string {
-    return `<div class="input-container">
-            <label class="input-label">{{label}}</label>
-            <input
-              id="{{id}}"
-              type="{{type}}"
-              name="{{name}}"
-              value="{{value}}"
-              placeholder="{{placeholder}}"
-              class="hidden-border input"
-            />
-          </div>`;
+  render() {
+    return '<input id="{{id}}" {{#unless readonly }}readonly{{/unless}} type="{{#if type }}{{type}}{{else}}text{{/if}}" name="{{name}}" value="{{value}}" placeholder="{{placeholder}}" class="hidden-border {{#if class }}{{class}}{{else}}input{{/if}}"/>';
   }
 }

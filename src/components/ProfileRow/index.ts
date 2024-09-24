@@ -1,1 +1,1 @@
-export { default as ProfileRow } from "./ProfileRow.hbs?raw";
+export * from "./ProfileRow";

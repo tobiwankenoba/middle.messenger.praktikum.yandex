@@ -15,7 +15,7 @@ export class LinkButton extends Block {
     });
   }
 
-  render(): string {
+  render() {
     return `
       <a
       data-name="{{#if dataName }}{{dataName}}{{else}}pageLink{{/if}}"
