@@ -1,0 +1,21 @@
+.button-link {
+  max-width: max-content;
+  font-size: var(--font-size-11);
+  font-weight: 500;
+  line-height: var(--line-height-11);
+  text-decoration: none;
+  cursor: pointer;
+  color: var(--primary-100);
+
+  &:hover {
+    color: var(--primary-100-hovered);
+  }
+
+  &.error {
+    color: var(--error-100);
+
+    &:hover {
+      color: var(--error-hovered);
+    }
+  }
+}

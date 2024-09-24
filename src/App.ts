@@ -1,32 +1,11 @@
 import Handlebars, { Exception } from "handlebars";
-import * as Pages from "./pages";
 
-import {
-  Avatar,
-  Button,
-  ButtonBlockProfile,
-  Input,
-  LinkButton,
-  LocalNav,
-  ProfileRow,
-  Sidebar,
-  Title,
-} from "./components";
 import { IProfile, IProfileState } from "./types/profile";
+import { ErrorPage, LoginPage } from "./pages";
 
 Handlebars.registerHelper({
   eq: (v1, v2) => v1 === v2,
 });
-
-Handlebars.registerPartial("Title", Title);
-Handlebars.registerPartial("Input", Input);
-Handlebars.registerPartial("Button", Button);
-Handlebars.registerPartial("LinkButton", LinkButton);
-Handlebars.registerPartial("LocalNav", LocalNav);
-Handlebars.registerPartial("Sidebar", Sidebar);
-Handlebars.registerPartial("Avatar", Avatar);
-Handlebars.registerPartial("ProfileRow", ProfileRow);
-Handlebars.registerPartial("ButtonBlockProfile", ButtonBlockProfile);
 
 export default class App {
   appElement: HTMLElement | null;
@@ -67,15 +46,9 @@ export default class App {
     if (this.appElement !== null) {
       const { currentPage } = this.state;
 
-      const template = Handlebars.compile(this.#getPage(currentPage));
+      const template = this._getPage(currentPage);
 
-      const { error, preventPage, profileState } = this.state;
-
-      this.appElement.innerHTML = template({
-        preventPage,
-        profileState,
-        error,
-      });
+      this.appElement.replaceWith(template);
 
       this.attachEventListners();
     } else {
@@ -102,7 +75,7 @@ export default class App {
     }
 
     const saveChangesButton = document.querySelector(
-      "[data-name='saveChanges']"
+      "[data-name='saveChanges']",
     );
 
     if (saveChangesButton) {
@@ -144,50 +117,22 @@ export default class App {
   #changePage(newPage: string) {
     this.state.preventPage = this.state.currentPage;
 
+    console.log(newPage);
+
     this.state.currentPage = newPage;
 
     this.render();
   }
 
-  #getPage(currentPage: string) {
+  _getPage(currentPage: string) {
+    console.log(currentPage, "getPage");
     switch (currentPage) {
       case "notFound":
-        this.state.error = { statusCode: 404, message: "Не туда попали" };
-
-        return Pages.ErrorPage;
-
-      case "serverError":
-        this.state.error = { statusCode: 500, message: "Уже фиксим" };
-
-        return Pages.ErrorPage;
-
-      case "register":
-        return Pages.RegisterPage;
+        return new ErrorPage().getContent();
 
       case "login":
       case "logout":
-        return Pages.LoginPage;
-
-      case "profile":
-        if (this.state.profileState) {
-          this.state.profileState.isDraft = false;
-        }
-
-        return Pages.Profile;
-
-      case "changeProfileData":
-        if (this.state.profileState) {
-          this.state.profileState.isDraft = true;
-        }
-
-        return Pages.Profile;
-
-      case "changeProfilePassword":
-        if (this.state.profileState) {
-          this.state.profileState.isDraft = true;
-        }
-
-        return Pages.ChangePassword;
+        return new LoginPage().getContent();
 
       default:
         throw new Exception("page not exist");
