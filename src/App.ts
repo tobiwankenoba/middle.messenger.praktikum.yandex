@@ -1,7 +1,13 @@
 import Handlebars, { Exception } from "handlebars";
 
 import { IProfile, IProfileState } from "./types/profile";
-import { ErrorPage, LoginPage } from "./pages";
+import {
+  ChangePasswordPage,
+  ErrorPage,
+  LoginPage,
+  ProfilePage,
+  RegisterPage,
+} from "./pages";
 
 Handlebars.registerHelper({
   eq: (v1, v2) => v1 === v2,
@@ -16,7 +22,7 @@ export default class App {
       statusCode: number;
       message: string;
     };
-    profileState: IProfileState | null;
+    profileState: IProfileState;
     needUpdateValue: Partial<IProfile>;
   };
 
@@ -48,7 +54,7 @@ export default class App {
 
       const template = this._getPage(currentPage);
 
-      this.appElement.replaceWith(template);
+      this.appElement.replaceChildren(template);
 
       this.attachEventListners();
     } else {
@@ -117,22 +123,46 @@ export default class App {
   #changePage(newPage: string) {
     this.state.preventPage = this.state.currentPage;
 
-    console.log(newPage);
-
     this.state.currentPage = newPage;
 
     this.render();
   }
 
   _getPage(currentPage: string) {
-    console.log(currentPage, "getPage");
     switch (currentPage) {
       case "notFound":
-        return new ErrorPage().getContent();
+        return new ErrorPage({
+          errorMessage: "Ошибка, тестовая!",
+          statusCode: 404,
+        }).getContent();
+
+      case "serverError":
+        return new ErrorPage({
+          errorMessage: "Уже фиксим",
+          statusCode: 500,
+        }).getContent();
 
       case "login":
       case "logout":
         return new LoginPage().getContent();
+
+      case "register":
+        return new RegisterPage().getContent();
+
+      case "profile":
+        return new ProfilePage({
+          profileState: this.state.profileState,
+        }).getContent();
+
+      case "changeProfileData":
+        return new ProfilePage({
+          profileState: { ...this.state.profileState, isDraft: true },
+        }).getContent();
+
+      case "changeProfilePassword":
+        return new ChangePasswordPage({
+          profileState: { ...this.state.profileState, isDraft: true },
+        }).getContent();
 
       default:
         throw new Exception("page not exist");
