@@ -12,7 +12,7 @@ export class Sidebar extends Block {
         <button
           class="hidden-border sidebar-button"
           data-name="pageLink"
-          data-url="login"
+          data-url="chat"
         />
       </div>
     `;

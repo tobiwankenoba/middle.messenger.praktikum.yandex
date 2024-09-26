@@ -17,6 +17,10 @@ export class LocalNav extends Block {
         text: "Профиль",
         url: "profile",
       }),
+      ChatLink: new LinkButton({
+        text: "Чат",
+        url: "chat",
+      }),
       ChangeProfileLink: new LinkButton({
         text: "Изменить данные",
         url: "changeProfileData",
@@ -42,6 +46,7 @@ export class LocalNav extends Block {
           <ul class="local-nav">
               <li>{{{ AuthLink }}}</li>
               <li>{{{ RegisterLink }}}</li>
+              <li>{{{ ChatLink }}}</li>
               <li>{{{ ProfileLink }}}</li>
               <li>{{{ ChangeProfileLink }}}</li>
               <li>{{{ ChangePasswordLink }}}</li>

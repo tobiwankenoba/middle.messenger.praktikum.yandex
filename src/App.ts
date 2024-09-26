@@ -8,6 +8,8 @@ import {
   ProfilePage,
   RegisterPage,
 } from "./pages";
+import { ChatPage } from "./pages/ChatPage";
+import { MOCK_CHAT } from "./constants/chatMock";
 
 Handlebars.registerHelper({
   eq: (v1, v2) => v1 === v2,
@@ -43,6 +45,7 @@ export default class App {
           avatar: "https://iconape.com/wp-content/png_logo_vector/avatar.png",
           password: "dLKE39v7|kT",
         },
+        chatsState: MOCK_CHAT,
       },
       needUpdateValue: {},
     };
@@ -68,8 +71,16 @@ export default class App {
     pageLinks.forEach((link) => {
       link.addEventListener("click", (e) => {
         e.preventDefault();
-        if (e.target && e.target instanceof HTMLElement) {
-          this.#changePage(String(e.target.dataset.url));
+        if (e.target instanceof HTMLElement) {
+          const { target } = e;
+
+          const url = String(
+            target.dataset.url
+              ? target.dataset.url
+              : target.parentElement?.dataset.url,
+          );
+
+          this.#changePage(url);
         }
       });
     });
@@ -162,6 +173,11 @@ export default class App {
       case "changeProfilePassword":
         return new ChangePasswordPage({
           profileState: { ...this.state.profileState, isDraft: true },
+        }).getContent();
+
+      case "chat":
+        return new ChatPage({
+          chatState: this.state.profileState.chatsState,
         }).getContent();
 
       default:
