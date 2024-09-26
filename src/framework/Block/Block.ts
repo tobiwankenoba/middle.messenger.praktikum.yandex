@@ -3,6 +3,7 @@
 import { EventCallback, EventBus } from "../EventBus";
 import Handlebars from "handlebars";
 import { v4 as uuidv4 } from "uuid";
+import { deepEqual } from "../../utils/deepEqual";
 
 interface BlockProps {
   [key: string]: any;
@@ -89,11 +90,31 @@ export class Block {
     oldProps: BlockProps,
     newProps: BlockProps,
   ): void {
-    const response = this.componentDidUpdate(oldProps, newProps);
-    if (!response) {
-      return;
+    if (!deepEqual(oldProps, newProps)) {
+      this._updateChildrenProps(newProps);
+
+      this._updateListProps(newProps);
+
+      this._render();
     }
-    this._render();
+  }
+
+  private _updateChildrenProps(props: BlockProps) {
+    Object.values(this.children).forEach((child) => {
+      if (!deepEqual(child.props, props)) {
+        child.setProps(props);
+      }
+    });
+  }
+
+  private _updateListProps(props: BlockProps) {
+    Object.values(this.lists).forEach((child) => {
+      child.map((item) => {
+        if (!deepEqual(item.props, props)) {
+          item.setProps(props);
+        }
+      });
+    });
   }
 
   protected componentDidUpdate(
@@ -148,8 +169,6 @@ export class Block {
   }
 
   private _render(): void {
-    // console.log("Render");
-
     const propsAndStubs = { ...this.props };
 
     const _tmpId = Math.floor(100000 + Math.random() * 900000);
@@ -195,6 +214,7 @@ export class Block {
     if (this._element && newElement) {
       this._element.replaceWith(newElement);
     }
+
     this._element = newElement;
     this._addEvents();
     this.addAttributes();

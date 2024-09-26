@@ -12,6 +12,6 @@ export class Input extends Block {
   }
 
   render() {
-    return '<input id="{{id}}" {{#unless readonly }}readonly{{/unless}} type="{{#if type }}{{type}}{{else}}text{{/if}}" name="{{name}}" value="{{value}}" placeholder="{{placeholder}}" class="hidden-border {{#if class }}{{class}}{{else}}input{{/if}}"/>';
+    return '<input id="{{id}}" {{#if readonly }}readonly{{/if}} type="{{#if type }}{{type}}{{else}}text{{/if}}" name="{{name}}" value="{{value}}" placeholder="{{placeholder}}" class="hidden-border {{#if class }}{{class}}{{else}}input{{/if}}"/>';
   }
 }
