@@ -16,6 +16,8 @@ export default [
       },
     },
   },
+  pluginJs.configs.recommended,
+  ...tseslint.configs.recommended,
   {
     rules: {
       "react/jsx-filename-extension": "off",
@@ -28,6 +30,4 @@ export default [
       "@typescript-eslint/no-unsafe-member-access": "off",
     },
   },
-  pluginJs.configs.recommended,
-  ...tseslint.configs.recommended,
 ];
