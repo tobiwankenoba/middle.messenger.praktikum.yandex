@@ -48,7 +48,10 @@ export class ChangePasswordPage extends Block {
         placeholder: "*****",
         readonly: isDraft,
       }),
-      ButtonBlockProfile: new ButtonBlockProfile({ isDraft: isDraft }),
+      ButtonBlockProfile: new ButtonBlockProfile({
+        isDraft: isDraft,
+        disabled: false,
+      }),
     });
   }
 
