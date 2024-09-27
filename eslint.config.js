@@ -21,7 +21,6 @@ export default [
       "react/jsx-filename-extension": "off",
       "import/extensions": "off",
       "import/no-extraneous-dependencies": "off",
-      "@typescript-eslint/no-explicit-any": "error",
       "@typescript-eslint/no-unsafe-assignment": "off",
       "@typescript-eslint/no-unsafe-argument": "off",
       "@typescript-eslint/no-unsafe-return": "off",
