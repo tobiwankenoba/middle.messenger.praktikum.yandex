@@ -17,5 +17,10 @@ export default [
     },
   },
   pluginJs.configs.recommended,
-  ...tseslint.configs.eslintRecommended,
+  ...tseslint.configs.recommended,
+  {
+    rules: {
+      "@typescript-eslint/ban-ts-comment": "off",
+    },
+  },
 ];
