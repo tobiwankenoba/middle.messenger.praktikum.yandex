@@ -11,7 +11,12 @@ export class RegisterPage extends Block {
   constructor() {
     super({
       Title: new Title({ text: "Регистрация" }),
-      Button: new Button({ text: "Зарегистрироваться", fullWidth: true }),
+      Button: new Button({
+        text: "Зарегистрироваться",
+        fullWidth: true,
+        dataName: "register",
+        disabled: true,
+      }),
       LinkButton: new LinkButton({
         text: "Войти",
         url: "login",

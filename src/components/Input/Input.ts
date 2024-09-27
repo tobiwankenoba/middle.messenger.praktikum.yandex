@@ -8,6 +8,16 @@ export class Input extends Block {
   constructor(props: TInputProps) {
     super({
       ...props,
+      events: {
+        blur: (e: Event) => {
+          if (e.target instanceof HTMLInputElement) {
+            this.setProps({ value: e.target.value });
+          }
+          if (props.onBlur) {
+            props.onBlur(e);
+          }
+        },
+      },
     });
   }
 

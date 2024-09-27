@@ -6,4 +6,6 @@ export interface IInput {
   placeholder?: string;
   class?: string;
   readonly?: boolean;
+  onBlur?: (e: Event) => void;
+  onInput?: (e: Event) => void;
 }
