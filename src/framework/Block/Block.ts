@@ -5,7 +5,7 @@ import Handlebars from "handlebars";
 import { v4 as uuidv4 } from "uuid";
 import { deepEqual } from "../../utils/deepEqual";
 
-interface BlockProps {
+export interface BlockProps {
   [key: string]: any;
 }
 
@@ -90,6 +90,12 @@ export class Block {
     oldProps: BlockProps,
     newProps: BlockProps,
   ): void {
+    const res = this.componentDidUpdate(oldProps, newProps);
+
+    if (res) {
+      return;
+    }
+
     if (!deepEqual(oldProps, newProps)) {
       this._updateChildrenProps(newProps);
 
@@ -101,18 +107,22 @@ export class Block {
 
   private _updateChildrenProps(props: BlockProps) {
     Object.values(this.children).forEach((child) => {
-      if (!deepEqual(child.props, props)) {
-        child.setProps(props);
-      }
+      Object.keys(props).forEach((prop) => {
+        if (!deepEqual(child.props[prop], props[prop])) {
+          child.setProps({ [prop]: props[prop] });
+        }
+      });
     });
   }
 
   private _updateListProps(props: BlockProps) {
-    Object.values(this.lists).forEach((child) => {
-      child.map((item) => {
-        if (!deepEqual(item.props, props)) {
-          item.setProps(props);
-        }
+    Object.values(this.lists).forEach((list) => {
+      list.map((child: Block) => {
+        Object.keys(props).forEach((prop) => {
+          if (!deepEqual(child.props[prop], props[prop])) {
+            child.setProps({ [prop]: props[prop] });
+          }
+        });
       });
     });
   }
@@ -121,7 +131,7 @@ export class Block {
     _oldProps: BlockProps,
     _newProps: BlockProps,
   ): boolean {
-    return true;
+    return false;
   }
 
   private _getChildrenPropsAndProps(propsAndChildren: BlockProps): {
