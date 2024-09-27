@@ -1,0 +1,106 @@
+.chat-head {
+  position: relative;
+  z-index: 0;
+  width: 100%;
+  flex: 0 0 54px;
+}
+
+.chat-head-wrapper {
+  margin: 0 auto;
+  padding: var(--unit-3) 0;
+  display: flex;
+  width: calc(100% - 40px);
+  height: 100%;
+  border-bottom: 1px solid var(--gray-border);
+  justify-content: space-between;
+}
+
+.chat-head-info {
+  display: flex;
+  align-items: center;
+  gap: var(--unit-3);
+}
+
+.chat-user-name {
+  font-size: var(--font-size-12);
+  font-weight: 600;
+  line-height: var(--line-height-12);
+  color: var(--black-100);
+}
+
+.chat-story {
+  padding: var(--unit-5);
+  display: grid;
+  overflow: scroll;
+  grid-template-columns: 1fr;
+  grid-auto-rows: max-content;
+  grid-template-rows: auto;
+  width: 100%;
+  max-height: calc(100% - 148px);
+  flex: 1 0 auto;
+  gap: var(--unit-3);
+  align-items: end;
+}
+
+.chat-message {
+  flex: 0 0 54px;
+  position: relative;
+  z-index: 0;
+  width: 100%;
+}
+
+.chat-message-wrapper {
+  margin: 0 auto;
+  padding: var(--unit-3) 0;
+  display: flex;
+  width: calc(100% - 40px);
+  align-items: center;
+  height: 100%;
+  border-top: 1px solid var(--gray-border);
+  gap: var(--unit-2);
+}
+
+.chat-message-link {
+  flex: 0 0 32px;
+  height: 32px;
+  cursor: pointer;
+  background: no-repeat center center / contain url("../../assets/clip.svg");
+}
+
+.chat-message-input {
+  padding: var(--unit-2) var(--unit-5);
+  height: 32px;
+  color: var(--gray-100);
+  background-color: var(--gray-90);
+  border: none;
+  border-radius: 30px;
+  outline: none;
+  flex: 1 0 auto;
+}
+
+.chat-story-message {
+  padding: var(--unit-3);
+  width: auto;
+  max-width: 402px;
+  height: max-content;
+  font-size: var(--font-size-12);
+  line-height: var(--line-height-16);
+  color: var(--black-100);
+  border-radius: 10px;
+  box-shadow: 0 3px 2px 0 #00000024;
+  &.partner {
+    background-color: var(--gray-60);
+    border-top-left-radius: 0;
+    justify-self: flex-start;
+  }
+  &.me {
+    background-color: var(--primary-30);
+    justify-self: flex-end;
+    border-bottom-right-radius: 0;
+  }
+}
+
+.chat-empty {
+  align-self: center;
+  text-align: center;
+}

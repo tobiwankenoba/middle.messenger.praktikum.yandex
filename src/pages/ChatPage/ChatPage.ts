@@ -25,7 +25,7 @@ export class ChatPage extends Block {
             },
           }),
       ),
-      CurrentChat: new OpenedChat({ selectedChat }),
+      CurrentChat: new OpenedChat(),
     });
   }
 
