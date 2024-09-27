@@ -18,16 +18,4 @@ module.exports = {
     es2020: true,
     node: true,
   },
-  rules: {
-    "react/jsx-filename-extension": "off",
-    "import/extensions": "off",
-    "import/no-extraneous-dependencies": "off",
-    "@typescript-eslint/no-explicit-any": "off",
-    "@typescript-eslint/no-unsafe-assignment": "off",
-    "@typescript-eslint/no-unsafe-argument": "off",
-    "@typescript-eslint/no-unsafe-return": "off",
-    "@typescript-eslint/no-unsafe-call": "off",
-    "@typescript-eslint/no-unsafe-member-access": "off",
-    "@typescript-eslint/ban-ts-comment": "off",
-  },
 };
