@@ -1,5 +1,6 @@
 import { LocalNav } from "../../components";
 import { ChatItem } from "../../components/ChatItem/ChatItem";
+import { OpenedChat } from "../../components/OpenedChat";
 import { Block } from "../../framework/Block";
 import { IChatState } from "../../types/profile";
 
@@ -9,18 +10,22 @@ interface IChatPageProps {
 }
 
 export class ChatPage extends Block {
-  constructor(props: IChatPageProps) {
+  constructor({ chatState, selectedChat }: IChatPageProps) {
     super({
       LocalNav: new LocalNav(),
-      Chats: props.chatState.map(
+      Chats: chatState.map(
         (currentChat) =>
           new ChatItem({
+            selectedChat: selectedChat,
             currentChat,
             onClick: () => {
-              this.setProps({ selectedChat: currentChat });
+              this.setProps({
+                selectedChat: currentChat,
+              });
             },
           }),
       ),
+      CurrentChat: new OpenedChat({ selectedChat }),
     });
   }
 
@@ -45,11 +50,7 @@ export class ChatPage extends Block {
                   {{{ Chats }}}
             </div>
         </div>
-        {{#unless ${this.props.selectedChat?.id} }}
-        <div class="chat-content">Выберите чат чтобы отправить сообщение</div>
-        {{else}}
-        <div class="chat-content">Тут будет чат</div>
-        {{/unless}}
+        {{{ CurrentChat }}}
       </div>
     </div>
     `;

@@ -42,7 +42,7 @@ export class LocalNav extends Block {
 
   override render() {
     return `
-      <nav>
+      <nav class="local-nav-container">
           <ul class="local-nav">
               <li>{{{ AuthLink }}}</li>
               <li>{{{ RegisterLink }}}</li>
