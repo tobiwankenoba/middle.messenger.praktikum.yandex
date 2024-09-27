@@ -6,7 +6,7 @@ import "./styles.pcss";
 interface IButtonBlockProfileProps {
   isDraft: boolean;
   disabled: boolean;
-  onClickSaveBtn: () => void;
+  onClickSaveBtn?: () => void;
 }
 
 export class ButtonBlockProfile extends Block {
