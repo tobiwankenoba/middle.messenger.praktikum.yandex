@@ -5,7 +5,7 @@ import "./styles.pcss";
 
 interface IInputProps extends Omit<IInput, "onBlur"> {
   label: string;
-  onBlur?: (e: Event) => string;
+  onBlur?: (e: Event) => string | undefined;
 }
 
 export class InputBlock extends Block {

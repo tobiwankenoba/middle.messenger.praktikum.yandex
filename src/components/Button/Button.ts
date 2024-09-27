@@ -11,7 +11,6 @@ interface IButtonProps {
 
 export class Button extends Block {
   constructor(props: IButtonProps) {
-    console.log(props.disabled);
     super({
       ...props,
       events: {

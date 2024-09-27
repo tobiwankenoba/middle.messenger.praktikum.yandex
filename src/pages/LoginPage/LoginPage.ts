@@ -6,6 +6,8 @@ import {
   Title,
 } from "../../components";
 import { Block } from "../../framework/Block";
+import { EFormFieldNames } from "../../types/registerForm";
+import { getFieldFormError } from "../../utils/getFieldFormError";
 import { validateFormFields } from "../../utils/validate";
 
 export class LoginPage extends Block {
@@ -18,9 +20,15 @@ export class LoginPage extends Block {
         dataName: "login",
         disabled: true,
         onClick: () => {
-          const password = validateFormFields("password", this.props.password);
+          const password = validateFormFields(
+            EFormFieldNames.Password,
+            this.props.password,
+          );
 
-          const login = validateFormFields("login", this.props.login);
+          const login = validateFormFields(
+            EFormFieldNames.Login,
+            this.props.login,
+          );
 
           if (login && password) {
             console.log({
@@ -42,20 +50,25 @@ export class LoginPage extends Block {
         name: "login",
         onBlur: (e) => {
           if (e.target instanceof HTMLInputElement) {
-            const validateLogin = validateFormFields("login", e.target.value);
+            const login = { login: e.target.value };
+
+            const validateLogin = validateFormFields(
+              EFormFieldNames.Login,
+              login.login,
+            );
 
             this.setProps({
               disabled:
-                validateFormFields("password", this.props.password) &&
-                validateLogin
-                  ? false
-                  : true,
-              login: e.target.value,
+                !(
+                  validateFormFields(
+                    EFormFieldNames.Password,
+                    this.props.password,
+                  ) && validateLogin
+                ) || login.login === "",
+              ...login,
             });
 
-            return !validateLogin && e.target.value !== ""
-              ? "Неверный логин"
-              : "";
+            return getFieldFormError(EFormFieldNames.Login, validateLogin);
           }
           return "";
         },
@@ -68,25 +81,27 @@ export class LoginPage extends Block {
         type: "text",
         onBlur: (e) => {
           if (e.target instanceof HTMLInputElement) {
+            const password = { password: e.target.value };
+
             const validatePassword = validateFormFields(
-              "password",
-              e.target.value,
+              EFormFieldNames.Password,
+              password.password,
             );
 
             this.setProps({
               disabled:
-                validateFormFields("login", this.props.login) &&
-                validateFormFields("password", e.target.value)
-                  ? false
-                  : true,
-              password: e.target.value,
+                !(
+                  validateFormFields(EFormFieldNames.Login, this.props.login) &&
+                  validatePassword
+                ) || password.password === "",
+              ...password,
             });
 
-            return !validatePassword && e.target.value !== ""
-              ? "Запрещенные символы"
-              : "";
+            return getFieldFormError(
+              EFormFieldNames.Password,
+              validatePassword,
+            );
           }
-          return "";
         },
       }),
       LocalNav: new LocalNav(),
