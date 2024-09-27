@@ -27,6 +27,7 @@ export class ButtonBlockProfile extends Block {
         dataName: "saveChanges",
         text: "Сохранить",
         fullWidth: true,
+        disabled: false,
       }),
     });
   }
