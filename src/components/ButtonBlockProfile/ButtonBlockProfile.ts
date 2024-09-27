@@ -5,6 +5,8 @@ import "./styles.pcss";
 
 interface IButtonBlockProfileProps {
   isDraft: boolean;
+  disabled: boolean;
+  onClickSaveBtn: () => void;
 }
 
 export class ButtonBlockProfile extends Block {
@@ -27,7 +29,8 @@ export class ButtonBlockProfile extends Block {
         dataName: "saveChanges",
         text: "Сохранить",
         fullWidth: true,
-        disabled: false,
+        disabled: props.disabled,
+        onClick: () => props.onClickSaveBtn && props.onClickSaveBtn(),
       }),
     });
   }

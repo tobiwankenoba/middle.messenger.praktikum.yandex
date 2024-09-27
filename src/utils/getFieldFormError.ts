@@ -1,22 +1,25 @@
+import { EFormFieldNames } from "../types/registerForm";
+
 export const getFieldFormError = (name: string, isValid: boolean): string => {
   if (isValid) {
     return "";
   }
 
   switch (name) {
-    case "password":
+    case EFormFieldNames.Password:
       return "Не выполнены условия пароля";
-    case "phone":
+    case EFormFieldNames.Phone:
       return "Неверный формат телефона";
-    case "second_name":
+    case EFormFieldNames.SecondName:
       return "Неверный формат фамилии";
-    case "first_name":
+    case EFormFieldNames.FirstName:
       return "Неверный формат имени";
-    case "login":
+    case EFormFieldNames.Login:
+    case EFormFieldNames.DisplayName:
       return "Неверный логин";
-    case "email":
+    case EFormFieldNames.Email:
       return "Неверный формат почты";
-    case "passwordRepeat":
+    case EFormFieldNames.PasswordRepeat:
       return "Пароль не совпадает";
     default:
       return "";

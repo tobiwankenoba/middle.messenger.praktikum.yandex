@@ -31,7 +31,7 @@ export default class App {
   constructor() {
     this.appElement = document.getElementById("app");
     this.state = {
-      currentPage: "register",
+      currentPage: "profile",
       preventPage: "",
       profileState: {
         isDraft: false,
@@ -39,7 +39,7 @@ export default class App {
           firstName: "Иван",
           secondName: "Иванов",
           email: "pochta@yandex.ru",
-          phone: "+7 (909) 967 30 30",
+          phone: "79992223311",
           displayName: "Ванька",
           login: "ivanivanov",
           avatar: "https://iconape.com/wp-content/png_logo_vector/avatar.png",
