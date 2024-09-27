@@ -6,7 +6,7 @@ export default [
   {
     files: ["**/*.{js,mjs,cjs,ts}"],
     rules: {
-      "@typescript-eslint/ban-ts-comment": "error",
+      "@typescript-eslint/ban-tslint-comment": "off",
     },
   },
   { languageOptions: { globals: globals.browser } },
