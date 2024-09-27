@@ -6,6 +6,7 @@ interface IButtonProps {
   theme?: string;
   dataName?: string;
   url: string;
+  onClick?: (e: Event) => void;
 }
 
 export class LinkButton extends Block {
@@ -22,8 +23,6 @@ export class LinkButton extends Block {
                 ? target.dataset.url
                 : target.parentElement?.dataset.url,
             );
-
-            // this.#changePage(url);
 
             console.log(url);
           }

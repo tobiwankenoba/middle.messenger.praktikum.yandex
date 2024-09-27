@@ -11,4 +11,5 @@ export enum EFormFieldNames {
   Phone = "phone",
   Password = "password",
   PasswordRepeat = "passwordRepeat",
+  DisplayName = "display_name",
 }

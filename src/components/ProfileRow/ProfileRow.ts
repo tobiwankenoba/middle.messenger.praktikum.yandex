@@ -5,15 +5,27 @@ import "./styles.pcss";
 
 interface IProfileRowProps extends IInput {
   label: string;
+  onBlur?: (e: Event) => string | undefined;
 }
 
 export class ProfileRow extends Block {
   constructor(props: IProfileRowProps) {
     const { label } = props;
-
     super({
       label,
-      Input: new Input({ ...props, class: "row-input" }),
+      Input: new Input({
+        ...props,
+        class: "row-input",
+        onBlur: (e: Event) => {
+          if (props.onBlur) {
+            const res = props.onBlur(e);
+
+            this.setProps({
+              errorMessage: res !== "" ? res : undefined,
+            });
+          }
+        },
+      }),
     });
   }
 
@@ -22,6 +34,7 @@ export class ProfileRow extends Block {
       <div class="profile-row">
         <label class="row-label">{{label}}</label>
         {{{ Input }}}
+        {{# if errorMessage }}<div class="input-error-message input-error-profile-row">{{ errorMessage }}</div>{{/if}}
       </div>
     `;
   }

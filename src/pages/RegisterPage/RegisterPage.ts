@@ -155,7 +155,7 @@ export class RegisterPage extends Block {
         label: "Фамилия",
         id: "lastname",
         placeholder: "Введите фамилию",
-        name: "last_name",
+        name: "second_name",
         type: "text",
         onBlur: (e) => {
           if (e.target instanceof HTMLInputElement) {
