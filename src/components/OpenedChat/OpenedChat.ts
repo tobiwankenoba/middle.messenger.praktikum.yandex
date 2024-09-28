@@ -23,7 +23,7 @@ export class OpenedChat extends Block {
             <div class="chat-head-wrapper">
               <div class="chat-head-info">
                 <div class="chat-image chat-head-image">
-                  <img src="{{#if selectedChat.partner.avatar }}{{selectedChat.partner.avatar}}{{else}}src/assets/defaultAvatar.svg{{/if}}" />
+                  <img alt="{{selectedChat.partner.name}}" src="{{#if selectedChat.partner.avatar }}{{selectedChat.partner.avatar}}{{else}}src/assets/defaultAvatar.svg{{/if}}" />
                 </div>
                 <div class="chat-user-name">{{selectedChat.partner.name}}</div>
               </div>
