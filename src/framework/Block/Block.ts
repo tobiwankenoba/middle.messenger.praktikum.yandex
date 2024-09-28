@@ -53,6 +53,17 @@ export class Block {
     }
   }
 
+  private _removeEvents(): void {
+    const { events } = this.props;
+    if (events) {
+      Object.keys(events).forEach((eventName) => {
+        if (this._element) {
+          this._element.removeEventListener(eventName, events[eventName]);
+        }
+      });
+    }
+  }
+
   private _registerEvents(eventBus: EventBus): void {
     eventBus.on(Block.EVENTS.INIT, this.init.bind(this) as EventCallback);
     eventBus.on(
@@ -179,9 +190,11 @@ export class Block {
   }
 
   private _render(): void {
+    this._removeEvents();
+
     const propsAndStubs = { ...this.props };
 
-    const _tmpId = Math.floor(100000 + Math.random() * 900000);
+    const _tmpId = uuidv4();
 
     Object.entries(this.children).forEach(([key, child]) => {
       propsAndStubs[key] = `<div data-id="${child._id}"></div>`;
