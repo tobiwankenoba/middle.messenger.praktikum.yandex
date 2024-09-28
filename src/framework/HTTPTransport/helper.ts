@@ -2,6 +2,8 @@
 
 import { EMethods, TDataOptions, TOptions } from "../../types/fetch";
 
+type HTTPMethod = (url: string, options?: TOptions) => Promise<unknown>;
+
 export class HTTPTransport {
   queryStringify(data: TDataOptions) {
     if (typeof data !== "object" || data === null) {
@@ -17,37 +19,21 @@ export class HTTPTransport {
     return result.slice(0, -1);
   }
 
-  get = (url: string, options: TOptions) => {
-    return this.request(
-      options.data ? `${url}${this.queryStringify(options.data)}` : url,
-      { ...options, method: EMethods.GET },
-      options.timeout,
-    );
-  };
+  get: HTTPMethod = (url, options) =>
+    this.request(url, { ...options, method: EMethods.GET }, options?.timeout);
 
-  post = (url: string, options: TOptions) => {
-    return this.request(
-      url,
-      { ...options, method: EMethods.POST },
-      options.timeout,
-    );
-  };
+  put: HTTPMethod = (url, options) =>
+    this.request(url, { ...options, method: EMethods.PUT }, options?.timeout);
 
-  put = (url: string, options: TOptions) => {
-    return this.request(
-      url,
-      { ...options, method: EMethods.PUT },
-      options.timeout,
-    );
-  };
+  post: HTTPMethod = (url, options) =>
+    this.request(url, { ...options, method: EMethods.POST }, options?.timeout);
 
-  delete = (url: string, options: TOptions) => {
-    return this.request(
+  delete: HTTPMethod = (url, options) =>
+    this.request(
       url,
       { ...options, method: EMethods.DELETE },
-      options.timeout,
+      options?.timeout,
     );
-  };
 
   request = (url: string, options: TOptions, timeout = 5000) => {
     const { headers = {}, method, data } = options;

@@ -6,11 +6,11 @@ export enum EMethods {
 }
 
 export type TOptions = {
-  data: TDataOptions;
-  timeout: number;
-  withCredentials: boolean;
+  data?: TDataOptions;
+  timeout?: number;
+  withCredentials?: boolean;
   method: EMethods;
-  headers: {
+  headers?: {
     [key: string]: string;
   };
 };
