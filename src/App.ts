@@ -1,32 +1,19 @@
 import Handlebars, { Exception } from "handlebars";
-import * as Pages from "./pages";
 
-import {
-  Avatar,
-  Button,
-  ButtonBlockProfile,
-  Input,
-  LinkButton,
-  LocalNav,
-  ProfileRow,
-  Sidebar,
-  Title,
-} from "./components";
 import { IProfile, IProfileState } from "./types/profile";
+import {
+  ChangePasswordPage,
+  ErrorPage,
+  LoginPage,
+  ProfilePage,
+  RegisterPage,
+} from "./pages";
+import { ChatPage } from "./pages/ChatPage";
+import { MOCK_CHAT } from "./constants/chatMock";
 
 Handlebars.registerHelper({
   eq: (v1, v2) => v1 === v2,
 });
-
-Handlebars.registerPartial("Title", Title);
-Handlebars.registerPartial("Input", Input);
-Handlebars.registerPartial("Button", Button);
-Handlebars.registerPartial("LinkButton", LinkButton);
-Handlebars.registerPartial("LocalNav", LocalNav);
-Handlebars.registerPartial("Sidebar", Sidebar);
-Handlebars.registerPartial("Avatar", Avatar);
-Handlebars.registerPartial("ProfileRow", ProfileRow);
-Handlebars.registerPartial("ButtonBlockProfile", ButtonBlockProfile);
 
 export default class App {
   appElement: HTMLElement | null;
@@ -37,14 +24,14 @@ export default class App {
       statusCode: number;
       message: string;
     };
-    profileState: IProfileState | null;
+    profileState: IProfileState;
     needUpdateValue: Partial<IProfile>;
   };
 
   constructor() {
     this.appElement = document.getElementById("app");
     this.state = {
-      currentPage: "login",
+      currentPage: "profile",
       preventPage: "",
       profileState: {
         isDraft: false,
@@ -52,12 +39,13 @@ export default class App {
           firstName: "Иван",
           secondName: "Иванов",
           email: "pochta@yandex.ru",
-          phone: "+7 (909) 967 30 30",
+          phone: "79992223311",
           displayName: "Ванька",
           login: "ivanivanov",
           avatar: "https://iconape.com/wp-content/png_logo_vector/avatar.png",
           password: "dLKE39v7|kT",
         },
+        chatsState: MOCK_CHAT,
       },
       needUpdateValue: {},
     };
@@ -67,15 +55,9 @@ export default class App {
     if (this.appElement !== null) {
       const { currentPage } = this.state;
 
-      const template = Handlebars.compile(this.#getPage(currentPage));
+      const template = this._getPage(currentPage);
 
-      const { error, preventPage, profileState } = this.state;
-
-      this.appElement.innerHTML = template({
-        preventPage,
-        profileState,
-        error,
-      });
+      this.appElement.replaceChildren(template);
 
       this.attachEventListners();
     } else {
@@ -89,8 +71,16 @@ export default class App {
     pageLinks.forEach((link) => {
       link.addEventListener("click", (e) => {
         e.preventDefault();
-        if (e.target && e.target instanceof HTMLElement) {
-          this.#changePage(String(e.target.dataset.url));
+        if (e.target instanceof HTMLElement) {
+          const { target } = e;
+
+          const url = String(
+            target.dataset.url
+              ? target.dataset.url
+              : target.parentElement?.dataset.url,
+          );
+
+          this.#changePage(url);
         }
       });
     });
@@ -102,7 +92,7 @@ export default class App {
     }
 
     const saveChangesButton = document.querySelector(
-      "[data-name='saveChanges']"
+      "[data-name='saveChanges']",
     );
 
     if (saveChangesButton) {
@@ -149,45 +139,46 @@ export default class App {
     this.render();
   }
 
-  #getPage(currentPage: string) {
+  _getPage(currentPage: string) {
     switch (currentPage) {
       case "notFound":
-        this.state.error = { statusCode: 404, message: "Не туда попали" };
-
-        return Pages.ErrorPage;
+        return new ErrorPage({
+          errorMessage: "Ошибка, тестовая!",
+          statusCode: 404,
+        }).getContent();
 
       case "serverError":
-        this.state.error = { statusCode: 500, message: "Уже фиксим" };
-
-        return Pages.ErrorPage;
-
-      case "register":
-        return Pages.RegisterPage;
+        return new ErrorPage({
+          errorMessage: "Уже фиксим",
+          statusCode: 500,
+        }).getContent();
 
       case "login":
       case "logout":
-        return Pages.LoginPage;
+        return new LoginPage().getContent();
+
+      case "register":
+        return new RegisterPage().getContent();
 
       case "profile":
-        if (this.state.profileState) {
-          this.state.profileState.isDraft = false;
-        }
-
-        return Pages.Profile;
+        return new ProfilePage({
+          profileState: this.state.profileState,
+        }).getContent();
 
       case "changeProfileData":
-        if (this.state.profileState) {
-          this.state.profileState.isDraft = true;
-        }
-
-        return Pages.Profile;
+        return new ProfilePage({
+          profileState: { ...this.state.profileState, isDraft: true },
+        }).getContent();
 
       case "changeProfilePassword":
-        if (this.state.profileState) {
-          this.state.profileState.isDraft = true;
-        }
+        return new ChangePasswordPage({
+          profileState: { ...this.state.profileState, isDraft: true },
+        }).getContent();
 
-        return Pages.ChangePassword;
+      case "chat":
+        return new ChatPage({
+          chatState: this.state.profileState.chatsState,
+        }).getContent();
 
       default:
         throw new Exception("page not exist");
