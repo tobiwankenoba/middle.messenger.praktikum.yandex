@@ -6,7 +6,7 @@ interface ITitleProps {
   class?: string;
 }
 
-export class Title extends Block {
+export class Title extends Block<StringIndexed> {
   constructor(props: ITitleProps) {
     super({
       ...props,

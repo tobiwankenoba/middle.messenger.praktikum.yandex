@@ -1,9 +1,9 @@
 import { Block } from "../../framework/Block";
 import "./styles.pcss";
 
-export class Sidebar extends Block {
+export class Sidebar extends Block<StringIndexed> {
   constructor() {
-    super();
+    super({});
   }
 
   render() {

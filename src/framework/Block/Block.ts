@@ -9,7 +9,7 @@ export interface BlockProps {
   [key: string]: any;
 }
 
-export class Block {
+export class Block<P extends StringIndexed> {
   static EVENTS = {
     INIT: "init",
     FLOW_CDM: "flow:component-did-mount",
@@ -24,13 +24,13 @@ export class Block {
 
   protected props: BlockProps;
 
-  protected children: Record<string, Block>;
+  protected children: StringIndexed;
 
   protected lists: Record<string, any[]>;
 
   protected eventBus: () => EventBus;
 
-  constructor(propsWithChildren: BlockProps = {}) {
+  constructor(propsWithChildren: P) {
     const eventBus = new EventBus();
     const { props, children, lists } =
       this._getChildrenPropsAndProps(propsWithChildren);
@@ -97,10 +97,7 @@ export class Block {
     this.eventBus().emit(Block.EVENTS.FLOW_CDM);
   }
 
-  private _componentDidUpdate(
-    oldProps: BlockProps,
-    newProps: BlockProps,
-  ): void {
+  private _componentDidUpdate(oldProps: P, newProps: P): void {
     const res = this.componentDidUpdate(oldProps, newProps);
 
     if (res) {
@@ -116,7 +113,7 @@ export class Block {
     }
   }
 
-  private _updateChildrenProps(props: BlockProps) {
+  private _updateChildrenProps(props: P) {
     Object.values(this.children).forEach((child) => {
       Object.keys(props).forEach((prop) => {
         if (!deepEqual(child.props[prop], props[prop])) {
@@ -126,9 +123,9 @@ export class Block {
     });
   }
 
-  private _updateListProps(props: BlockProps) {
+  private _updateListProps(props: P) {
     Object.values(this.lists).forEach((list) => {
-      list.map((child: Block) => {
+      list.map((child: Block<StringIndexed>) => {
         Object.keys(props).forEach((prop) => {
           if (!deepEqual(child.props[prop], props[prop])) {
             child.setProps({ [prop]: props[prop] });
@@ -146,11 +143,11 @@ export class Block {
   }
 
   private _getChildrenPropsAndProps(propsAndChildren: BlockProps): {
-    children: Record<string, Block>;
+    children: Record<string, Block<StringIndexed>>;
     props: BlockProps;
     lists: Record<string, any[]>;
   } {
-    const children: Record<string, Block> = {};
+    const children: Record<string, Block<StringIndexed>> = {};
     const props: BlockProps = {};
     const lists: Record<string, any[]> = {};
 

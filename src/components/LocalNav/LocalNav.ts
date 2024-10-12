@@ -2,16 +2,16 @@ import { LinkButton } from "../../components";
 import { Block } from "../../framework/Block";
 import "./styles.pcss";
 
-export class LocalNav extends Block {
+export class LocalNav extends Block<StringIndexed> {
   constructor() {
     super({
       AuthLink: new LinkButton({
         text: "Авторизация",
-        url: "login",
+        url: "/",
       }),
       RegisterLink: new LinkButton({
         text: "Регистрация",
-        url: "register",
+        url: "/register",
       }),
       ProfileLink: new LinkButton({
         text: "Профиль",
@@ -23,19 +23,19 @@ export class LocalNav extends Block {
       }),
       ChangeProfileLink: new LinkButton({
         text: "Изменить данные",
-        url: "changeProfileData",
+        url: "/change-prof",
       }),
       ChangePasswordLink: new LinkButton({
         text: "Изменить пароль",
-        url: "changeProfilePassword",
+        url: "/change-pass",
       }),
       NotFoundLink: new LinkButton({
         text: "404",
-        url: "notFound",
+        url: "/404",
       }),
       ServerErrorLink: new LinkButton({
         text: "500",
-        url: "serverError",
+        url: "/500",
       }),
     });
   }

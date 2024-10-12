@@ -8,7 +8,7 @@ interface IProfileRowProps extends IInput {
   onBlur?: (e: Event) => string | undefined;
 }
 
-export class ProfileRow extends Block {
+export class ProfileRow extends Block<StringIndexed> {
   constructor(props: IProfileRowProps) {
     const { label } = props;
     super({

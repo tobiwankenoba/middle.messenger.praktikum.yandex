@@ -5,19 +5,20 @@ import {
   ProfileRow,
   Sidebar,
 } from "../../components";
+import AuthController from "../../controllers/AuthController";
 import { Block } from "../../framework/Block";
-import { IProfileState } from "../../types/profile";
+import { store } from "../../framework/Store";
+import { connect } from "../../hoc/connectStore";
 import { EFormFieldNames } from "../../types/registerForm";
 import { getFieldFormError } from "../../utils/getFieldFormError";
-import { validateFormProfile } from "../../utils/validateProfileForm";
+import { validateFormProfile } from "../../utils/validates/validateProfileForm";
 
-interface IProfileProps {
-  profileState: IProfileState;
-}
+class ProfilePage extends Block<StringIndexed> {
+  constructor() {
+    AuthController.getUser();
 
-export class ProfilePage extends Block {
-  constructor({ profileState }: IProfileProps) {
-    const { isDraft, profile } = profileState;
+    const { isDraft, profile } = store.getState();
+
     super({
       Avatar: new Avatar({
         isDraft,
@@ -79,8 +80,6 @@ export class ProfilePage extends Block {
               },
               profile,
             );
-
-            console.log(validateProfileForm);
 
             this.setProps({
               disabled:
@@ -244,3 +243,5 @@ export class ProfilePage extends Block {
     `;
   }
 }
+
+export default connect(ProfilePage);

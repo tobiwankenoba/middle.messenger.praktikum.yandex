@@ -4,7 +4,7 @@ import "./styles.pcss";
 
 type TInputProps = IInput;
 
-export class Input extends Block {
+export class Input extends Block<StringIndexed> {
   constructor(props: TInputProps) {
     super({
       ...props,

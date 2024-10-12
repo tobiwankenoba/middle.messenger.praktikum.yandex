@@ -8,9 +8,9 @@ import {
 import { Block } from "../../framework/Block";
 import { EFormFieldNames } from "../../types/registerForm";
 import { getFieldFormError } from "../../utils/getFieldFormError";
-import { validateFormFields } from "../../utils/validate";
+import { validateFormFields } from "../../utils/validates/validate";
 
-export class LoginPage extends Block {
+export class LoginPage extends Block<StringIndexed> {
   constructor() {
     super({
       Title: new Title({ text: "Вход" }),

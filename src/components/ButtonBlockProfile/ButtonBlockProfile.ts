@@ -9,7 +9,7 @@ interface IButtonBlockProfileProps {
   onClickSaveBtn?: () => void;
 }
 
-export class ButtonBlockProfile extends Block {
+export class ButtonBlockProfile extends Block<StringIndexed> {
   constructor(props: IButtonBlockProfileProps) {
     super({
       ...props,

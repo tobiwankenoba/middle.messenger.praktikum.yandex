@@ -12,7 +12,7 @@ interface IProfileProps {
   profileState: IProfileState;
 }
 
-export class ChangePasswordPage extends Block {
+export class ChangePasswordPage extends Block<StringIndexed> {
   constructor({ profileState }: IProfileProps) {
     const { isDraft, profile } = profileState;
 

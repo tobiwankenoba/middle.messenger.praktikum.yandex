@@ -8,7 +8,7 @@ interface IAvatarProps {
   name: string;
 }
 
-export class Avatar extends Block {
+export class Avatar extends Block<StringIndexed> {
   constructor(props: IAvatarProps) {
     super({
       ...props,

@@ -9,7 +9,7 @@ interface IChatPageProps {
   selectedChat?: IChatState;
 }
 
-export class ChatPage extends Block {
+export class ChatPage extends Block<StringIndexed> {
   constructor({ chatState, selectedChat }: IChatPageProps) {
     super({
       LocalNav: new LocalNav(),

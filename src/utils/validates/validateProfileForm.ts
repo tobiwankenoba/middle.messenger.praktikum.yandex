@@ -1,6 +1,6 @@
-import { BlockProps } from "../framework/Block";
-import { IProfile } from "../types/profile";
-import { EFormFieldNames } from "../types/registerForm";
+import { BlockProps } from "../../framework/Block";
+import { IProfile } from "../../types/profile";
+import { EFormFieldNames } from "../../types/registerForm";
 import { validateFormFields } from "./validate";
 
 export const validateFormProfile = (props: BlockProps, profile: IProfile) => {

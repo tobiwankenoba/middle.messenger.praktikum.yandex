@@ -9,7 +9,7 @@ interface IButtonProps {
   onClick?: (e: Event) => void;
 }
 
-export class LinkButton extends Block {
+export class LinkButton extends Block<StringIndexed> {
   constructor(props: IButtonProps) {
     super({
       ...props,
@@ -35,7 +35,7 @@ export class LinkButton extends Block {
     return `
       <a
       data-name="{{#if dataName }}{{dataName}}{{else}}pageLink{{/if}}"
-      data-url="{{url}}"
+      href="{{url}}"
       class="button-link {{theme}}"
       >
       {{text}}

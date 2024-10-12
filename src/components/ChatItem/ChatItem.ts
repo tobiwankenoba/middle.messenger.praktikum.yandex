@@ -9,7 +9,7 @@ interface IChatItemProps {
   onClick: () => void;
 }
 
-export class ChatItem extends Block {
+export class ChatItem extends Block<StringIndexed> {
   constructor({
     currentChat,
     onClick,

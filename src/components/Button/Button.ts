@@ -9,7 +9,7 @@ interface IButtonProps {
   onClick?: VoidFunction;
 }
 
-export class Button extends Block {
+export class Button extends Block<StringIndexed> {
   constructor(props: IButtonProps) {
     super({
       ...props,

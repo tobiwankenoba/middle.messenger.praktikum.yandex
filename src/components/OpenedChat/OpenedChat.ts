@@ -1,7 +1,7 @@
 import { Block } from "../../framework/Block";
 import "./styles.pcss";
 
-export class OpenedChat extends Block {
+export class OpenedChat extends Block<StringIndexed> {
   constructor() {
     super({
       events: {

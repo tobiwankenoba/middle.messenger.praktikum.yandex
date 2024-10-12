@@ -5,6 +5,12 @@ import { EMethods, TDataOptions, TOptions } from "../../types/fetch";
 type HTTPMethod = (url: string, options?: TOptions) => Promise<unknown>;
 
 export class HTTPTransport {
+  protected endpoint: string;
+
+  constructor(endpoint: string) {
+    this.endpoint = `https://ya-praktikum.tech/api/v2${endpoint}`;
+  }
+
   queryStringify(data: TDataOptions) {
     if (typeof data !== "object" || data === null) {
       throw new Error("Data must be object");
@@ -20,13 +26,25 @@ export class HTTPTransport {
   }
 
   get: HTTPMethod = (url, options) =>
-    this.request(url, { ...options, method: EMethods.GET }, options?.timeout);
+    this.request(
+      this.endpoint + url,
+      { ...options, method: EMethods.GET },
+      options?.timeout,
+    );
 
   put: HTTPMethod = (url, options) =>
-    this.request(url, { ...options, method: EMethods.PUT }, options?.timeout);
+    this.request(
+      this.endpoint + url,
+      { ...options, method: EMethods.PUT },
+      options?.timeout,
+    );
 
   post: HTTPMethod = (url, options) =>
-    this.request(url, { ...options, method: EMethods.POST }, options?.timeout);
+    this.request(
+      this.endpoint + url,
+      { ...options, method: EMethods.POST },
+      options?.timeout,
+    );
 
   delete: HTTPMethod = (url, options) =>
     this.request(
@@ -36,7 +54,13 @@ export class HTTPTransport {
     );
 
   request = (url: string, options: TOptions, timeout = 5000) => {
-    const { headers = {}, method, data } = options;
+    const {
+      headers = {},
+      method,
+      data,
+      withCredentials = true,
+      responseType = "json",
+    } = options;
 
     return new Promise((resolve, reject) => {
       if (!method) {
@@ -50,7 +74,7 @@ export class HTTPTransport {
 
       xhr.open(method, url);
 
-      Object.keys(headers).forEach((key) => {
+      Object.keys(headers ?? {}).forEach((key) => {
         xhr.setRequestHeader(key, headers[key]);
       });
 
@@ -58,18 +82,25 @@ export class HTTPTransport {
         resolve(xhr);
       };
 
-      xhr.onabort = reject;
+      xhr.onabort = () => reject({ reason: "abort" });
 
-      xhr.onerror = reject;
+      xhr.onerror = () => reject({ reason: "network error" });
+
+      xhr.ontimeout = () => reject({ reason: "timeout" });
 
       xhr.timeout = timeout;
 
-      xhr.ontimeout = reject;
+      xhr.withCredentials = withCredentials;
+
+      xhr.responseType = responseType;
 
       if (isGet || !data) {
         xhr.send();
-      } else {
+      } else if (data instanceof FormData) {
         xhr.send(data);
+      } else {
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.send(JSON.stringify(data));
       }
     });
   };
