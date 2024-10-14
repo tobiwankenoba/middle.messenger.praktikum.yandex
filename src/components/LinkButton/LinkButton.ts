@@ -23,7 +23,7 @@ export class LinkButton extends Block<StringIndexed> {
     return `
       <a
       data-name="{{#if dataName }}{{dataName}}{{else}}pageLink{{/if}}"
-      href="{{url}}"
+
       class="button-link {{theme}}"
       >
       {{text}}

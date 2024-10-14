@@ -1,4 +1,3 @@
-import { store } from "../Store";
 import { IBlockClassInterface, Route } from "../Route";
 import AuthController from "../../controllers/AuthController";
 
@@ -15,7 +14,6 @@ class Router {
 
   private _onRoute(pathname: string) {
     const route = this.getRoute(pathname);
-    store.set("error", null);
 
     if (!route) {
       return;
@@ -32,6 +30,7 @@ class Router {
 
   public use(pathname: string, block: IBlockClassInterface) {
     const route = new Route(pathname, block, this.rootQuery);
+
     this.routes.push(route);
 
     return this;
@@ -46,8 +45,10 @@ class Router {
       }
 
       try {
+        console.log("test");
         await AuthController.getUser();
       } catch (error) {
+        console.log("error");
         this.go("/");
       }
     };

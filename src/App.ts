@@ -7,6 +7,7 @@ import {
   RegisterPage,
   ChatPage,
   NotFoundPage,
+  ServerErrorPage,
 } from "./pages";
 import { router } from "./framework/Router";
 
@@ -19,12 +20,13 @@ const routes: Record<string, string> = {
   LoginPage: "/",
   ProfilePage: "/profile",
   ChatPage: "/chat",
-  ServerError: "/500",
+  ServerErrorPage: "/500",
   NotFoundPage: "/404",
 };
 
 const pages: StringIndexed = {
   NotFoundPage,
+  ServerErrorPage,
   LoginPage,
   ProfilePage,
   RegisterPage,

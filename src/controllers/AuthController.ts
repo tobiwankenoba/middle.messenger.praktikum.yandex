@@ -24,14 +24,21 @@ class AuthController {
 
   public async getUser() {
     try {
-      const user = await this.api.read();
-      console.log(user.response);
-      store.set("profile", prepareUser(user.response as User));
-      store.set("isDraft", false);
+      const { response, status } = await this.api.read();
 
-      console.log(store);
+      // console.log(user.response);
+
+      if (status === 200) {
+        store.set("profile", prepareUser(response as User));
+
+        store.set("isDraft", false);
+
+        console.log(store);
+      } else {
+        throw new Error(response.reason);
+      }
     } catch (error) {
-      console.error(error);
+      // console.error(error);
       store.set("error", error);
     }
   }

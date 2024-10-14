@@ -5,6 +5,7 @@ import {
   LocalNav,
   Title,
 } from "../../components";
+import AuthController from "../../controllers/AuthController";
 import { Block } from "../../framework/Block";
 import { EFormFieldNames } from "../../types/registerForm";
 import { getFieldFormError } from "../../utils/getFieldFormError";
@@ -31,7 +32,7 @@ export class LoginPage extends Block<StringIndexed> {
           );
 
           if (login && password) {
-            console.log({
+            AuthController.login({
               login: this.props.login,
               password: this.props.password,
             });

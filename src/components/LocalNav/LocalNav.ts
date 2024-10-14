@@ -1,5 +1,6 @@
 import { LinkButton } from "../../components";
 import { Block } from "../../framework/Block";
+import { router } from "../../framework/Router";
 import "./styles.pcss";
 
 export class LocalNav extends Block<StringIndexed> {
@@ -7,19 +8,31 @@ export class LocalNav extends Block<StringIndexed> {
     super({
       AuthLink: new LinkButton({
         text: "Авторизация",
-        url: "/",
+        url: "#",
+        onClick: () => {
+          router.go("/");
+        },
       }),
       RegisterLink: new LinkButton({
         text: "Регистрация",
         url: "/sign-up",
+        onClick: () => {
+          router.go("/sign-up");
+        },
       }),
       ProfileLink: new LinkButton({
         text: "Профиль",
         url: "profile",
+        onClick: () => {
+          router.go("/profile");
+        },
       }),
       ChatLink: new LinkButton({
         text: "Чат",
         url: "chat",
+        onClick: () => {
+          router.go("/chat");
+        },
       }),
       ChangeProfileLink: new LinkButton({
         text: "Изменить данные",
@@ -32,10 +45,16 @@ export class LocalNav extends Block<StringIndexed> {
       NotFoundLink: new LinkButton({
         text: "404",
         url: "/404",
+        onClick: () => {
+          router.go("/404");
+        },
       }),
       ServerErrorLink: new LinkButton({
         text: "500",
         url: "/500",
+        onClick: () => {
+          router.go("/500");
+        },
       }),
     });
   }
