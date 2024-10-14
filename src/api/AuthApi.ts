@@ -8,7 +8,7 @@ export class AuthApi extends BaseAPI {
 
   public login = (data: TLoginData) => this.http.post("/signin", { data });
 
-  public read = () => this.http.get("/user");
+  public read = (): Promise<XMLHttpRequest> => this.http.get("/user");
 
   public register = (data: TRegisterData) =>
     this.http.post("/signup", { data });

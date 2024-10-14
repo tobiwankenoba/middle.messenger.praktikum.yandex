@@ -2,7 +2,7 @@
 
 import { EMethods, TDataOptions, TOptions } from "../../types/fetch";
 
-type HTTPMethod = (url: string, options?: TOptions) => Promise<unknown>;
+type HTTPMethod = (url: string, options?: TOptions) => Promise<XMLHttpRequest>;
 
 export class HTTPTransport {
   protected endpoint: string;
@@ -53,7 +53,11 @@ export class HTTPTransport {
       options?.timeout,
     );
 
-  request = (url: string, options: TOptions, timeout = 5000) => {
+  request = (
+    url: string,
+    options: TOptions,
+    timeout = 5000,
+  ): Promise<XMLHttpRequest> => {
     const {
       headers = {},
       method,

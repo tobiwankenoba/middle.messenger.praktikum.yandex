@@ -19,6 +19,8 @@ class ProfilePage extends Block<StringIndexed> {
 
     const { isDraft, profile } = store.getState();
 
+    console.log(profile);
+
     super({
       Avatar: new Avatar({
         isDraft,
