@@ -7,6 +7,7 @@ interface IButtonBlockProfileProps {
   isDraft: boolean;
   disabled: boolean;
   onClickSaveBtn?: () => void;
+  onClickLogout?: () => void;
 }
 
 export class ButtonBlockProfile extends Block<StringIndexed> {
@@ -23,7 +24,8 @@ export class ButtonBlockProfile extends Block<StringIndexed> {
       }),
       LinkLogout: new LinkButton({
         text: "Выйти",
-        url: "logout",
+        url: "#",
+        onClick: () => props.onClickLogout && props.onClickLogout(),
       }),
       SaveButton: new Button({
         dataName: "saveChanges",

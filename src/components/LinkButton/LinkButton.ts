@@ -5,8 +5,8 @@ interface IButtonProps {
   text: string;
   theme?: string;
   dataName?: string;
-  url: string;
-  onClick?: (e: Event) => void;
+  url?: string;
+  onClick?: () => void;
 }
 
 export class LinkButton extends Block<StringIndexed> {
@@ -14,19 +14,7 @@ export class LinkButton extends Block<StringIndexed> {
     super({
       ...props,
       events: {
-        click: (e: Event) => {
-          if (e.target instanceof HTMLElement) {
-            const { target } = e;
-
-            const url = String(
-              target.dataset.url
-                ? target.dataset.url
-                : target.parentElement?.dataset.url,
-            );
-
-            console.log(url);
-          }
-        },
+        click: () => props.onClick && props.onClick(),
       },
     });
   }

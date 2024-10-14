@@ -219,6 +219,9 @@ class ProfilePage extends Block<StringIndexed> {
             displayName: profile.displayName,
           });
         },
+        onClickLogout() {
+          AuthController.logout();
+        },
       }),
     });
   }

@@ -2,11 +2,11 @@ import Handlebars from "handlebars";
 import "./styles/main.pcss";
 
 import {
-  ErrorPage,
   LoginPage,
   ProfilePage,
   RegisterPage,
   ChatPage,
+  NotFoundPage,
 } from "./pages";
 import { router } from "./framework/Router";
 
@@ -15,15 +15,16 @@ Handlebars.registerHelper({
 });
 
 const routes: Record<string, string> = {
-  RegisterPage: "/register",
+  RegisterPage: "/sign-up",
   LoginPage: "/",
   ProfilePage: "/profile",
   ChatPage: "/chat",
-  ErrorPage: "/500",
+  ServerError: "/500",
+  NotFoundPage: "/404",
 };
 
 const pages: StringIndexed = {
-  ErrorPage,
+  NotFoundPage,
   LoginPage,
   ProfilePage,
   RegisterPage,

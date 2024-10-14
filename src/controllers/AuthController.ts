@@ -47,20 +47,15 @@ class AuthController {
     }
   }
 
-  // public async logout() {
-  //   try {
-  //     await this.api.logout();
-  //     store.set("user", {});
-  //     router.go(routes.LoginPage);
-  //   } catch (error) {
-  //     console.error(error);
-  //     if (String(error) === redirectErrors.BAD_USER_COOKIE) {
-  //       router.go(routes.LoginPage);
-  //     } else {
-  //       store.set("error", error);
-  //     }
-  //   }
-  // }
+  public async logout() {
+    try {
+      await this.api.logout();
+      store.set("user", {});
+      router.go("/");
+    } catch (error) {
+      console.error(error);
+    }
+  }
 }
 
 export default new AuthController();

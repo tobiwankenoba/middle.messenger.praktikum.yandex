@@ -11,7 +11,7 @@ export class LocalNav extends Block<StringIndexed> {
       }),
       RegisterLink: new LinkButton({
         text: "Регистрация",
-        url: "/register",
+        url: "/sign-up",
       }),
       ProfileLink: new LinkButton({
         text: "Профиль",
