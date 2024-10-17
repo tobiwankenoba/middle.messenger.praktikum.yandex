@@ -1,6 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import { EventCallback, EventBus } from "../EventBus";
+import { EventBus } from "../EventBus";
 import Handlebars from "handlebars";
 import { v4 as uuidv4 } from "uuid";
 import { deepEqual } from "../../utils/deepEqual";
@@ -65,19 +63,10 @@ export class Block<P extends StringIndexed> {
   }
 
   private _registerEvents(eventBus: EventBus): void {
-    eventBus.on(Block.EVENTS.INIT, this.init.bind(this) as EventCallback);
-    eventBus.on(
-      Block.EVENTS.FLOW_CDM,
-      this._componentDidMount.bind(this) as EventCallback,
-    );
-    eventBus.on(
-      Block.EVENTS.FLOW_CDU,
-      this._componentDidUpdate.bind(this) as EventCallback,
-    );
-    eventBus.on(
-      Block.EVENTS.FLOW_RENDER,
-      this._render.bind(this) as EventCallback,
-    );
+    eventBus.on(Block.EVENTS.INIT, this.init.bind(this));
+    eventBus.on(Block.EVENTS.FLOW_CDM, this._componentDidMount.bind(this));
+    eventBus.on(Block.EVENTS.FLOW_CDU, this._componentDidUpdate.bind(this));
+    eventBus.on(Block.EVENTS.FLOW_RENDER, this._render.bind(this));
   }
 
   protected init(): void {
@@ -98,12 +87,6 @@ export class Block<P extends StringIndexed> {
   }
 
   private _componentDidUpdate(oldProps: P, newProps: P): void {
-    const res = this.componentDidUpdate(oldProps, newProps);
-
-    if (res) {
-      this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
-    }
-
     if (!deepEqual(oldProps, newProps)) {
       this._updateChildrenProps(newProps);
 

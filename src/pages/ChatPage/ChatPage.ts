@@ -77,7 +77,6 @@ class ChatPage extends Block<StringIndexed> {
         {{{ CurrentChat }}}
       </div>
       {{#if modalChatVisible}} {{{Modal}}} {{/if}}
-
     </div>
     `;
   }

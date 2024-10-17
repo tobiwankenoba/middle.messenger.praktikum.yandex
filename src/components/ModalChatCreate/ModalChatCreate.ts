@@ -38,8 +38,6 @@ export class ModalChatCreate extends Block<StringIndexed> {
 
             const { chats, selectedChat } = store.getState();
 
-            console.log(chats);
-
             store.set("Chats", [
               chats.map(
                 (currentChat) =>
@@ -53,8 +51,6 @@ export class ModalChatCreate extends Block<StringIndexed> {
               ),
             ]);
 
-            console.log(this.props);
-
             store.set("modalChatVisible", false);
           }
         },
@@ -64,7 +60,7 @@ export class ModalChatCreate extends Block<StringIndexed> {
         class: "cancel-btn",
         text: "Отмена",
         onClick: () => {
-          store.set("modalChatVisible", false);
+          props.onClick && props.onClick();
         },
       }),
     });
