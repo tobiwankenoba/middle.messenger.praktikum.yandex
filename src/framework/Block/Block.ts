@@ -36,7 +36,7 @@ export class Block<P extends StringIndexed> {
       this._getChildrenPropsAndProps(propsWithChildren);
     this.props = this._makePropsProxy({ ...props });
     this.children = children;
-    this.lists = lists;
+    this.lists = this._makePropsProxy({ ...lists });
     this.eventBus = () => eventBus;
     this._registerEvents(eventBus);
     eventBus.emit(Block.EVENTS.INIT);
@@ -99,6 +99,8 @@ export class Block<P extends StringIndexed> {
 
   private _componentDidUpdate(oldProps: P, newProps: P): void {
     const res = this.componentDidUpdate(oldProps, newProps);
+
+    console.log(this);
 
     if (res) {
       this.eventBus().emit(Block.EVENTS.FLOW_RENDER);

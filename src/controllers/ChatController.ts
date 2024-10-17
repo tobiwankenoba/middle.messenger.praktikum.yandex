@@ -11,12 +11,8 @@ class ChatsController {
   }
 
   async create(title: string) {
-    let newChatId: Nullable<number> = null;
     await this.api
       .create(title)
-      .then((res) => {
-        newChatId = (res as unknown as IMessagesState).id;
-      })
       .catch((error) => store.set("error", error))
       .finally(() => {
         if (!store.getState().error) {
@@ -34,8 +30,6 @@ class ChatsController {
     });
 
     store.set("chats", chats as unknown as IMessagesState[]);
-
-    console.log(store.getState());
   }
 
   async delete(id: number) {

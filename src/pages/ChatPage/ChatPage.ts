@@ -11,8 +11,6 @@ class ChatPage extends Block<StringIndexed> {
   constructor() {
     const { selectedChat, chats } = store.getState();
 
-    console.log(store.getState());
-
     super({
       LocalNav: new LocalNav(),
       Chats: chats.map(
