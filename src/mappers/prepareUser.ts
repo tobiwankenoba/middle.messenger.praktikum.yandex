@@ -2,6 +2,7 @@ import { User } from "../types/api";
 import { IProfile } from "../types/profile";
 
 export const prepareUser = (data: User): Omit<IProfile, "password"> => ({
+  id: data.id,
   login: data.login,
   firstName: data.first_name,
   secondName: data.second_name,

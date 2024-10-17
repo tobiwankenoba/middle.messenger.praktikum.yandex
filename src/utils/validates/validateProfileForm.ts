@@ -16,8 +16,6 @@ export const validateFormProfile = (props: BlockProps, profile: IProfile) => {
     EFormFieldNames.DisplayName,
     props.displayName ?? profile.displayName,
   );
-  console.log(props);
-  console.log(props.display_name ?? profile.displayName);
   const validateSecondName = validateFormFields(
     EFormFieldNames.SecondName,
     props.second_name ?? profile.secondName,

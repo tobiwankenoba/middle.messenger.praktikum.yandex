@@ -1,4 +1,5 @@
 import { Block } from "../../framework/Block";
+import { router } from "../../framework/Router";
 import { Button } from "../Button/Button";
 import { LinkButton } from "../LinkButton";
 import "./styles.pcss";
@@ -8,6 +9,7 @@ interface IButtonBlockProfileProps {
   disabled: boolean;
   onClickSaveBtn?: () => void;
   onClickLogout?: () => void;
+  onClickChangeData?: () => void;
 }
 
 export class ButtonBlockProfile extends Block<StringIndexed> {
@@ -17,10 +19,14 @@ export class ButtonBlockProfile extends Block<StringIndexed> {
       LinkChangeData: new LinkButton({
         text: "Изменить данные",
         url: "changeProfileData",
+        onClick: () => props.onClickChangeData && props.onClickChangeData(),
       }),
       LinkChangePassword: new LinkButton({
         text: "Изменить пароль",
         url: "changeProfilePassword",
+        onClick: () => {
+          router.go("/profile/change-password");
+        },
       }),
       LinkLogout: new LinkButton({
         text: "Выйти",

@@ -23,9 +23,9 @@ export class OpenedChat extends Block<StringIndexed> {
             <div class="chat-head-wrapper">
               <div class="chat-head-info">
                 <div class="chat-image chat-head-image">
-                  <img alt="{{selectedChat.partner.name}}" src="{{#if selectedChat.partner.avatar }}{{selectedChat.partner.avatar}}{{else}}src/assets/defaultAvatar.svg{{/if}}" />
+                  <img alt="{{selectedChat.partner.name}}" src="{{#if selectedChat.avatar }}{{selectedChat.avatar}}{{else}}src/assets/defaultAvatar.svg{{/if}}" />
                 </div>
-                <div class="chat-user-name">{{selectedChat.partner.name}}</div>
+                <div class="chat-user-name">{{selectedChat.title}}</div>
               </div>
               <div class="chat-more-info">
                 <div class="chat-btn"></div>

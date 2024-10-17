@@ -7,6 +7,7 @@ import {
 } from "../../components";
 import AuthController from "../../controllers/AuthController";
 import { Block } from "../../framework/Block";
+import { router } from "../../framework/Router";
 import { EFormFieldNames } from "../../types/registerForm";
 import { getFieldFormError } from "../../utils/getFieldFormError";
 
@@ -49,6 +50,9 @@ export class RegisterPage extends Block<StringIndexed> {
       LinkButton: new LinkButton({
         text: "Войти",
         url: "login",
+        onClick: () => {
+          router.go("/");
+        },
       }),
       InputEmail: new InputBlock({
         label: "Почта",

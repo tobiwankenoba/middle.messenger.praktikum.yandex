@@ -17,6 +17,8 @@ export class Input extends Block<StringIndexed> {
             props.onBlur(e);
           }
         },
+        change: (e: Event) => props.onChange && props.onChange(e),
+        click: (e: Event) => props.onClick && props.onClick(e),
       },
     });
   }

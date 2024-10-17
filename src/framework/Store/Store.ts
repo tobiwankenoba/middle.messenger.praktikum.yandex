@@ -1,5 +1,4 @@
-import { MOCK_CHAT } from "../../constants/chatMock";
-import { IProfileState } from "../../types/profile";
+import { TStoreState } from "../../types/store";
 import set from "../../utils/set";
 import { EventBus } from "../EventBus";
 
@@ -8,19 +7,22 @@ export enum StoreEvents {
 }
 
 class Store extends EventBus {
-  private state: Nullable<IProfileState> = {
-    isDraft: false,
-    profile: {
-      firstName: "",
-      secondName: "",
-      email: "",
-      phone: "",
-      displayName: "",
-      login: "",
-      avatar: "",
-      password: "",
+  private state: Nullable<TStoreState> = {
+    profileState: {
+      isDraft: false,
+      profile: {
+        firstName: "",
+        secondName: "",
+        email: "",
+        phone: "",
+        displayName: "",
+        login: "",
+        avatar: "",
+        password: "",
+      },
+      chatsState: [],
     },
-    chatsState: MOCK_CHAT,
+    error: null,
   };
 
   constructor() {
@@ -34,8 +36,12 @@ class Store extends EventBus {
     this.emit(StoreEvents.Updated);
   }
 
-  public getState(): IProfileState {
-    return this.state as IProfileState;
+  public resetError() {
+    this.set("error", null);
+  }
+
+  public getState(): TStoreState {
+    return this.state as TStoreState;
   }
 }
 

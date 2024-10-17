@@ -1,10 +1,13 @@
+import { IMessagesState } from "./api";
+
 export interface IProfileState {
   isDraft: boolean;
   profile: IProfile;
-  chatsState: IChatState[];
+  chatsState: IMessagesState[];
 }
 
 export interface IProfile {
+  id: number;
   firstName: string;
   secondName: string;
   email: string;

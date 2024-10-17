@@ -1,6 +1,5 @@
 import api, { AuthApi } from "../api/AuthApi";
 import { router } from "../framework/Router";
-// import { router } from "../framework/Router";
 import { store } from "../framework/Store";
 import { prepareUser } from "../mappers";
 import { TLoginData, TRegisterData, User } from "../types/api";
@@ -23,22 +22,22 @@ class AuthController {
   }
 
   public async getUser() {
+    store.resetError();
     try {
       const { response, status } = await this.api.read();
 
-      // console.log(user.response);
-
       if (status === 200) {
-        store.set("profile", prepareUser(response as User));
+        const profileState = {
+          profile: prepareUser(response as User),
+          isDraft: false,
+          chatsState: [],
+        };
 
-        store.set("isDraft", false);
-
-        console.log(store);
+        store.set("profileState", profileState);
       } else {
         throw new Error(response.reason);
       }
     } catch (error) {
-      // console.error(error);
       store.set("error", error);
     }
   }
@@ -50,7 +49,6 @@ class AuthController {
       router.go("/profile");
     } catch (error) {
       console.error(error);
-      store.set("error", error);
     }
   }
 

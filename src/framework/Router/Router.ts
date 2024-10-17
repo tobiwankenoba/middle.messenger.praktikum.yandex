@@ -1,5 +1,7 @@
 import { IBlockClassInterface, Route } from "../Route";
 import AuthController from "../../controllers/AuthController";
+import { store } from "../Store";
+import chatsController from "../../controllers/ChatController";
 
 class Router {
   private routes: Route[] = [];
@@ -36,22 +38,24 @@ class Router {
     return this;
   }
 
-  public start() {
+  public async start() {
+    store.resetError();
+
     window.onpopstate = async (event: PopStateEvent) => {
       const target = event.currentTarget;
 
       if (target instanceof Window) {
         this._onRoute(target.location.pathname);
       }
-
-      try {
-        console.log("test");
-        await AuthController.getUser();
-      } catch (error) {
-        console.log("error");
-        this.go("/");
-      }
     };
+
+    await AuthController.getUser();
+
+    await chatsController.getChats();
+
+    if (store.getState().error) {
+      this.go("/");
+    }
 
     this._onRoute(window.location.pathname);
   }

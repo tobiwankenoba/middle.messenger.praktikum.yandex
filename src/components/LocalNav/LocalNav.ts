@@ -8,50 +8,48 @@ export class LocalNav extends Block<StringIndexed> {
     super({
       AuthLink: new LinkButton({
         text: "Авторизация",
-        url: "#",
         onClick: () => {
           router.go("/");
         },
       }),
       RegisterLink: new LinkButton({
         text: "Регистрация",
-        url: "/sign-up",
         onClick: () => {
           router.go("/sign-up");
         },
       }),
       ProfileLink: new LinkButton({
         text: "Профиль",
-        url: "profile",
         onClick: () => {
           router.go("/profile");
         },
       }),
       ChatLink: new LinkButton({
         text: "Чат",
-        url: "chat",
         onClick: () => {
-          router.go("/chat");
+          router.go("/messenger");
         },
       }),
       ChangeProfileLink: new LinkButton({
         text: "Изменить данные",
-        url: "/change-prof",
+        onClick: () => {
+          router.go("/profile/change-data");
+        },
       }),
       ChangePasswordLink: new LinkButton({
         text: "Изменить пароль",
-        url: "/change-pass",
+        onClick: () => {
+          router.go("/profile/change-password");
+        },
       }),
       NotFoundLink: new LinkButton({
         text: "404",
-        url: "/404",
         onClick: () => {
           router.go("/404");
         },
       }),
       ServerErrorLink: new LinkButton({
         text: "500",
-        url: "/500",
         onClick: () => {
           router.go("/500");
         },

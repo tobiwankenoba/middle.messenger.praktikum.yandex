@@ -101,7 +101,7 @@ export class Block<P extends StringIndexed> {
     const res = this.componentDidUpdate(oldProps, newProps);
 
     if (res) {
-      return;
+      this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
     }
 
     if (!deepEqual(oldProps, newProps)) {
