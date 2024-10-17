@@ -22,6 +22,7 @@ class Store extends EventBus {
       },
       chatsState: [],
     },
+    chats: [],
     error: null,
   };
 

@@ -2,6 +2,7 @@ import chatsController from "../../controllers/ChatController";
 import { Block } from "../../framework/Block";
 import { store } from "../../framework/Store";
 import { Button } from "../Button";
+import { ChatItem } from "../ChatItem/ChatItem";
 import { Input } from "../Input";
 import "./styles.pcss";
 
@@ -31,9 +32,28 @@ export class ModalChatCreate extends Block<StringIndexed> {
         fullWidth: true,
         text: "Создать",
         disabled: true,
-        onClick: () => {
+        onClick: async () => {
           if (this.props.chatTitle) {
-            chatsController.create(this.props.chatTitle);
+            await chatsController.create(this.props.chatTitle);
+
+            const { chats, selectedChat } = store.getState();
+
+            console.log(chats);
+
+            store.set("Chats", [
+              chats.map(
+                (currentChat) =>
+                  new ChatItem({
+                    selectedChat: selectedChat,
+                    currentChat,
+                    onClick: () => {
+                      store.set("selectedChat", currentChat);
+                    },
+                  }),
+              ),
+            ]);
+
+            console.log(this.props);
 
             store.set("modalChatVisible", false);
           }

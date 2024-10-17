@@ -100,8 +100,6 @@ export class Block<P extends StringIndexed> {
   private _componentDidUpdate(oldProps: P, newProps: P): void {
     const res = this.componentDidUpdate(oldProps, newProps);
 
-    console.log(this);
-
     if (res) {
       this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
     }
@@ -182,6 +180,14 @@ export class Block<P extends StringIndexed> {
     }
 
     Object.assign(this.props, nextProps);
+  };
+
+  public setLists = (nextLists: BlockProps): void => {
+    if (!nextLists) {
+      return;
+    }
+
+    Object.assign(this.lists, nextLists);
   };
 
   get element(): HTMLElement | null {

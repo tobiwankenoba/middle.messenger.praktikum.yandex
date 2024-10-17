@@ -2,6 +2,7 @@ import { LinkButton, LocalNav } from "../../components";
 import { ChatItem } from "../../components/ChatItem/ChatItem";
 import { ModalChatCreate } from "../../components/ModalChatCreate";
 import { OpenedChat } from "../../components/OpenedChat";
+import chatsController from "../../controllers/ChatController";
 import { Block } from "../../framework/Block";
 import { router } from "../../framework/Router";
 import { store } from "../../framework/Store";
@@ -35,6 +36,7 @@ class ChatPage extends Block<StringIndexed> {
         text: "Создать чат",
         theme: "chats-link",
         onClick: () => {
+          console.log(store.getState());
           store.set("modalChatVisible", true);
         },
       }),
@@ -44,6 +46,8 @@ class ChatPage extends Block<StringIndexed> {
         },
       }),
     });
+
+    chatsController.getChats();
   }
 
   override render() {

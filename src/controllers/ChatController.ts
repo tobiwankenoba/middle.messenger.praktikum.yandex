@@ -14,9 +14,9 @@ class ChatsController {
     await this.api
       .create(title)
       .catch((error) => store.set("error", error))
-      .finally(() => {
+      .finally(async () => {
         if (!store.getState().error) {
-          this.getChats();
+          await this.getChats();
         }
       });
   }

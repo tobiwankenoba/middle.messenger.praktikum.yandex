@@ -1,7 +1,6 @@
 import { IBlockClassInterface, Route } from "../Route";
 import AuthController from "../../controllers/AuthController";
 import { store } from "../Store";
-import chatsController from "../../controllers/ChatController";
 
 class Router {
   private routes: Route[] = [];
@@ -50,8 +49,6 @@ class Router {
     };
 
     await AuthController.getUser();
-
-    await chatsController.getChats();
 
     if (store.getState().error) {
       this.go("/");
