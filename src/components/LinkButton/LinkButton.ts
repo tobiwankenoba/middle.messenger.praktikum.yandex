@@ -5,28 +5,16 @@ interface IButtonProps {
   text: string;
   theme?: string;
   dataName?: string;
-  url: string;
-  onClick?: (e: Event) => void;
+  url?: string;
+  onClick?: () => void;
 }
 
-export class LinkButton extends Block {
+export class LinkButton extends Block<StringIndexed> {
   constructor(props: IButtonProps) {
     super({
       ...props,
       events: {
-        click: (e: Event) => {
-          if (e.target instanceof HTMLElement) {
-            const { target } = e;
-
-            const url = String(
-              target.dataset.url
-                ? target.dataset.url
-                : target.parentElement?.dataset.url,
-            );
-
-            console.log(url);
-          }
-        },
+        click: () => props.onClick && props.onClick(),
       },
     });
   }
@@ -35,7 +23,7 @@ export class LinkButton extends Block {
     return `
       <a
       data-name="{{#if dataName }}{{dataName}}{{else}}pageLink{{/if}}"
-      data-url="{{url}}"
+
       class="button-link {{theme}}"
       >
       {{text}}

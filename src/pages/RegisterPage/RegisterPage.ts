@@ -5,13 +5,15 @@ import {
   LocalNav,
   Title,
 } from "../../components";
+import AuthController from "../../controllers/AuthController";
 import { Block } from "../../framework/Block";
+import { router } from "../../framework/Router";
 import { EFormFieldNames } from "../../types/registerForm";
 import { getFieldFormError } from "../../utils/getFieldFormError";
 
-import { validateFormRegister } from "../../utils/validateRegisterForm";
+import { validateFormRegister } from "../../utils/validates/validateRegisterForm";
 
-export class RegisterPage extends Block {
+export class RegisterPage extends Block<StringIndexed> {
   constructor() {
     super({
       Title: new Title({ text: "Регистрация" }),
@@ -29,31 +31,28 @@ export class RegisterPage extends Block {
             validateRegisterForm.filter((item) => item.isValid === false)
               .length === 0
           ) {
-            const {
-              phone,
-              email,
-              first_name,
-              second_name,
-              password,
-              passwordRepeat,
-              login,
-            } = this.props;
+            const { phone, email, first_name, second_name, password, login } =
+              this.props;
 
-            console.log({
+            const form = {
               phone,
               email,
               first_name,
               second_name,
               password,
-              passwordRepeat,
               login,
-            });
+            };
+
+            AuthController.register(form);
           }
         },
       }),
       LinkButton: new LinkButton({
         text: "Войти",
         url: "login",
+        onClick: () => {
+          router.go("/");
+        },
       }),
       InputEmail: new InputBlock({
         label: "Почта",

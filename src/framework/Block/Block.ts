@@ -1,6 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import { EventCallback, EventBus } from "../EventBus";
+import { EventBus } from "../EventBus";
 import Handlebars from "handlebars";
 import { v4 as uuidv4 } from "uuid";
 import { deepEqual } from "../../utils/deepEqual";
@@ -9,7 +7,7 @@ export interface BlockProps {
   [key: string]: any;
 }
 
-export class Block {
+export class Block<P extends StringIndexed> {
   static EVENTS = {
     INIT: "init",
     FLOW_CDM: "flow:component-did-mount",
@@ -24,19 +22,19 @@ export class Block {
 
   protected props: BlockProps;
 
-  protected children: Record<string, Block>;
+  protected children: StringIndexed;
 
   protected lists: Record<string, any[]>;
 
   protected eventBus: () => EventBus;
 
-  constructor(propsWithChildren: BlockProps = {}) {
+  constructor(propsWithChildren: P) {
     const eventBus = new EventBus();
     const { props, children, lists } =
       this._getChildrenPropsAndProps(propsWithChildren);
     this.props = this._makePropsProxy({ ...props });
     this.children = children;
-    this.lists = lists;
+    this.lists = this._makePropsProxy({ ...lists });
     this.eventBus = () => eventBus;
     this._registerEvents(eventBus);
     eventBus.emit(Block.EVENTS.INIT);
@@ -65,19 +63,10 @@ export class Block {
   }
 
   private _registerEvents(eventBus: EventBus): void {
-    eventBus.on(Block.EVENTS.INIT, this.init.bind(this) as EventCallback);
-    eventBus.on(
-      Block.EVENTS.FLOW_CDM,
-      this._componentDidMount.bind(this) as EventCallback,
-    );
-    eventBus.on(
-      Block.EVENTS.FLOW_CDU,
-      this._componentDidUpdate.bind(this) as EventCallback,
-    );
-    eventBus.on(
-      Block.EVENTS.FLOW_RENDER,
-      this._render.bind(this) as EventCallback,
-    );
+    eventBus.on(Block.EVENTS.INIT, this.init.bind(this));
+    eventBus.on(Block.EVENTS.FLOW_CDM, this._componentDidMount.bind(this));
+    eventBus.on(Block.EVENTS.FLOW_CDU, this._componentDidUpdate.bind(this));
+    eventBus.on(Block.EVENTS.FLOW_RENDER, this._render.bind(this));
   }
 
   protected init(): void {
@@ -97,43 +86,20 @@ export class Block {
     this.eventBus().emit(Block.EVENTS.FLOW_CDM);
   }
 
-  private _componentDidUpdate(
-    oldProps: BlockProps,
-    newProps: BlockProps,
-  ): void {
-    const res = this.componentDidUpdate(oldProps, newProps);
-
-    if (res) {
-      return;
-    }
-
+  private _componentDidUpdate(oldProps: P, newProps: P): void {
     if (!deepEqual(oldProps, newProps)) {
       this._updateChildrenProps(newProps);
-
-      this._updateListProps(newProps);
 
       this._render();
     }
   }
 
-  private _updateChildrenProps(props: BlockProps) {
+  private _updateChildrenProps(props: P) {
     Object.values(this.children).forEach((child) => {
       Object.keys(props).forEach((prop) => {
         if (!deepEqual(child.props[prop], props[prop])) {
           child.setProps({ [prop]: props[prop] });
         }
-      });
-    });
-  }
-
-  private _updateListProps(props: BlockProps) {
-    Object.values(this.lists).forEach((list) => {
-      list.map((child: Block) => {
-        Object.keys(props).forEach((prop) => {
-          if (!deepEqual(child.props[prop], props[prop])) {
-            child.setProps({ [prop]: props[prop] });
-          }
-        });
       });
     });
   }
@@ -146,11 +112,11 @@ export class Block {
   }
 
   private _getChildrenPropsAndProps(propsAndChildren: BlockProps): {
-    children: Record<string, Block>;
+    children: Record<string, Block<StringIndexed>>;
     props: BlockProps;
     lists: Record<string, any[]>;
   } {
-    const children: Record<string, Block> = {};
+    const children: Record<string, Block<StringIndexed>> = {};
     const props: BlockProps = {};
     const lists: Record<string, any[]> = {};
 
@@ -183,6 +149,14 @@ export class Block {
     }
 
     Object.assign(this.props, nextProps);
+  };
+
+  public setLists = (nextLists: BlockProps): void => {
+    if (!nextLists) {
+      return;
+    }
+
+    Object.assign(this.lists, nextLists);
   };
 
   get element(): HTMLElement | null {

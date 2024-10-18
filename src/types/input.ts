@@ -8,4 +8,6 @@ export interface IInput {
   readonly?: boolean;
   onBlur?: (e: Event) => void;
   onInput?: (e: Event) => void;
+  onClick?: (e: Event) => void;
+  onChange?: (e: Event) => void;
 }

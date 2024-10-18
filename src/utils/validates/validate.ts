@@ -1,4 +1,4 @@
-import { EFormFieldNames } from "../types/registerForm";
+import { EFormFieldNames } from "../../types/registerForm";
 
 export const validateFormFields = (name: EFormFieldNames, value: string) => {
   if (value === "") {

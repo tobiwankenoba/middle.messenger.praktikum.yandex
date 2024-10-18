@@ -8,7 +8,7 @@ interface IInputProps extends Omit<IInput, "onBlur"> {
   onBlur?: (e: Event) => string | undefined;
 }
 
-export class InputBlock extends Block {
+export class InputBlock extends Block<StringIndexed> {
   constructor(props: IInputProps) {
     super({
       ...props,

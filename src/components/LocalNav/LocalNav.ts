@@ -1,41 +1,58 @@
 import { LinkButton } from "../../components";
 import { Block } from "../../framework/Block";
+import { router } from "../../framework/Router";
 import "./styles.pcss";
 
-export class LocalNav extends Block {
+export class LocalNav extends Block<StringIndexed> {
   constructor() {
     super({
       AuthLink: new LinkButton({
         text: "Авторизация",
-        url: "login",
+        onClick: () => {
+          router.go("/");
+        },
       }),
       RegisterLink: new LinkButton({
         text: "Регистрация",
-        url: "register",
+        onClick: () => {
+          router.go("/sign-up");
+        },
       }),
       ProfileLink: new LinkButton({
         text: "Профиль",
-        url: "profile",
+        onClick: () => {
+          router.go("/profile");
+        },
       }),
       ChatLink: new LinkButton({
         text: "Чат",
-        url: "chat",
+        onClick: () => {
+          router.go("/messenger");
+        },
       }),
       ChangeProfileLink: new LinkButton({
         text: "Изменить данные",
-        url: "changeProfileData",
+        onClick: () => {
+          router.go("/profile/change-data");
+        },
       }),
       ChangePasswordLink: new LinkButton({
         text: "Изменить пароль",
-        url: "changeProfilePassword",
+        onClick: () => {
+          router.go("/profile/change-password");
+        },
       }),
       NotFoundLink: new LinkButton({
         text: "404",
-        url: "notFound",
+        onClick: () => {
+          router.go("/404");
+        },
       }),
       ServerErrorLink: new LinkButton({
         text: "500",
-        url: "serverError",
+        onClick: () => {
+          router.go("/500");
+        },
       }),
     });
   }
