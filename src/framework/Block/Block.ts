@@ -90,8 +90,6 @@ export class Block<P extends StringIndexed> {
     if (!deepEqual(oldProps, newProps)) {
       this._updateChildrenProps(newProps);
 
-      this._updateListProps(newProps);
-
       this._render();
     }
   }
@@ -104,18 +102,6 @@ export class Block<P extends StringIndexed> {
         }
       });
     });
-  }
-
-  private _updateListProps(props: P) {
-    // Object.values(this.lists).forEach((list) => {
-    //   list.map((child: Block<StringIndexed>) => {
-    //     Object.keys(props).forEach((prop) => {
-    //       if (!deepEqual(child.props[prop], props[prop])) {
-    //         child.setProps({ [prop]: props[prop] });
-    //       }
-    //     });
-    //   });
-    // });
   }
 
   protected componentDidUpdate(
