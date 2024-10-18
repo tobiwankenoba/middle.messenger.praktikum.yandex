@@ -32,6 +32,26 @@ class ChatsController {
     store.set("chats", chats as unknown as IMessagesState[]);
   }
 
+  async addUserToChat(id: number, userId: number) {
+    try {
+      await this.api.addUsers(id, [userId]);
+    } catch (error) {
+      store.set("error", error);
+    } finally {
+      store.set("modalAddUserVisible", false);
+    }
+  }
+
+  async removeUserFromChat(id: number, userId: number) {
+    try {
+      await this.api.removeUsers(id, [userId]);
+    } catch (error) {
+      store.set("error", error);
+    } finally {
+      store.set("modalAddUserVisible", false);
+    }
+  }
+
   async delete(id: number) {
     try {
       await this.api.delete(id);

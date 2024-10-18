@@ -9,7 +9,6 @@ export enum StoreEvents {
 class Store extends EventBus {
   private state: Nullable<TStoreState> = {
     profileState: {
-      isDraft: false,
       profile: {
         firstName: "",
         secondName: "",
@@ -20,9 +19,9 @@ class Store extends EventBus {
         avatar: "",
         password: "",
       },
-      chatsState: [],
     },
     chats: [],
+    selectedChat: {},
     error: null,
   };
 

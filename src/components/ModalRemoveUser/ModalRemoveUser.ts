@@ -9,34 +9,37 @@ interface IModalProps {
   onClickClose: () => void;
 }
 
-export class ModalChatCreate extends Block<StringIndexed> {
+export class ModalRemoveUser extends Block<StringIndexed> {
   constructor(props: IModalProps) {
     super({
       ...props,
       Input: new Input({
         class: "full-width",
-        id: "createChatInput",
-        placeholder: "Название чата",
+        id: "addUser",
+        placeholder: "Id пользователя",
         onBlur: (e) => {
           if (e.target instanceof HTMLInputElement) {
-            const title = { chatTitle: e.target.value };
+            const userId = { userIdForAdd: e.target.value };
 
             this.setProps({
-              disabled: !Boolean(title.chatTitle),
-              ...title,
+              disabled: !Boolean(userId.userIdForAdd),
+              ...userId,
             });
           }
         },
       }),
       SaveButton: new Button({
         fullWidth: true,
-        text: "Создать",
+        text: "Добавить",
         disabled: true,
         onClick: async () => {
-          if (this.props.chatTitle) {
-            await chatsController.create(this.props.chatTitle);
+          if (this.props.userIdForAdd && this.props.selectedChat.id) {
+            await chatsController.removeUserFromChat(
+              this.props.selectedChat.id,
+              this.props.userIdForAdd,
+            );
 
-            store.set("modalChatVisible", false);
+            store.set("modalRemoveUserVisible", false);
           }
         },
       }),
@@ -56,7 +59,7 @@ export class ModalChatCreate extends Block<StringIndexed> {
       <div class="modal-container">
         <div class="modal-wrapper">
           <div class="modal-title">
-            Создать чат
+            Удалить пользователя из чат
           </div>
           <div class="modal-body">
             <div class="modal-input">

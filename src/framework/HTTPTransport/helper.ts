@@ -48,7 +48,7 @@ export class HTTPTransport {
 
   delete: HTTPMethod = (url, options) =>
     this.request(
-      url,
+      this.endpoint + url,
       { ...options, method: EMethods.DELETE },
       options?.timeout,
     );

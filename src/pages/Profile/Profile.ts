@@ -17,6 +17,8 @@ class ProfilePage extends Block<StringIndexed> {
 
     const { profile } = profileState;
 
+    console.log(profile);
+
     super({
       Avatar: new Avatar({
         isDraft: false,

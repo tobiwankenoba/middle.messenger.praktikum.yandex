@@ -1,12 +1,11 @@
 import { Block } from "../../framework/Block";
 import { IMessagesState } from "../../types/api";
-import { IChatState } from "../../types/profile";
 import "./styles.pcss";
 
 interface IChatItemProps {
   currentChat: IMessagesState;
   isActive?: boolean;
-  selectedChat?: IChatState;
+  selectedChatId?: number;
   onClick: () => void;
 }
 
@@ -14,7 +13,7 @@ export class ChatItem extends Block<StringIndexed> {
   constructor({
     currentChat,
     onClick,
-    selectedChat,
+    selectedChatId,
     isActive,
   }: IChatItemProps) {
     super({
@@ -29,14 +28,13 @@ export class ChatItem extends Block<StringIndexed> {
           onClick();
         },
       },
-      selectedChat,
-      currentChat,
+      selectedChatId,
     });
   }
 
   render() {
     return `
-    <div class="chat-container {{#if (eq selectedChat.id id) }}selected-chat{{/if}}">
+    <div class="chat-container {{#if (eq selectedChatId id) }}selected-chat{{/if}}">
         <div class="chats-item">
           <div class="chat-image"><img src="{{#if avatar }}{{avatar}}{{else}}src/assets/defaultAvatar.svg{{/if}}" /></div>
           <div class="chat-textblock">

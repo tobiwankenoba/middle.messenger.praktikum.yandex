@@ -36,14 +36,14 @@ class MessagesController {
     this.getMessages(chatId);
   }
 
-  public postMessage(chatId: number, message: string) {
+  public async postMessage(chatId: number, message: string) {
     const socket = this.sockets.get(chatId);
 
     if (!socket) {
       throw new Error(`Chat with id:${chatId} is not connected.`);
     }
 
-    socket.send({
+    await socket.send({
       type: "message",
       content: message,
     });
@@ -84,6 +84,7 @@ class MessagesController {
     const currentMessages = (store.getState().messages || {})[chatId] || [];
     messagesToAdd = [...(currentMessages as IMessage[]), ...messagesToAdd];
     store.set(`messages.${chatId}`, messagesToAdd);
+    store.set(`activeMessages`, messagesToAdd);
   }
 }
 

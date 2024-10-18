@@ -3,11 +3,13 @@ import "./styles.pcss";
 
 interface ISidebarButtonProps {
   onClick?: VoidFunction;
+  class?: string;
 }
 
 export class SidebarButton extends Block<StringIndexed> {
   constructor(props: ISidebarButtonProps) {
     super({
+      ...props,
       events: {
         click: () => props.onClick && props.onClick(),
       },
@@ -17,9 +19,7 @@ export class SidebarButton extends Block<StringIndexed> {
   render() {
     return `
         <button
-          class="hidden-border sidebar-button"
-          data-name="pageLink"
-          data-url="chat"
+          class="hidden-border sidebar-button {{class}}"
         />
     `;
   }

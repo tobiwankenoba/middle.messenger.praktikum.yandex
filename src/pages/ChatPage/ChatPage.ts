@@ -1,4 +1,4 @@
-import { LinkButton, LocalNav } from "../../components";
+import { LinkButton } from "../../components";
 import { ChatItem } from "../../components/ChatItem/ChatItem";
 import { ModalChatCreate } from "../../components/ModalChatCreate";
 import { OpenedChat } from "../../components/OpenedChat";
@@ -13,11 +13,10 @@ class ChatPage extends Block<StringIndexed> {
     const { selectedChat, chats } = store.getState();
 
     super({
-      LocalNav: new LocalNav(),
       Chats: chats.map(
         (currentChat) =>
           new ChatItem({
-            selectedChat: selectedChat,
+            selectedChatId: selectedChat?.id,
             currentChat,
             onClick: () => {
               store.set("selectedChat", currentChat);
@@ -36,12 +35,17 @@ class ChatPage extends Block<StringIndexed> {
         text: "Создать чат",
         theme: "chats-link",
         onClick: () => {
-          console.log(store.getState());
           store.set("modalChatVisible", true);
+
+          const input = document.getElementById("createChatInput");
+
+          if (input instanceof HTMLInputElement) {
+            input.value = "";
+          }
         },
       }),
       Modal: new ModalChatCreate({
-        onClick: () => {
+        onClickClose: () => {
           store.set("modalChatVisible", false);
         },
       }),
@@ -53,7 +57,6 @@ class ChatPage extends Block<StringIndexed> {
   override render() {
     return `
     <div class="container">
-      {{{ LocalNav }}}
       <div class="chat-wrapper no-shadow">
         <div class="chats-block">
             <div class="chats-header">

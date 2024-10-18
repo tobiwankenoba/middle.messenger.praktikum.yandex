@@ -29,8 +29,6 @@ class AuthController {
       if (status === 200) {
         const profileState = {
           profile: prepareUser(response as User),
-          isDraft: false,
-          chatsState: [],
         };
 
         store.set("profileState", profileState);

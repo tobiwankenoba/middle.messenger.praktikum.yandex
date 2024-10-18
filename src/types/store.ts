@@ -4,7 +4,9 @@ import { IChatState, IMessage, IProfileState } from "./profile";
 export type TStoreState = {
   profileState: IProfileState;
   selectedChat?: IChatState;
-  messages: IMessage[][];
+  messages: {
+    [key in number]: IMessage[];
+  };
   chats: IMessagesState[];
   modalContent?: {
     title: string;
