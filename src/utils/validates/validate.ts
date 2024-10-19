@@ -4,6 +4,7 @@ export const validateFormFields = (name: EFormFieldNames, value: string) => {
   if (value === "") {
     return true;
   }
+
   switch (name) {
     case EFormFieldNames.Login:
     case EFormFieldNames.DisplayName:
@@ -14,7 +15,7 @@ export const validateFormFields = (name: EFormFieldNames, value: string) => {
       return /[a-zA-Z0-9_-]+@.+[a-zA-Z]+\./.test(value);
     case EFormFieldNames.FirstName:
     case EFormFieldNames.SecondName:
-      return /[А-Яа-яЁё][a-zA-Zа-яёЁ]$/.test(value);
+      return /^[A-ZА-Я][a-zа-я]+$/.test(value);
     case EFormFieldNames.Phone:
       return /\+?[0-9]{10,15}/.test(value);
     default:
