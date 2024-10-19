@@ -88,4 +88,4 @@ class MessagesController {
   }
 }
 
-export default new MessagesController("ws://ya-praktikum.tech/ws/chats/");
+export default new MessagesController("wss://ya-praktikum.tech/ws/chats/");

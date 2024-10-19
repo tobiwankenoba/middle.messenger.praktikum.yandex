@@ -25,7 +25,11 @@ export class ChangePasswordPage extends Block<StringIndexed> {
         name: profile.firstName,
         avatarUrl: profile.avatar,
       }),
-      Sidebar: new Sidebar(),
+      Sidebar: new Sidebar({
+        onClick: () => {
+          router.go("/profile");
+        },
+      }),
       LocalNav: new LocalNav(),
       RowOldPassword: new ProfileRow({
         id: "password",

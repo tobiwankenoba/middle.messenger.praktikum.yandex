@@ -1,14 +1,17 @@
 import { Block } from "../../framework/Block";
-import { router } from "../../framework/Router";
 import { SidebarButton } from "./SidebarButton";
 import "./styles.pcss";
 
+interface ISidebarProps {
+  onClick?: VoidFunction;
+}
+
 export class Sidebar extends Block<StringIndexed> {
-  constructor() {
+  constructor(props: ISidebarProps) {
     super({
       button: new SidebarButton({
         onClick: () => {
-          router.back();
+          props.onClick && props.onClick();
         },
       }),
     });
