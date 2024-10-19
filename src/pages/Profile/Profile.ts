@@ -25,7 +25,11 @@ class ProfilePage extends Block<StringIndexed> {
         name: profile.firstName,
         avatarUrl: profile.avatar,
       }),
-      Sidebar: new Sidebar(),
+      Sidebar: new Sidebar({
+        onClick: () => {
+          router.go("/messenger");
+        },
+      }),
       LocalNav: new LocalNav(),
       RowEmail: new ProfileRow({
         id: "email",

@@ -35,7 +35,11 @@ class ChageProfileData extends Block<StringIndexed> {
           }
         },
       }),
-      Sidebar: new Sidebar(),
+      Sidebar: new Sidebar({
+        onClick: () => {
+          router.go("/profile");
+        },
+      }),
       LocalNav: new LocalNav(),
       RowEmail: new ProfileRow({
         id: "email",
