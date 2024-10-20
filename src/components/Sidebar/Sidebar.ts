@@ -1,19 +1,26 @@
 import { Block } from "../../framework/Block";
+import { SidebarButton } from "./SidebarButton";
 import "./styles.pcss";
 
-export class Sidebar extends Block {
-  constructor() {
-    super();
+interface ISidebarProps {
+  onClick?: VoidFunction;
+}
+
+export class Sidebar extends Block<StringIndexed> {
+  constructor(props: ISidebarProps) {
+    super({
+      button: new SidebarButton({
+        onClick: () => {
+          props.onClick && props.onClick();
+        },
+      }),
+    });
   }
 
   render() {
     return `
       <div class="sidebar">
-        <button
-          class="hidden-border sidebar-button"
-          data-name="pageLink"
-          data-url="chat"
-        />
+        {{{ button }}}
       </div>
     `;
   }

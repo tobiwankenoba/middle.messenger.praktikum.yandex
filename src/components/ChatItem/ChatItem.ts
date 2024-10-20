@@ -1,43 +1,40 @@
 import { Block } from "../../framework/Block";
-import { IChatState } from "../../types/profile";
+import { IMessagesState } from "../../types/api";
 import "./styles.pcss";
 
 interface IChatItemProps {
-  currentChat: IChatState;
+  currentChat: IMessagesState;
   isActive?: boolean;
-  selectedChat?: IChatState;
+  selectedChatId?: number;
   onClick: () => void;
 }
 
-export class ChatItem extends Block {
+export class ChatItem extends Block<StringIndexed> {
   constructor({
     currentChat,
     onClick,
-    selectedChat,
+    selectedChatId,
     isActive,
   }: IChatItemProps) {
     super({
       id: currentChat.id,
-      lastMessage: currentChat.messages[currentChat.messages.length - 1],
-      name: currentChat.partner.name,
-      avatar: currentChat.partner.avatar,
+      lastMessage: currentChat.last_message,
+      name: currentChat.title,
+      avatar: currentChat.avatar,
       isActive,
-      countUnreadMessages: currentChat.messages.filter(
-        (item) => !item.isReading,
-      ).length,
+      countUnreadMessages: currentChat.unread_count,
       events: {
         click: () => {
           onClick();
         },
       },
-      selectedChat,
-      currentChat,
+      selectedChatId,
     });
   }
 
   render() {
     return `
-    <div class="chat-container {{#if (eq selectedChat.id id) }}selected-chat{{/if}}">
+    <div class="chat-container {{#if (eq selectedChatId id) }}selected-chat{{/if}}">
         <div class="chats-item">
           <div class="chat-image"><img src="{{#if avatar }}{{avatar}}{{else}}src/assets/defaultAvatar.svg{{/if}}" /></div>
           <div class="chat-textblock">

@@ -5,24 +5,31 @@ import {
   ProfileRow,
   Sidebar,
 } from "../../components";
+import UserController from "../../controllers/UserController";
 import { Block } from "../../framework/Block";
-import { IProfileState } from "../../types/profile";
+import { router } from "../../framework/Router";
+import { store } from "../../framework/Store";
+import { EFormFieldNames } from "../../types/registerForm";
+import { getFieldFormError } from "../../utils/getFieldFormError";
+import { validatePassword } from "../../utils/validates/validatePassword";
 
-interface IProfileProps {
-  profileState: IProfileState;
-}
+export class ChangePasswordPage extends Block<StringIndexed> {
+  constructor() {
+    const { profileState } = store.getState();
 
-export class ChangePasswordPage extends Block {
-  constructor({ profileState }: IProfileProps) {
-    const { isDraft, profile } = profileState;
+    const { profile } = profileState;
 
     super({
       Avatar: new Avatar({
-        isDraft: isDraft,
+        isDraft: false,
         name: profile.firstName,
         avatarUrl: profile.avatar,
       }),
-      Sidebar: new Sidebar(),
+      Sidebar: new Sidebar({
+        onClick: () => {
+          router.go("/profile");
+        },
+      }),
       LocalNav: new LocalNav(),
       RowOldPassword: new ProfileRow({
         id: "password",
@@ -30,7 +37,32 @@ export class ChangePasswordPage extends Block {
         label: "Старый пароль",
         type: "password",
         placeholder: "*****",
-        readonly: isDraft,
+        readonly: false,
+        onBlur: (e) => {
+          if (e.target instanceof HTMLInputElement) {
+            const password = { oldPassword: e.target.value };
+
+            const validateProfileForm = validatePassword({
+              ...this.props,
+              ...password,
+            });
+
+            this.setProps({
+              disabled:
+                validateProfileForm.filter((item) => item.isValid === false)
+                  .length !== 0,
+              ...password,
+            });
+
+            const isValid = Boolean(
+              validateProfileForm.find(
+                (item) => item.name === EFormFieldNames.OldPassword,
+              )?.isValid,
+            );
+
+            return getFieldFormError(EFormFieldNames.Password, isValid);
+          }
+        },
       }),
       RowNewPassword: new ProfileRow({
         id: "newPassword",
@@ -38,7 +70,32 @@ export class ChangePasswordPage extends Block {
         label: "Новый пароль",
         type: "password",
         placeholder: "*****",
-        readonly: isDraft,
+        readonly: false,
+        onBlur: (e) => {
+          if (e.target instanceof HTMLInputElement) {
+            const password = { newPassword: e.target.value };
+
+            const validateProfileForm = validatePassword({
+              ...this.props,
+              ...password,
+            });
+
+            this.setProps({
+              disabled:
+                validateProfileForm.filter((item) => item.isValid === false)
+                  .length !== 0,
+              ...password,
+            });
+
+            const isValid = Boolean(
+              validateProfileForm.find(
+                (item) => item.name === EFormFieldNames.Password,
+              )?.isValid,
+            );
+
+            return getFieldFormError(EFormFieldNames.Password, isValid);
+          }
+        },
       }),
       RowRepeatNewPassword: new ProfileRow({
         id: "repeatNewPassword",
@@ -46,11 +103,50 @@ export class ChangePasswordPage extends Block {
         label: "Повторите новый пароль",
         type: "password",
         placeholder: "*****",
-        readonly: isDraft,
+        readonly: false,
+        onBlur: (e) => {
+          if (e.target instanceof HTMLInputElement) {
+            const password = { passwordRepeat: e.target.value };
+
+            const validateProfileForm = validatePassword({
+              ...this.props,
+              ...password,
+            });
+
+            this.setProps({
+              disabled:
+                validateProfileForm.filter((item) => item.isValid === false)
+                  .length !== 0,
+              ...password,
+            });
+
+            const isValid = Boolean(
+              validateProfileForm.find(
+                (item) => item.name === EFormFieldNames.PasswordRepeat,
+              )?.isValid,
+            );
+
+            return getFieldFormError(EFormFieldNames.PasswordRepeat, isValid);
+          }
+        },
       }),
       ButtonBlockProfile: new ButtonBlockProfile({
-        isDraft: isDraft,
+        isDraft: true,
         disabled: false,
+        onClickSaveBtn: async () => {
+          const res = await UserController.updatePassword({
+            oldPassword: this.props.oldPassword,
+            newPassword: this.props.newPassword,
+          });
+
+          if (res && res.status === "error") {
+            this.setProps({
+              passwordError: res.message,
+            });
+          } else {
+            router.go("/profile");
+          }
+        },
       }),
     });
   }
@@ -60,7 +156,7 @@ export class ChangePasswordPage extends Block {
     <div>
       {{{ Sidebar }}}
       {{{ LocalNav }}}
-      <div class="wrapper profile-wrapper">
+      <div class="wrapper profile-wrapper no-shadow">
             {{{ Avatar }}}
 
             <div class="profile-info">
@@ -68,7 +164,7 @@ export class ChangePasswordPage extends Block {
                 {{{ RowNewPassword }}}
                 {{{ RowRepeatNewPassword }}}
             </div>
-
+            {{passwordError}}
             {{{ ButtonBlockProfile }}}
         </div>
     </div>
@@ -76,11 +172,3 @@ export class ChangePasswordPage extends Block {
     `;
   }
 }
-
-// {{> ProfileRow isDraft=profileState.isDraft id="login" name="login" label="Логин" value=profileState.profile.login }}
-// {{> ProfileRow isDraft=profileState.isDraft id="firstName" name="first_name" label="Имя" value=profileState.profile.firstName }}
-// {{> ProfileRow isDraft=profileState.isDraft id="secondName" name="second_name" label="Фамилия" value=profileState.profile.secondName }}
-// {{> ProfileRow isDraft=profileState.isDraft id="displayName" name="display_name" label="Имя в чате" value=profileState.profile.displayName }}
-// {{> ProfileRow isDraft=profileState.isDraft id="phone" name="phone" label="Телефон" value=profileState.profile.phone }}
-
-// {{> ButtonBlockProfile }}

@@ -4,7 +4,7 @@ import "./styles.pcss";
 
 type TInputProps = IInput;
 
-export class Input extends Block {
+export class Input extends Block<StringIndexed> {
   constructor(props: TInputProps) {
     super({
       ...props,
@@ -17,6 +17,8 @@ export class Input extends Block {
             props.onBlur(e);
           }
         },
+        change: (e: Event) => props.onChange && props.onChange(e),
+        click: (e: Event) => props.onClick && props.onClick(e),
       },
     });
   }

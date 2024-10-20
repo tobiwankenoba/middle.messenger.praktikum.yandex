@@ -2,14 +2,15 @@ import { Block } from "../../framework/Block";
 import "./styles.pcss";
 
 interface IButtonProps {
-  text: string;
+  text?: string;
   dataName?: string;
-  fullWidth: boolean;
-  disabled: boolean;
+  fullWidth?: boolean;
+  disabled?: boolean;
+  class?: string;
   onClick?: VoidFunction;
 }
 
-export class Button extends Block {
+export class Button extends Block<StringIndexed> {
   constructor(props: IButtonProps) {
     super({
       ...props,
@@ -20,6 +21,6 @@ export class Button extends Block {
   }
 
   render(): string {
-    return '<Button data-name="{{dataName}}" {{#if disabled}}disabled{{/if}}  class="hidden-border button-primary {{#if fullWidth }}full-width{{/if}} {{#if disabled}}disabled{{/if}}">{{text}}</Button>';
+    return '<Button data-name="{{dataName}}" {{#if disabled}}disabled{{/if}}  class="hidden-border button-primary {{#if fullWidth }}full-width{{/if}} {{#if disabled}}disabled{{/if}} {{class}}">{{text}}</Button>';
   }
 }

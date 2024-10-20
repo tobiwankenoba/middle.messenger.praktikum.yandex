@@ -5,12 +5,14 @@ import {
   LocalNav,
   Title,
 } from "../../components";
+import AuthController from "../../controllers/AuthController";
 import { Block } from "../../framework/Block";
+import { router } from "../../framework/Router";
 import { EFormFieldNames } from "../../types/registerForm";
 import { getFieldFormError } from "../../utils/getFieldFormError";
-import { validateFormFields } from "../../utils/validate";
+import { validateFormFields } from "../../utils/validates/validate";
 
-export class LoginPage extends Block {
+export class LoginPage extends Block<StringIndexed> {
   constructor() {
     super({
       Title: new Title({ text: "Вход" }),
@@ -31,7 +33,7 @@ export class LoginPage extends Block {
           );
 
           if (login && password) {
-            console.log({
+            AuthController.login({
               login: this.props.login,
               password: this.props.password,
             });
@@ -41,6 +43,9 @@ export class LoginPage extends Block {
       LinkButton: new LinkButton({
         text: "Нет аккаунта?",
         url: "register",
+        onClick: () => {
+          router.go("/sign-up");
+        },
       }),
       InputLogin: new InputBlock({
         label: "Логин",

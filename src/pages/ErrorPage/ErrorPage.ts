@@ -6,7 +6,7 @@ interface IErrorProps {
   errorMessage: string;
 }
 
-export class ErrorPage extends Block {
+export class ErrorPage extends Block<StringIndexed> {
   constructor(props: IErrorProps) {
     super({
       ...props,

@@ -10,6 +10,7 @@ export enum EFormFieldNames {
   SecondName = "second_name",
   Phone = "phone",
   Password = "password",
+  OldPassword = "oldPassword",
   PasswordRepeat = "passwordRepeat",
   DisplayName = "display_name",
 }
