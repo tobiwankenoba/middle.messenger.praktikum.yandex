@@ -1,8 +1,10 @@
 import { JSDOM } from "jsdom";
 import { XMLHttpRequest } from "node-xmlhttprequest";
+import { ReadableStream } from "web-streams-polyfill";
+
 
 if (typeof global.ReadableStream === 'undefined') {
-  global.ReadableStream = require('web-streams-polyfill/ponyfill').ReadableStream;
+  global.ReadableStream = new ReadableStream();
 }
 
 const jsdom = new JSDOM(
