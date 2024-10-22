@@ -2,8 +2,12 @@ import { assert, expect } from 'chai';
 import { Block } from '../Block';
 import { stub } from 'sinon';
 
-class Dummy extends Block<StringIndexed> {
-  constructor(props: StringIndexed) {
+class Dummy extends Block<{
+    [x: string]: any;
+}> {
+  constructor(props: {
+    [x: string]: any;
+}) {
     super({ ...props });
   }
 

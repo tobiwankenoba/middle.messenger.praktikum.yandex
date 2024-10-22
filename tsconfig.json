@@ -26,5 +26,6 @@
     "experimentalSpecifierResolution": "node",
     "transpileOnly": true
   },
-  "include": ["src/**/*.ts", "eslint.config.js"]
+  "include": ["src/**/*.ts"],
+  "exclude": ["node_modules"]
 }
