@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-redundant-type-constituents */
 function merge(lhs: Indexed, rhs: Indexed): Indexed {
   for (const p in rhs) {
     if (!rhs.hasOwnProperty(p)) {

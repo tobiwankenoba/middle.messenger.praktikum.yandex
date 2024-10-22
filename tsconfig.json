@@ -26,5 +26,5 @@
     "experimentalSpecifierResolution": "node",
     "transpileOnly": true
   },
-  "include": ["src/**/*.ts", ".eslintrc.cjs"]
+  "include": ["src/**/*.ts"]
 }
