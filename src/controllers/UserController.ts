@@ -1,7 +1,9 @@
-import Api, { UserAPI } from "../api/UserApi";
-import { store } from "../framework/Store";
+/* eslint-disable @typescript-eslint/no-shadow */
+/* eslint-disable @typescript-eslint/no-floating-promises */
+import Api, { UserAPI } from '../api/UserApi';
+import { store } from '../framework/Store';
 
-import { TUserUpdateValues } from "../types/api";
+import { TUserUpdateValues } from '../types/api';
 
 class UserController {
   private readonly api: UserAPI;
@@ -23,7 +25,7 @@ class UserController {
       phone: data.phone,
     };
 
-    store.set("profileState", {
+    store.set('profileState', {
       ...profileState,
       profile: { ...profileState.profile, ...convertedData },
     });
@@ -35,12 +37,12 @@ class UserController {
     await this.api
       .updateAvatar(data)
       .then((data) => {
-        store.set("profileState", {
+        store.set('profileState', {
           ...profileState,
           profile: { ...profileState.profile, avatar: data.response.avatar },
         });
       })
-      .catch((error) => store.set("error", error));
+      .catch((error) => store.set('error', error));
   };
 
   public updatePassword = async (data: {
@@ -49,7 +51,7 @@ class UserController {
   }) => {
     const res = await this.api.updatePassword(data);
     if (res.status !== 200) {
-      return { status: "error", message: res.response.reason };
+      return { status: 'error', message: res.response.reason };
     }
   };
 }

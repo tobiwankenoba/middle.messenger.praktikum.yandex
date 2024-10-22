@@ -1,23 +1,23 @@
-import { TStoreState } from "../../types/store";
-import set from "../../utils/set";
-import { EventBus } from "../EventBus";
+import { TStoreState } from '../../types/store';
+import set from '../../utils/set';
+import { EventBus } from '../EventBus';
 
 export enum StoreEvents {
-  Updated = "updated",
+  Updated = 'updated',
 }
 
 class Store extends EventBus {
   private state: Nullable<TStoreState> = {
     profileState: {
       profile: {
-        firstName: "",
-        secondName: "",
-        email: "",
-        phone: "",
-        displayName: "",
-        login: "",
-        avatar: "",
-        password: "",
+        firstName: '',
+        secondName: '',
+        email: '',
+        phone: '',
+        displayName: '',
+        login: '',
+        avatar: '',
+        password: '',
       },
     },
     chats: [],
@@ -37,7 +37,7 @@ class Store extends EventBus {
   }
 
   public resetError() {
-    this.set("error", null);
+    this.set('error', null);
   }
 
   public getState(): TStoreState {

@@ -1,1 +1,1 @@
-export { default as store, StoreEvents } from "./Store";
+export { default as store, StoreEvents } from './Store';

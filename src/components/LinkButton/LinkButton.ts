@@ -1,5 +1,5 @@
-import { Block } from "../../framework/Block";
-import "./styles.pcss";
+import { Block } from '../../framework/Block';
+import './styles.pcss';
 
 interface IButtonProps {
   text: string;

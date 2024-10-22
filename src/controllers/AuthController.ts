@@ -1,8 +1,8 @@
-import api, { AuthApi } from "../api/AuthApi";
-import { router } from "../framework/Router";
-import { store } from "../framework/Store";
-import { prepareUser } from "../mappers";
-import { TLoginData, TRegisterData, User } from "../types/api";
+import api, { AuthApi } from '../api/AuthApi';
+import { router } from '../framework/Router';
+import { store } from '../framework/Store';
+import { prepareUser } from '../mappers';
+import { TLoginData, TRegisterData, User } from '../types/api';
 
 class AuthController {
   private readonly api: AuthApi;
@@ -15,7 +15,7 @@ class AuthController {
     try {
       await this.api.login(data);
       await this.getUser();
-      router.go("/profile");
+      router.go('/profile');
     } catch (error) {
       console.error(error);
     }
@@ -31,12 +31,12 @@ class AuthController {
           profile: prepareUser(response as User),
         };
 
-        store.set("profileState", profileState);
+        store.set('profileState', profileState);
       } else {
         throw new Error(response.reason);
       }
     } catch (error) {
-      store.set("error", error);
+      store.set('error', error);
     }
   }
 
@@ -44,7 +44,7 @@ class AuthController {
     try {
       await this.api.register(data);
       await this.getUser();
-      router.go("/profile");
+      router.go('/profile');
     } catch (error) {
       console.error(error);
     }
@@ -53,8 +53,8 @@ class AuthController {
   public async logout() {
     try {
       await this.api.logout();
-      store.set("user", {});
-      router.go("/");
+      store.set('user', {});
+      router.go('/');
     } catch (error) {
       console.error(error);
     }

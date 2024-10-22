@@ -1,6 +1,7 @@
-import { BlockProps } from "../../framework/Block";
-import { EFormFieldNames } from "../../types/registerForm";
-import { validateFormFields } from "./validate";
+/* eslint-disable @typescript-eslint/no-shadow */
+import { BlockProps } from '../../framework/Block';
+import { EFormFieldNames } from '../../types/registerForm';
+import { validateFormFields } from './validate';
 
 export const validatePassword = (props: BlockProps) => {
   console.log(props);

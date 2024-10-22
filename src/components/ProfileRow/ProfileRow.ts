@@ -1,7 +1,7 @@
-import { Block } from "../../framework/Block";
-import { IInput } from "../../types/input";
-import { Input } from "../Input";
-import "./styles.pcss";
+import { Block } from '../../framework/Block';
+import { IInput } from '../../types/input';
+import { Input } from '../Input';
+import './styles.pcss';
 
 interface IProfileRowProps extends IInput {
   label: string;
@@ -15,13 +15,13 @@ export class ProfileRow extends Block<StringIndexed> {
       label,
       Input: new Input({
         ...props,
-        class: "row-input",
+        class: 'row-input',
         onBlur: (e: Event) => {
           if (props.onBlur) {
             const res = props.onBlur(e);
 
             this.setProps({
-              errorMessage: res !== "" ? res : undefined,
+              errorMessage: res !== '' ? res : undefined,
             });
           }
         },

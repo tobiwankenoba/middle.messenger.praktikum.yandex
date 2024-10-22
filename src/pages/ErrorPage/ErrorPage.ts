@@ -1,5 +1,5 @@
-import { LocalNav, Title } from "../../components";
-import { Block } from "../../framework/Block";
+import { LocalNav, Title } from '../../components';
+import { Block } from '../../framework/Block';
 
 interface IErrorProps {
   statusCode: number;
@@ -10,7 +10,7 @@ export class ErrorPage extends Block<StringIndexed> {
   constructor(props: IErrorProps) {
     super({
       ...props,
-      Title: new Title({ text: "Вход" }),
+      Title: new Title({ text: 'Вход' }),
       LocalNav: new LocalNav(),
     });
   }

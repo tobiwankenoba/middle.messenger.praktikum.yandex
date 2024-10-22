@@ -1,6 +1,6 @@
-import { assert, expect } from "chai";
-import { Block } from "../Block";
-import { stub } from "sinon";
+import { assert, expect } from 'chai';
+import { Block } from '../Block';
+import { stub } from 'sinon';
 
 class Dummy extends Block<StringIndexed> {
   constructor(props: StringIndexed) {
@@ -8,35 +8,35 @@ class Dummy extends Block<StringIndexed> {
   }
 
   render() {
-    return "<div>Test</div>";
+    return '<div>Test</div>';
   }
 }
 
 const block = new Dummy({
-  testProps: { key: "value" },
+  testProps: { key: 'value' },
 });
 
-describe("Block", () => {
-  it("Возвращает тэг", () => {
-    assert.equal(block.element!.tagName, "DIV");
+describe('Block', () => {
+  it('Возвращает тэг', () => {
+    assert.equal(block.element!.tagName, 'DIV');
   });
 
-  it("Возвращает контент", () => {
-    assert.equal(block.element!.textContent, "Test");
+  it('Возвращает контент', () => {
+    assert.equal(block.element!.textContent, 'Test');
   });
 
-  it("Изменяются пропсы блока", () => {
-    block.setProps({ ...block.props, id: "testId" });
+  it('Изменяются пропсы блока', () => {
+    block.setProps({ ...block.props, id: 'testId' });
     assert.deepEqual(block.props, {
-      id: "testId",
-      testProps: { key: "value" },
+      id: 'testId',
+      testProps: { key: 'value' },
     });
   });
 
-  it("Вызывается событие event у блока", () => {
+  it('Вызывается событие event у блока', () => {
     const testHandleEvent = stub();
 
-    const testEvent = new MouseEvent("click");
+    const testEvent = new MouseEvent('click');
 
     block.setProps({
       ...block.props,
@@ -47,6 +47,7 @@ describe("Block", () => {
 
     block.element?.dispatchEvent(testEvent);
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     expect(testHandleEvent.calledOnce).to.be.true;
   });
 });

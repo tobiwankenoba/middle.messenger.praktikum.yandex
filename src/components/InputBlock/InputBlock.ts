@@ -1,9 +1,9 @@
-import { Block } from "../../framework/Block";
-import { IInput } from "../../types/input";
-import { Input } from "../Input";
-import "./styles.pcss";
+import { Block } from '../../framework/Block';
+import { IInput } from '../../types/input';
+import { Input } from '../Input';
+import './styles.pcss';
 
-interface IInputProps extends Omit<IInput, "onBlur"> {
+interface IInputProps extends Omit<IInput, 'onBlur'> {
   label: string;
   onBlur?: (e: Event) => string | undefined;
 }
@@ -19,7 +19,7 @@ export class InputBlock extends Block<StringIndexed> {
             const res = props.onBlur(e);
 
             this.setProps({
-              errorMessage: res !== "" ? res : undefined,
+              errorMessage: res !== '' ? res : undefined,
             });
           }
         },

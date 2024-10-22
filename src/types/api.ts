@@ -24,8 +24,8 @@ export interface User extends StringIndexed {
 }
 
 export type TUserUpdateValues = Pick<
-  User,
-  "first_name" | "second_name" | "display_name" | "phone" | "email"
+User,
+'first_name' | 'second_name' | 'display_name' | 'phone' | 'email'
 >;
 
 export interface IMessage {

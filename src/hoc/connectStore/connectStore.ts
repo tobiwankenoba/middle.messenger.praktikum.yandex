@@ -1,6 +1,6 @@
-import { ChatItem } from "../../components/ChatItem/ChatItem";
-import { Block } from "../../framework/Block";
-import { store, StoreEvents } from "../../framework/Store";
+import { ChatItem } from '../../components/ChatItem/ChatItem';
+import { Block } from '../../framework/Block';
+import { store, StoreEvents } from '../../framework/Store';
 
 export function connect(Component: typeof Block<StringIndexed>) {
   return class extends Component {
@@ -20,7 +20,7 @@ export function connect(Component: typeof Block<StringIndexed>) {
               selectedChatId: selectedChat?.id,
               currentChat,
               onClick: () => {
-                store.set("selectedChat", currentChat);
+                store.set('selectedChat', currentChat);
 
                 const AllMessages = store.getState().messages;
 
@@ -29,7 +29,7 @@ export function connect(Component: typeof Block<StringIndexed>) {
                 );
 
                 if (messages && messages.length > 0) {
-                  store.set("activeMessages", messages[1]);
+                  store.set('activeMessages', messages[1]);
                 }
               },
             }),

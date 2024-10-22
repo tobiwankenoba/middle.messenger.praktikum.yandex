@@ -1,1 +1,1 @@
-export * from "./ModalAddUser";
+export * from './ModalAddUser';

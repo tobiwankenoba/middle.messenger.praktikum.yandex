@@ -1,12 +1,13 @@
-import { LinkButton } from "../../components";
-import { ChatItem } from "../../components/ChatItem/ChatItem";
-import { ModalChatCreate } from "../../components/ModalChatCreate";
-import { OpenedChat } from "../../components/OpenedChat";
-import chatsController from "../../controllers/ChatController";
-import { Block } from "../../framework/Block";
-import { router } from "../../framework/Router";
-import { store } from "../../framework/Store";
-import { connect } from "../../hoc/connectStore";
+/* eslint-disable @typescript-eslint/no-floating-promises */
+import { LinkButton } from '../../components';
+import { ChatItem } from '../../components/ChatItem/ChatItem';
+import { ModalChatCreate } from '../../components/ModalChatCreate';
+import { OpenedChat } from '../../components/OpenedChat';
+import chatsController from '../../controllers/ChatController';
+import { Block } from '../../framework/Block';
+import { router } from '../../framework/Router';
+import { store } from '../../framework/Store';
+import { connect } from '../../hoc/connectStore';
 
 class ChatPage extends Block<StringIndexed> {
   constructor() {
@@ -19,34 +20,34 @@ class ChatPage extends Block<StringIndexed> {
             selectedChatId: selectedChat?.id,
             currentChat,
             onClick: () => {
-              store.set("selectedChat", currentChat);
+              store.set('selectedChat', currentChat);
             },
           }),
       ),
       CurrentChat: new OpenedChat(),
       ProfileLink: new LinkButton({
-        text: "Профиль",
-        theme: "chats-link",
+        text: 'Профиль',
+        theme: 'chats-link',
         onClick: () => {
-          router.go("/profile");
+          router.go('/profile');
         },
       }),
       CreateChat: new LinkButton({
-        text: "Создать чат",
-        theme: "chats-link",
+        text: 'Создать чат',
+        theme: 'chats-link',
         onClick: () => {
-          store.set("modalChatVisible", true);
+          store.set('modalChatVisible', true);
 
-          const input = document.getElementById("createChatInput");
+          const input = document.getElementById('createChatInput');
 
           if (input instanceof HTMLInputElement) {
-            input.value = "";
+            input.value = '';
           }
         },
       }),
       Modal: new ModalChatCreate({
         onClickClose: () => {
-          store.set("modalChatVisible", false);
+          store.set('modalChatVisible', false);
         },
       }),
     });

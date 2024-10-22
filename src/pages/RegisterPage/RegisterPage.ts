@@ -1,26 +1,28 @@
+/* eslint-disable @typescript-eslint/no-floating-promises */
+/* eslint-disable @typescript-eslint/naming-convention */
 import {
   Button,
   InputBlock,
   LinkButton,
   LocalNav,
   Title,
-} from "../../components";
-import AuthController from "../../controllers/AuthController";
-import { Block } from "../../framework/Block";
-import { router } from "../../framework/Router";
-import { EFormFieldNames } from "../../types/registerForm";
-import { getFieldFormError } from "../../utils/getFieldFormError";
+} from '../../components';
+import AuthController from '../../controllers/AuthController';
+import { Block } from '../../framework/Block';
+import { router } from '../../framework/Router';
+import { EFormFieldNames } from '../../types/registerForm';
+import { getFieldFormError } from '../../utils/getFieldFormError';
 
-import { validateFormRegister } from "../../utils/validates/validateRegisterForm";
+import { validateFormRegister } from '../../utils/validates/validateRegisterForm';
 
 export class RegisterPage extends Block<StringIndexed> {
   constructor() {
     super({
-      Title: new Title({ text: "Регистрация" }),
+      Title: new Title({ text: 'Регистрация' }),
       Button: new Button({
-        text: "Зарегистрироваться",
+        text: 'Зарегистрироваться',
         fullWidth: true,
-        dataName: "register",
+        dataName: 'register',
         disabled: true,
         onClick: () => {
           const validateRegisterForm = validateFormRegister({
@@ -48,18 +50,18 @@ export class RegisterPage extends Block<StringIndexed> {
         },
       }),
       LinkButton: new LinkButton({
-        text: "Войти",
-        url: "login",
+        text: 'Войти',
+        url: 'login',
         onClick: () => {
-          router.go("/");
+          router.go('/');
         },
       }),
       InputEmail: new InputBlock({
-        label: "Почта",
-        id: "email",
-        placeholder: "Введите почту",
-        type: "text",
-        name: "email",
+        label: 'Почта',
+        id: 'email',
+        placeholder: 'Введите почту',
+        type: 'text',
+        name: 'email',
         onBlur: (e) => {
           if (e.target instanceof HTMLInputElement) {
             const email = { email: e.target.value };
@@ -87,11 +89,11 @@ export class RegisterPage extends Block<StringIndexed> {
         },
       }),
       InputLogin: new InputBlock({
-        label: "Логин",
-        id: "login",
-        placeholder: "Введите логин",
-        type: "text",
-        name: "login",
+        label: 'Логин',
+        id: 'login',
+        placeholder: 'Введите логин',
+        type: 'text',
+        name: 'login',
         onBlur: (e) => {
           if (e.target instanceof HTMLInputElement) {
             const login = { login: e.target.value };
@@ -119,11 +121,11 @@ export class RegisterPage extends Block<StringIndexed> {
         },
       }),
       InputName: new InputBlock({
-        label: "Имя",
-        id: "name",
-        placeholder: "Введите имя",
-        name: "first_name",
-        type: "text",
+        label: 'Имя',
+        id: 'name',
+        placeholder: 'Введите имя',
+        name: 'first_name',
+        type: 'text',
         onBlur: (e) => {
           if (e.target instanceof HTMLInputElement) {
             const firstName = { first_name: e.target.value };
@@ -151,11 +153,11 @@ export class RegisterPage extends Block<StringIndexed> {
         },
       }),
       InputLastName: new InputBlock({
-        label: "Фамилия",
-        id: "lastname",
-        placeholder: "Введите фамилию",
-        name: "second_name",
-        type: "text",
+        label: 'Фамилия',
+        id: 'lastname',
+        placeholder: 'Введите фамилию',
+        name: 'second_name',
+        type: 'text',
         onBlur: (e) => {
           if (e.target instanceof HTMLInputElement) {
             const secondName = { second_name: e.target.value };
@@ -183,11 +185,11 @@ export class RegisterPage extends Block<StringIndexed> {
         },
       }),
       InputPhone: new InputBlock({
-        label: "Телефон",
-        id: "phone",
-        placeholder: "Введите телефон",
-        name: "phone",
-        type: "text",
+        label: 'Телефон',
+        id: 'phone',
+        placeholder: 'Введите телефон',
+        name: 'phone',
+        type: 'text',
         onBlur: (e) => {
           if (e.target instanceof HTMLInputElement) {
             const phone = { phone: e.target.value };
@@ -215,11 +217,11 @@ export class RegisterPage extends Block<StringIndexed> {
         },
       }),
       InputPassword: new InputBlock({
-        label: "Пароль",
-        id: "password",
-        placeholder: "Введите пароль",
-        name: "password",
-        type: "text",
+        label: 'Пароль',
+        id: 'password',
+        placeholder: 'Введите пароль',
+        name: 'password',
+        type: 'text',
         onBlur: (e) => {
           if (e.target instanceof HTMLInputElement) {
             const password = { password: e.target.value };
@@ -247,11 +249,11 @@ export class RegisterPage extends Block<StringIndexed> {
         },
       }),
       InputRepeatPassword: new InputBlock({
-        label: "Пароль (ещё раз)",
-        id: "passwordRepeat",
-        placeholder: "Повторите пароль",
-        name: "passwordRepeat",
-        type: "text",
+        label: 'Пароль (ещё раз)',
+        id: 'passwordRepeat',
+        placeholder: 'Повторите пароль',
+        name: 'passwordRepeat',
+        type: 'text',
         onBlur: (e) => {
           if (e.target instanceof HTMLInputElement) {
             const passwordRepeat = { passwordRepeat: e.target.value };

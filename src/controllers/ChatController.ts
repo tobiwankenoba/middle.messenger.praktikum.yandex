@@ -1,7 +1,9 @@
-import Api, { ChatsAPI } from "../api/ChatsApi";
-import { store } from "../framework/Store";
-import { IMessagesState } from "../types/api";
-import MessagesController from "./MessagesController";
+/* eslint-disable @typescript-eslint/no-floating-promises */
+/* eslint-disable @typescript-eslint/no-misused-promises */
+import Api, { ChatsAPI } from '../api/ChatsApi';
+import { store } from '../framework/Store';
+import { IMessagesState } from '../types/api';
+import MessagesController from './MessagesController';
 
 class ChatsController {
   private readonly api: ChatsAPI;
@@ -13,7 +15,7 @@ class ChatsController {
   async create(title: string) {
     await this.api
       .create(title)
-      .catch((error) => store.set("error", error))
+      .catch((error) => store.set('error', error))
       .finally(async () => {
         if (!store.getState().error) {
           await this.getChats();
@@ -29,16 +31,16 @@ class ChatsController {
       await MessagesController.connect(chat?.id, token);
     });
 
-    store.set("chats", chats as unknown as IMessagesState[]);
+    store.set('chats', chats as unknown as IMessagesState[]);
   }
 
   async addUserToChat(id: number, userId: number) {
     try {
       await this.api.addUsers(id, [userId]);
     } catch (error) {
-      store.set("error", error);
+      store.set('error', error);
     } finally {
-      store.set("modalAddUserVisible", false);
+      store.set('modalAddUserVisible', false);
     }
   }
 
@@ -46,9 +48,9 @@ class ChatsController {
     try {
       await this.api.removeUsers(id, [userId]);
     } catch (error) {
-      store.set("error", error);
+      store.set('error', error);
     } finally {
-      store.set("modalAddUserVisible", false);
+      store.set('modalAddUserVisible', false);
     }
   }
 
@@ -56,7 +58,7 @@ class ChatsController {
     try {
       await this.api.delete(id);
     } catch (error) {
-      store.set("error", error);
+      store.set('error', error);
     } finally {
       if (!store.getState().error) {
         this.getChats();

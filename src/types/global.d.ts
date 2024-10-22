@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-types */
 declare global {
   type Nullable<T> = T | null | {};
 

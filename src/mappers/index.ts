@@ -1,1 +1,1 @@
-export * from "./prepareUser";
+export * from './prepareUser';

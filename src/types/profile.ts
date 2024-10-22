@@ -1,4 +1,4 @@
-import { IMessagesState } from "./api";
+import { IMessagesState } from './api';
 
 export interface IProfileState {
   isDraft: boolean;
@@ -46,8 +46,8 @@ export interface IChatState {
 }
 
 export enum ESender {
-  Me = "me",
-  Partner = "partner",
+  Me = 'me',
+  Partner = 'partner',
 }
 
 export interface IMessage {

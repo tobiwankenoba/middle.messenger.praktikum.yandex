@@ -1,9 +1,10 @@
-import { store } from "../framework/Store";
-import { WSTransport, WSEvents } from "../framework/WsTransport";
-import { IMessage, IProfile } from "../types/profile";
+/* eslint-disable @typescript-eslint/await-thenable */
+import { store } from '../framework/Store';
+import { WSTransport, WSEvents } from '../framework/WsTransport';
+import { IMessage } from '../types/profile';
 
 class MessagesController {
-  private sockets: Map<Number, WSTransport> = new Map();
+  private sockets: Map<number, WSTransport> = new Map();
 
   private baseURL: string;
 
@@ -23,7 +24,7 @@ class MessagesController {
       return;
     }
 
-    const userId = (store.getState().profileState.profile as IProfile)?.id;
+    const userId = (store.getState().profileState.profile)?.id;
     const wsTransport = new WSTransport(
       `${this.baseURL}${userId}/${chatId}/${token}`,
     );
@@ -44,7 +45,7 @@ class MessagesController {
     }
 
     await socket.send({
-      type: "message",
+      type: 'message',
       content: message,
     });
   }
@@ -57,7 +58,7 @@ class MessagesController {
     }
 
     socket.send({
-      type: "get old",
+      type: 'get old',
       content: null,
     });
   }
@@ -76,16 +77,16 @@ class MessagesController {
     let messagesToAdd: IMessage[] = [];
 
     if (Array.isArray(messages)) {
-      messagesToAdd = (messages as IMessage[]).reverse();
+      messagesToAdd = (messages).reverse();
     } else {
-      messagesToAdd.push(messages as IMessage);
+      messagesToAdd.push(messages);
     }
 
     const currentMessages = (store.getState().messages || {})[chatId] || [];
-    messagesToAdd = [...(currentMessages as IMessage[]), ...messagesToAdd];
+    messagesToAdd = [...(currentMessages), ...messagesToAdd];
     store.set(`messages.${chatId}`, messagesToAdd);
-    store.set(`activeMessages`, messagesToAdd);
+    store.set('activeMessages', messagesToAdd);
   }
 }
 
-export default new MessagesController("wss://ya-praktikum.tech/ws/chats/");
+export default new MessagesController('wss://ya-praktikum.tech/ws/chats/');

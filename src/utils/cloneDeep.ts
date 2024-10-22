@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 function cloneDeep<T extends Indexed>(obj: T) {
   return (function _cloneDeep(
     item: T,
@@ -10,7 +11,7 @@ function cloneDeep<T extends Indexed>(obj: T) {
     // * string
     // * symbol
     // * function
-    if (item === null || typeof item !== "object") {
+    if (item === null || typeof item !== 'object') {
       return item;
     }
 
@@ -23,7 +24,7 @@ function cloneDeep<T extends Indexed>(obj: T) {
     // Handle:
     // * Array
     if (item instanceof Array) {
-      let copy: ReturnType<typeof _cloneDeep>[] = [];
+      const copy: ReturnType<typeof _cloneDeep>[] = [];
 
       item.forEach((_, i) => (copy[i] = _cloneDeep(item[i])));
 
@@ -33,7 +34,7 @@ function cloneDeep<T extends Indexed>(obj: T) {
     // Handle:
     // * Set
     if (item instanceof Set) {
-      let copy = new Set();
+      const copy = new Set();
 
       item.forEach((v) => copy.add(_cloneDeep(v)));
 
@@ -43,7 +44,7 @@ function cloneDeep<T extends Indexed>(obj: T) {
     // Handle:
     // * Map
     if (item instanceof Map) {
-      let copy = new Map();
+      const copy = new Map();
 
       item.forEach((v, k) => copy.set(k, _cloneDeep(v)));
 
@@ -53,7 +54,7 @@ function cloneDeep<T extends Indexed>(obj: T) {
     // Handle:
     // * Object
     if (item instanceof Object) {
-      let copy: Indexed = {};
+      const copy: Indexed = {};
 
       // Handle:
       // * Object.symbol
@@ -68,6 +69,7 @@ function cloneDeep<T extends Indexed>(obj: T) {
       return copy;
     }
 
+    // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
     throw new Error(`Unable to copy object: ${item}`);
   })(obj);
 }
