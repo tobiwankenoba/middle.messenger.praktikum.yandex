@@ -1,6 +1,10 @@
 import { JSDOM } from "jsdom";
 import { XMLHttpRequest } from "node-xmlhttprequest";
 
+if (typeof global.ReadableStream === 'undefined') {
+  global.ReadableStream = require('stream/web').ReadableStream;
+}
+
 const jsdom = new JSDOM(
   '<!DOCTYPE html><html><body><div id="app"></div></body></html>',
 );

@@ -9,7 +9,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 export default [
-  { ignores: ["node_modules", "dist"] },
+  { ignores: ["node_modules", "dist", "mochaSetup.js"] },
   pluginJs.configs.recommended,
   ...tseslint.configs.recommended,
   {
