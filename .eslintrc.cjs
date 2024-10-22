@@ -13,7 +13,6 @@ module.exports = {
     'plugin:@typescript-eslint/recommended',
     'plugin:@typescript-eslint/recommended-requiring-type-checking',
   ],
-  ignores: ['./mochaSetup.js'],
   env: {
     browser: true,
     es2020: true,
