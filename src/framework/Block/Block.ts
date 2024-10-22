@@ -20,7 +20,7 @@ export class Block<P extends StringIndexed> {
 
   protected _id: string = uuidv4();
 
-  protected props: BlockProps;
+  public props: BlockProps;
 
   protected children: StringIndexed;
 

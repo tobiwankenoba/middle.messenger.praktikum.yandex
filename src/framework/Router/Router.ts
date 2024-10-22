@@ -2,6 +2,8 @@ import { IBlockClassInterface, Route } from "../Route";
 import AuthController from "../../controllers/AuthController";
 import { store } from "../Store";
 
+export type Nullable<T> = T | null | {};
+
 class Router {
   private routes: Route[] = [];
 
