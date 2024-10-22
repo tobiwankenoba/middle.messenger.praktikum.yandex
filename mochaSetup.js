@@ -2,7 +2,7 @@ import { JSDOM } from "jsdom";
 import { XMLHttpRequest } from "node-xmlhttprequest";
 
 if (typeof global.ReadableStream === 'undefined') {
-  global.ReadableStream = require('stream/web').ReadableStream;
+  global.ReadableStream = require('web-streams-polyfill/ponyfill').ReadableStream;
 }
 
 const jsdom = new JSDOM(
