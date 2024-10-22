@@ -1,15 +1,16 @@
+/* eslint-disable @typescript-eslint/no-floating-promises */
 import {
   Avatar,
   ButtonBlockProfile,
   LocalNav,
   ProfileRow,
   Sidebar,
-} from "../../components";
-import AuthController from "../../controllers/AuthController";
-import { Block } from "../../framework/Block";
-import { router } from "../../framework/Router";
-import { store } from "../../framework/Store";
-import { connect } from "../../hoc/connectStore";
+} from '../../components';
+import AuthController from '../../controllers/AuthController';
+import { Block } from '../../framework/Block';
+import { router } from '../../framework/Router';
+import { store } from '../../framework/Store';
+import { connect } from '../../hoc/connectStore';
 
 class ProfilePage extends Block<StringIndexed> {
   constructor() {
@@ -27,42 +28,42 @@ class ProfilePage extends Block<StringIndexed> {
       }),
       Sidebar: new Sidebar({
         onClick: () => {
-          router.go("/messenger");
+          router.go('/messenger');
         },
       }),
       LocalNav: new LocalNav(),
       RowEmail: new ProfileRow({
-        id: "email",
-        name: "email",
-        label: "Почта",
+        id: 'email',
+        name: 'email',
+        label: 'Почта',
         value: profile.email,
         readonly: true,
       }),
       RowFirstName: new ProfileRow({
-        id: "firstName",
-        name: "first_name",
-        label: "Имя",
+        id: 'firstName',
+        name: 'first_name',
+        label: 'Имя',
         value: profile.firstName,
         readonly: true,
       }),
       RowLastName: new ProfileRow({
-        id: "lastName",
-        name: "second_name",
-        label: "Фамилия",
+        id: 'lastName',
+        name: 'second_name',
+        label: 'Фамилия',
         value: profile.secondName,
         readonly: true,
       }),
       RowDisplayName: new ProfileRow({
-        id: "displayName",
-        name: "display_name",
-        label: "Имя в чате",
+        id: 'displayName',
+        name: 'display_name',
+        label: 'Имя в чате',
         value: profile.displayName,
         readonly: true,
       }),
       RowPhone: new ProfileRow({
-        id: "phone",
-        name: "phone",
-        label: "Телефон",
+        id: 'phone',
+        name: 'phone',
+        label: 'Телефон',
         value: profile.phone,
         readonly: true,
       }),
@@ -73,7 +74,7 @@ class ProfilePage extends Block<StringIndexed> {
           AuthController.logout();
         },
         onClickChangeData: () => {
-          router.go("/profile/change-data");
+          router.go('/profile/change-data');
         },
       }),
     });

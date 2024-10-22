@@ -1,17 +1,18 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
 import {
   Avatar,
   ButtonBlockProfile,
   LocalNav,
   ProfileRow,
   Sidebar,
-} from "../../components";
-import UserController from "../../controllers/UserController";
-import { Block } from "../../framework/Block";
-import { router } from "../../framework/Router";
-import { store } from "../../framework/Store";
-import { EFormFieldNames } from "../../types/registerForm";
-import { getFieldFormError } from "../../utils/getFieldFormError";
-import { validatePassword } from "../../utils/validates/validatePassword";
+} from '../../components';
+import UserController from '../../controllers/UserController';
+import { Block } from '../../framework/Block';
+import { router } from '../../framework/Router';
+import { store } from '../../framework/Store';
+import { EFormFieldNames } from '../../types/registerForm';
+import { getFieldFormError } from '../../utils/getFieldFormError';
+import { validatePassword } from '../../utils/validates/validatePassword';
 
 export class ChangePasswordPage extends Block<StringIndexed> {
   constructor() {
@@ -27,16 +28,16 @@ export class ChangePasswordPage extends Block<StringIndexed> {
       }),
       Sidebar: new Sidebar({
         onClick: () => {
-          router.go("/profile");
+          router.go('/profile');
         },
       }),
       LocalNav: new LocalNav(),
       RowOldPassword: new ProfileRow({
-        id: "password",
-        name: "password",
-        label: "Старый пароль",
-        type: "password",
-        placeholder: "*****",
+        id: 'password',
+        name: 'password',
+        label: 'Старый пароль',
+        type: 'password',
+        placeholder: '*****',
         readonly: false,
         onBlur: (e) => {
           if (e.target instanceof HTMLInputElement) {
@@ -65,11 +66,11 @@ export class ChangePasswordPage extends Block<StringIndexed> {
         },
       }),
       RowNewPassword: new ProfileRow({
-        id: "newPassword",
-        name: "new_password",
-        label: "Новый пароль",
-        type: "password",
-        placeholder: "*****",
+        id: 'newPassword',
+        name: 'new_password',
+        label: 'Новый пароль',
+        type: 'password',
+        placeholder: '*****',
         readonly: false,
         onBlur: (e) => {
           if (e.target instanceof HTMLInputElement) {
@@ -98,11 +99,11 @@ export class ChangePasswordPage extends Block<StringIndexed> {
         },
       }),
       RowRepeatNewPassword: new ProfileRow({
-        id: "repeatNewPassword",
-        name: "repeat_new_password",
-        label: "Повторите новый пароль",
-        type: "password",
-        placeholder: "*****",
+        id: 'repeatNewPassword',
+        name: 'repeat_new_password',
+        label: 'Повторите новый пароль',
+        type: 'password',
+        placeholder: '*****',
         readonly: false,
         onBlur: (e) => {
           if (e.target instanceof HTMLInputElement) {
@@ -139,12 +140,12 @@ export class ChangePasswordPage extends Block<StringIndexed> {
             newPassword: this.props.newPassword,
           });
 
-          if (res && res.status === "error") {
+          if (res && res.status === 'error') {
             this.setProps({
               passwordError: res.message,
             });
           } else {
-            router.go("/profile");
+            router.go('/profile');
           }
         },
       }),

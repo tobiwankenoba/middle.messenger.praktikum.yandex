@@ -1,1 +1,1 @@
-export * from "./InputBlock";
+export * from './InputBlock';

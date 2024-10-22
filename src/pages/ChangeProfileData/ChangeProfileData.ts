@@ -1,18 +1,19 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
 import {
   Avatar,
   ButtonBlockProfile,
   LocalNav,
   ProfileRow,
   Sidebar,
-} from "../../components";
-import UserController from "../../controllers/UserController";
-import { Block } from "../../framework/Block";
-import { router } from "../../framework/Router";
-import { store } from "../../framework/Store";
-import { connect } from "../../hoc/connectStore";
-import { EFormFieldNames } from "../../types/registerForm";
-import { getFieldFormError } from "../../utils/getFieldFormError";
-import { validateFormProfile } from "../../utils/validates/validateProfileForm";
+} from '../../components';
+import UserController from '../../controllers/UserController';
+import { Block } from '../../framework/Block';
+import { router } from '../../framework/Router';
+import { store } from '../../framework/Store';
+import { connect } from '../../hoc/connectStore';
+import { EFormFieldNames } from '../../types/registerForm';
+import { getFieldFormError } from '../../utils/getFieldFormError';
+import { validateFormProfile } from '../../utils/validates/validateProfileForm';
 
 class ChageProfileData extends Block<StringIndexed> {
   constructor() {
@@ -29,7 +30,7 @@ class ChageProfileData extends Block<StringIndexed> {
           if (e.target instanceof HTMLInputElement && e.target.files) {
             const formData = new window.FormData();
 
-            formData.append("avatar", e.target.files[0]);
+            formData.append('avatar', e.target.files[0]);
 
             this.setProps({ avatar: formData });
           }
@@ -37,14 +38,14 @@ class ChageProfileData extends Block<StringIndexed> {
       }),
       Sidebar: new Sidebar({
         onClick: () => {
-          router.go("/profile");
+          router.go('/profile');
         },
       }),
       LocalNav: new LocalNav(),
       RowEmail: new ProfileRow({
-        id: "email",
-        name: "email",
-        label: "Почта",
+        id: 'email',
+        name: 'email',
+        label: 'Почта',
         value: profile.email,
         readonly: false,
         onBlur: (e) => {
@@ -62,7 +63,7 @@ class ChageProfileData extends Block<StringIndexed> {
             this.setProps({
               disabled:
                 validateProfileForm.filter((item) => item.isValid === false)
-                  .length !== 0 || email.email === "",
+                  .length !== 0 || email.email === '',
               ...email,
             });
 
@@ -77,9 +78,9 @@ class ChageProfileData extends Block<StringIndexed> {
         },
       }),
       RowFirstName: new ProfileRow({
-        id: "firstName",
-        name: "first_name",
-        label: "Имя",
+        id: 'firstName',
+        name: 'first_name',
+        label: 'Имя',
         value: profile.firstName,
         readonly: false,
         onBlur: (e) => {
@@ -97,7 +98,7 @@ class ChageProfileData extends Block<StringIndexed> {
             this.setProps({
               disabled:
                 validateProfileForm.filter((item) => item.isValid === false)
-                  .length !== 0 || firstName.first_name === "",
+                  .length !== 0 || firstName.first_name === '',
               ...firstName,
             });
 
@@ -112,9 +113,9 @@ class ChageProfileData extends Block<StringIndexed> {
         },
       }),
       RowLastName: new ProfileRow({
-        id: "lastName",
-        name: "second_name",
-        label: "Фамилия",
+        id: 'lastName',
+        name: 'second_name',
+        label: 'Фамилия',
         value: profile.secondName,
         readonly: false,
         onBlur: (e) => {
@@ -132,7 +133,7 @@ class ChageProfileData extends Block<StringIndexed> {
             this.setProps({
               disabled:
                 validateProfileForm.filter((item) => item.isValid === false)
-                  .length !== 0 || secondName.second_name === "",
+                  .length !== 0 || secondName.second_name === '',
               ...secondName,
             });
 
@@ -147,9 +148,9 @@ class ChageProfileData extends Block<StringIndexed> {
         },
       }),
       RowDisplayName: new ProfileRow({
-        id: "displayName",
-        name: "display_name",
-        label: "Имя в чате",
+        id: 'displayName',
+        name: 'display_name',
+        label: 'Имя в чате',
         value: profile.displayName,
         readonly: false,
         onBlur: (e) => {
@@ -182,9 +183,9 @@ class ChageProfileData extends Block<StringIndexed> {
         },
       }),
       RowPhone: new ProfileRow({
-        id: "phone",
-        name: "phone",
-        label: "Телефон",
+        id: 'phone',
+        name: 'phone',
+        label: 'Телефон',
         value: profile.phone,
         readonly: false,
         onBlur: (e) => {
@@ -202,7 +203,7 @@ class ChageProfileData extends Block<StringIndexed> {
             this.setProps({
               disabled:
                 validateProfileForm.filter((item) => item.isValid === false)
-                  .length !== 0 || phone.phone === "",
+                  .length !== 0 || phone.phone === '',
               ...phone,
             });
 
@@ -233,9 +234,9 @@ class ChageProfileData extends Block<StringIndexed> {
               await UserController.updateAvatar(this.props.avatar);
             }
 
-            router.go("/profile");
+            router.go('/profile');
           } catch (e) {
-            store.set("error", e);
+            store.set('error', e);
           }
         },
       }),

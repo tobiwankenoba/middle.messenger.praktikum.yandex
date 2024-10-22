@@ -1,1 +1,1 @@
-export { default as WSTransport, WSEvents } from "./WsTransport";
+export { default as WSTransport, WSEvents } from './WsTransport';

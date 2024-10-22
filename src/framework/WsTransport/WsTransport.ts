@@ -1,10 +1,10 @@
-import { EventBus } from "../EventBus";
+import { EventBus } from '../EventBus';
 
 export enum WSEvents {
-  Connected = "connected",
-  Error = "error",
-  Message = "message",
-  Close = "close",
+  Connected = 'connected',
+  Error = 'error',
+  Message = 'message',
+  Close = 'close',
 }
 
 export default class WSTransport extends EventBus {
@@ -18,7 +18,7 @@ export default class WSTransport extends EventBus {
 
   public send(data: unknown) {
     if (!this.socket) {
-      throw new Error("Socket is not connected");
+      throw new Error('Socket is not connected');
     }
 
     (this.socket as WebSocket).send(JSON.stringify(data));
@@ -44,7 +44,7 @@ export default class WSTransport extends EventBus {
 
   private setupPing() {
     this.ping = setInterval(() => {
-      this.send({ type: "ping" });
+      this.send({ type: 'ping' });
     }, 5000);
 
     this.on(WSEvents.Close, () => {
@@ -60,21 +60,21 @@ export default class WSTransport extends EventBus {
   }
 
   private subscribe(socket: WebSocket) {
-    socket.addEventListener("open", () => {
+    socket.addEventListener('open', () => {
       this.emit(WSEvents.Connected);
     });
-    socket.addEventListener("close", () => {
+    socket.addEventListener('close', () => {
       this.emit(WSEvents.Close);
     });
 
-    socket.addEventListener("error", (error) => {
+    socket.addEventListener('error', (error) => {
       this.emit(WSEvents.Error, error);
     });
 
-    socket.addEventListener("message", (message) => {
+    socket.addEventListener('message', (message) => {
       const data = JSON.parse(message.data);
 
-      if (data.type && data.type === "pong") {
+      if (data.type && data.type === 'pong') {
         return;
       }
 

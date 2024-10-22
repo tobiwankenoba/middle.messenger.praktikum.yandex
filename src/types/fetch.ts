@@ -1,8 +1,9 @@
+/* eslint-disable @typescript-eslint/no-redundant-type-constituents */
 export enum EMethods {
-  GET = "GET",
-  POST = "POST",
-  PUT = "PUT",
-  DELETE = "DELETE",
+  GET = 'GET',
+  POST = 'POST',
+  PUT = 'PUT',
+  DELETE = 'DELETE',
 }
 
 export type TOptions = {

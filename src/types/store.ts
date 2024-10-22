@@ -1,5 +1,5 @@
-import { IMessagesState } from "./api";
-import { IChatState, IMessage, IProfileState } from "./profile";
+import { IMessagesState } from './api';
+import { IChatState, IMessage, IProfileState } from './profile';
 
 export type TStoreState = {
   profileState: IProfileState;

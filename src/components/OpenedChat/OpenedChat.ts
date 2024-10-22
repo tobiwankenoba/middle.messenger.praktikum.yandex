@@ -1,49 +1,50 @@
-import chatsController from "../../controllers/ChatController";
-import MessagesController from "../../controllers/MessagesController";
-import { Block } from "../../framework/Block";
-import { store } from "../../framework/Store";
-import { ChatButton } from "../ChatButton";
-import { Input } from "../Input";
-import { ModalAddUser } from "../ModalAddUser";
-import { ModalRemoveUser } from "../ModalRemoveUser";
-import { SidebarButton } from "../Sidebar/SidebarButton";
-import "./styles.pcss";
+/* eslint-disable @typescript-eslint/no-misused-promises */
+import chatsController from '../../controllers/ChatController';
+import MessagesController from '../../controllers/MessagesController';
+import { Block } from '../../framework/Block';
+import { store } from '../../framework/Store';
+import { ChatButton } from '../ChatButton';
+import { Input } from '../Input';
+import { ModalAddUser } from '../ModalAddUser';
+import { ModalRemoveUser } from '../ModalRemoveUser';
+import { SidebarButton } from '../Sidebar/SidebarButton';
+import './styles.pcss';
 
 export class OpenedChat extends Block<StringIndexed> {
   constructor() {
     super({
       DeleteChatButton: new ChatButton({
-        elementForRender: "delete chat",
+        elementForRender: 'delete chat',
         onClick: async () => {
           const selectedChat = store.getState().selectedChat;
 
           if (selectedChat) {
             await chatsController.delete(selectedChat.id);
 
-            store.set("selectedChat", { id: 0 });
+            store.set('selectedChat', { id: 0 });
           }
         },
       }),
       AddUserButton: new ChatButton({
-        elementForRender: "add user",
-        onClick: async () => {
-          store.set("modalAddUserVisible", true);
+        elementForRender: 'add user',
+        onClick: () => {
+          store.set('modalAddUserVisible', true);
         },
       }),
       RemoveUserButton: new ChatButton({
-        elementForRender: "remove user",
-        onClick: async () => {
-          store.set("modalRemoveUserVisible", true);
+        elementForRender: 'remove user',
+        onClick: () => {
+          store.set('modalRemoveUserVisible', true);
         },
       }),
       ModalAddUser: new ModalAddUser({
         onClickClose: () => {
-          store.set("modalAddUserVisible", false);
+          store.set('modalAddUserVisible', false);
         },
       }),
       ModalRemoveUser: new ModalRemoveUser({
         onClickClose: () => {
-          store.set("modalAddUserVisible", false);
+          store.set('modalAddUserVisible', false);
         },
       }),
       SendButton: new SidebarButton({
@@ -66,22 +67,22 @@ export class OpenedChat extends Block<StringIndexed> {
           );
 
           if (messages && messages.length > 0) {
-            store.set("activeMessages", messages[1]);
+            store.set('activeMessages', messages[1]);
           }
 
           console.log(store.getState());
         },
-        class: "rotate",
+        class: 'rotate',
       }),
       Input: new Input({
-        class: "chat-message-input",
-        type: "text",
-        placeholder: "Сообщение",
+        class: 'chat-message-input',
+        type: 'text',
+        placeholder: 'Сообщение',
         onBlur: (e) => {
           if (e.target instanceof HTMLInputElement) {
             const message = e.target.value;
 
-            store.set("messageForSend", message);
+            store.set('messageForSend', message);
           }
         },
       }),

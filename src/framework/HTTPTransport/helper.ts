@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
 // Самая простая версия. Реализовать штучку со всеми проверками им предстоит в конце спринта
 
-import { EMethods, TDataOptions, TOptions } from "../../types/fetch";
+import { EMethods, TDataOptions, TOptions } from '../../types/fetch';
 
 type HTTPMethod = (url: string, options?: TOptions) => Promise<XMLHttpRequest>;
 
@@ -12,11 +13,11 @@ export class HTTPTransport {
   }
 
   queryStringify(data: TDataOptions) {
-    if (typeof data !== "object" || data === null) {
-      throw new Error("Data must be object");
+    if (typeof data !== 'object' || data === null) {
+      throw new Error('Data must be object');
     }
 
-    let result = "?";
+    let result = '?';
 
     for (const [key, value] of Object.entries(data)) {
       result += `${key}=${value}&`;
@@ -63,12 +64,12 @@ export class HTTPTransport {
       method,
       data,
       withCredentials = true,
-      responseType = "json",
+      responseType = 'json',
     } = options;
 
     return new Promise((resolve, reject) => {
       if (!method) {
-        reject("No method");
+        reject('No method');
         return;
       }
 
@@ -86,11 +87,11 @@ export class HTTPTransport {
         resolve(xhr);
       };
 
-      xhr.onabort = () => reject({ reason: "abort" });
+      xhr.onabort = () => reject({ reason: 'abort' });
 
-      xhr.onerror = () => reject({ reason: "network error" });
+      xhr.onerror = () => reject({ reason: 'network error' });
 
-      xhr.ontimeout = () => reject({ reason: "timeout" });
+      xhr.ontimeout = () => reject({ reason: 'timeout' });
 
       xhr.timeout = timeout;
 
@@ -103,7 +104,7 @@ export class HTTPTransport {
       } else if (data instanceof FormData) {
         xhr.send(data);
       } else {
-        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.setRequestHeader('Content-Type', 'application/json');
         xhr.send(JSON.stringify(data));
       }
     });

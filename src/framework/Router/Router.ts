@@ -1,6 +1,7 @@
-import { IBlockClassInterface, Route } from "../Route";
-import AuthController from "../../controllers/AuthController";
-import { store } from "../Store";
+import { IBlockClassInterface, Route } from '../Route';
+import AuthController from '../../controllers/AuthController';
+import { store } from '../Store';
+
 
 class Router {
   private routes: Route[] = [];
@@ -40,7 +41,7 @@ class Router {
   public async start() {
     store.resetError();
 
-    window.onpopstate = async (event: PopStateEvent) => {
+    window.onpopstate = (event: PopStateEvent) => {
       const target = event.currentTarget;
 
       if (target instanceof Window) {
@@ -51,14 +52,14 @@ class Router {
     await AuthController.getUser();
 
     if (store.getState().error) {
-      this.go("/");
+      this.go('/');
     }
 
     this._onRoute(window.location.pathname);
   }
 
   public go(pathname: string) {
-    this.history.pushState({}, "", pathname);
+    this.history.pushState({}, '', pathname);
 
     this._onRoute(pathname);
   }
@@ -76,4 +77,4 @@ class Router {
   }
 }
 
-export default new Router("#app");
+export default new Router('#app');

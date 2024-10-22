@@ -1,5 +1,6 @@
-import Handlebars from "handlebars";
-import "./styles/main.pcss";
+/* eslint-disable @typescript-eslint/no-floating-promises */
+import Handlebars from 'handlebars';
+import './styles/main.pcss';
 
 import {
   LoginPage,
@@ -9,23 +10,23 @@ import {
   ChatPage,
   NotFoundPage,
   ServerErrorPage,
-} from "./pages";
-import { router } from "./framework/Router";
-import ChangeProfileData from "./pages/ChangeProfileData/ChangeProfileData";
+} from './pages';
+import { router } from './framework/Router';
+import ChangeProfileData from './pages/ChangeProfileData/ChangeProfileData';
 
 Handlebars.registerHelper({
   eq: (v1, v2) => v1 === v2,
 });
 
 const routes: Record<string, string> = {
-  RegisterPage: "/sign-up",
-  LoginPage: "/",
-  ProfilePage: "/profile",
-  ChatPage: "/messenger",
-  ServerErrorPage: "/500",
-  NotFoundPage: "/404",
-  ChangePasswordPage: "/profile/change-password",
-  ChangeProfileData: "/profile/change-data",
+  RegisterPage: '/sign-up',
+  LoginPage: '/',
+  ProfilePage: '/profile',
+  ChatPage: '/messenger',
+  ServerErrorPage: '/500',
+  NotFoundPage: '/404',
+  ChangePasswordPage: '/profile/change-password',
+  ChangeProfileData: '/profile/change-data',
 };
 
 const pages: StringIndexed = {
@@ -39,7 +40,7 @@ const pages: StringIndexed = {
   ChangeProfileData,
 };
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener('DOMContentLoaded', () => {
   Object.keys(pages).forEach((page) => {
     router.use(routes[page], pages[page]);
   });

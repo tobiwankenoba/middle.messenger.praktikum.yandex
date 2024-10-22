@@ -1,4 +1,4 @@
-import { Block } from "../framework/Block";
+import { Block } from '../framework/Block';
 
 export const render = (query: string, block: Block<StringIndexed>) => {
   const root = document.querySelector(query);
@@ -7,7 +7,7 @@ export const render = (query: string, block: Block<StringIndexed>) => {
     throw new Error(`root not found by selector "${query}"`);
   }
 
-  root.innerHTML = "";
+  root.innerHTML = '';
 
   if (block.element) {
     root.append(block.element);

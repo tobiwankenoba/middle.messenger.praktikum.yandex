@@ -1,6 +1,6 @@
-import { Block } from "../../framework/Block";
-import { Input } from "../Input";
-import "./styles.pcss";
+import { Block } from '../../framework/Block';
+import { Input } from '../Input';
+import './styles.pcss';
 
 interface IAvatarProps {
   isDraft: boolean;
@@ -14,9 +14,9 @@ export class Avatar extends Block<StringIndexed> {
     super({
       ...props,
       Input: new Input({
-        type: "file",
-        name: "avatar",
-        id: "avatar",
+        type: 'file',
+        name: 'avatar',
+        id: 'avatar',
         onClick: (e) => {
           if (!props.isDraft) {
             e.preventDefault();

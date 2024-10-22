@@ -1,1 +1,1 @@
-export * from "./ButtonBlockProfile";
+export * from './ButtonBlockProfile';

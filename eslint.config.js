@@ -1,9 +1,15 @@
 import globals from "globals";
 import pluginJs from "@eslint/js";
 import tseslint from "typescript-eslint";
+import {fileURLToPath} from 'url';
+import path from "path";
+
+
+const __filename = fileURLToPath(import.meta.url);
+
+const __dirname = path.dirname(__filename);
 
 export default [
-  { languageOptions: { globals: globals.browser } },
   { ignores: ["node_modules", "dist"] },
   {
     files: ["**/*.cjs"],
@@ -20,17 +26,20 @@ export default [
   {
     files: ["**/*.{js,mjs,cjs,ts}"],
     languageOptions: {
-      parser: "@typescript-eslint/parser",
       parserOptions: {
-        ecmaVersion: 2020,
+        ecmaVersion: 6,
         sourceType: "module",
         project: "./tsconfig.json",
         tsconfigRootDir: __dirname,
       },
     },
-    plugins: ["@typescript-eslint"],
     rules: {
-      "@typescript-eslint/ban-ts-comment": "off",
+      '@typescript-eslint/ban-ts-comment': 'off',
+      '@typescript-eslint/no-explicit-any': 'off',
+      '@typescript-eslint/no-unused-vars': 'off',
+      'no-prototype-builtins': 'off',
+      '@typescript-eslint/no-empty-object-type': 'off',
     },
+
   },
 ];

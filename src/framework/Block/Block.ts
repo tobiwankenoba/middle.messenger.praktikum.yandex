@@ -1,7 +1,8 @@
-import { EventBus } from "../EventBus";
-import Handlebars from "handlebars";
-import { v4 as uuidv4 } from "uuid";
-import { deepEqual } from "../../utils/deepEqual";
+/* eslint-disable @typescript-eslint/naming-convention */
+import { EventBus } from '../EventBus';
+import Handlebars from 'handlebars';
+import { v4 as uuidv4 } from 'uuid';
+import { deepEqual } from '../../utils/deepEqual';
 
 export interface BlockProps {
   [key: string]: any;
@@ -9,18 +10,18 @@ export interface BlockProps {
 
 export class Block<P extends StringIndexed> {
   static EVENTS = {
-    INIT: "init",
-    FLOW_CDM: "flow:component-did-mount",
-    FLOW_CDUM: "flow:component-did-unmount",
-    FLOW_CDU: "flow:component-did-update",
-    FLOW_RENDER: "flow:render",
+    INIT: 'init',
+    FLOW_CDM: 'flow:component-did-mount',
+    FLOW_CDUM: 'flow:component-did-unmount',
+    FLOW_CDU: 'flow:component-did-update',
+    FLOW_RENDER: 'flow:render',
   };
 
   protected _element: HTMLElement | null = null;
 
   protected _id: string = uuidv4();
 
-  protected props: BlockProps;
+  public props: BlockProps;
 
   protected children: StringIndexed;
 
@@ -104,12 +105,7 @@ export class Block<P extends StringIndexed> {
     });
   }
 
-  protected componentDidUpdate(
-    _oldProps: BlockProps,
-    _newProps: BlockProps,
-  ): boolean {
-    return false;
-  }
+
 
   private _getChildrenPropsAndProps(propsAndChildren: BlockProps): {
     children: Record<string, Block<StringIndexed>>;
@@ -178,7 +174,7 @@ export class Block<P extends StringIndexed> {
       propsAndStubs[key] = `<div data-id="__l_${_tmpId}"></div>`;
     });
 
-    const fragment = this._createDocumentElement("template");
+    const fragment = this._createDocumentElement('template');
 
     fragment.innerHTML = Handlebars.compile(this.render())(propsAndStubs);
 
@@ -190,7 +186,7 @@ export class Block<P extends StringIndexed> {
     });
 
     Object.entries(this.lists).forEach(([, child]) => {
-      const listCont = this._createDocumentElement("template");
+      const listCont = this._createDocumentElement('template');
 
       child.forEach((item) => {
         if (item instanceof Block) {
@@ -218,12 +214,12 @@ export class Block<P extends StringIndexed> {
   }
 
   protected render(): string {
-    return "";
+    return '';
   }
 
   public getContent(): HTMLElement {
     if (!this._element) {
-      throw new Error("Element is not created");
+      throw new Error('Element is not created');
     }
     return this._element;
   }
@@ -235,7 +231,7 @@ export class Block<P extends StringIndexed> {
     return new Proxy(props, {
       get(target: BlockProps, prop: string) {
         const value = target[prop];
-        return typeof value === "function" ? value.bind(target) : value;
+        return typeof value === 'function' ? value.bind(target) : value;
       },
       set(target: BlockProps, prop: string, value: any) {
         const oldTarget = { ...target };
@@ -244,7 +240,7 @@ export class Block<P extends StringIndexed> {
         return true;
       },
       deleteProperty() {
-        throw new Error("No access");
+        throw new Error('No access');
       },
     });
   }
@@ -256,14 +252,14 @@ export class Block<P extends StringIndexed> {
   public show(): void {
     const content = this.getContent();
     if (content) {
-      content.style.display = "block";
+      content.style.display = 'block';
     }
   }
 
   public hide(): void {
     const content = this.getContent();
     if (content) {
-      content.style.display = "none";
+      content.style.display = 'none';
     }
   }
 }

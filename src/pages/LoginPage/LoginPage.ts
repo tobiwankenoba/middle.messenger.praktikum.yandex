@@ -1,25 +1,26 @@
+/* eslint-disable @typescript-eslint/no-floating-promises */
 import {
   Button,
   InputBlock,
   LinkButton,
   LocalNav,
   Title,
-} from "../../components";
-import AuthController from "../../controllers/AuthController";
-import { Block } from "../../framework/Block";
-import { router } from "../../framework/Router";
-import { EFormFieldNames } from "../../types/registerForm";
-import { getFieldFormError } from "../../utils/getFieldFormError";
-import { validateFormFields } from "../../utils/validates/validate";
+} from '../../components';
+import AuthController from '../../controllers/AuthController';
+import { Block } from '../../framework/Block';
+import { router } from '../../framework/Router';
+import { EFormFieldNames } from '../../types/registerForm';
+import { getFieldFormError } from '../../utils/getFieldFormError';
+import { validateFormFields } from '../../utils/validates/validate';
 
 export class LoginPage extends Block<StringIndexed> {
   constructor() {
     super({
-      Title: new Title({ text: "Вход" }),
+      Title: new Title({ text: 'Вход' }),
       Button: new Button({
-        text: "Авторизоваться",
+        text: 'Авторизоваться',
         fullWidth: true,
-        dataName: "login",
+        dataName: 'login',
         disabled: true,
         onClick: () => {
           const password = validateFormFields(
@@ -41,18 +42,18 @@ export class LoginPage extends Block<StringIndexed> {
         },
       }),
       LinkButton: new LinkButton({
-        text: "Нет аккаунта?",
-        url: "register",
+        text: 'Нет аккаунта?',
+        url: 'register',
         onClick: () => {
-          router.go("/sign-up");
+          router.go('/sign-up');
         },
       }),
       InputLogin: new InputBlock({
-        label: "Логин",
-        id: "login",
-        placeholder: "Введите логин",
-        type: "text",
-        name: "login",
+        label: 'Логин',
+        id: 'login',
+        placeholder: 'Введите логин',
+        type: 'text',
+        name: 'login',
         onBlur: (e) => {
           if (e.target instanceof HTMLInputElement) {
             const login = { login: e.target.value };
@@ -69,21 +70,21 @@ export class LoginPage extends Block<StringIndexed> {
                     EFormFieldNames.Password,
                     this.props.password,
                   ) && validateLogin
-                ) || login.login === "",
+                ) || login.login === '',
               ...login,
             });
 
             return getFieldFormError(EFormFieldNames.Login, validateLogin);
           }
-          return "";
+          return '';
         },
       }),
       InputPassword: new InputBlock({
-        label: "Пароль",
-        id: "password",
-        placeholder: "Введите пароль",
-        name: "password",
-        type: "text",
+        label: 'Пароль',
+        id: 'password',
+        placeholder: 'Введите пароль',
+        name: 'password',
+        type: 'text',
         onBlur: (e) => {
           if (e.target instanceof HTMLInputElement) {
             const password = { password: e.target.value };
@@ -98,7 +99,7 @@ export class LoginPage extends Block<StringIndexed> {
                 !(
                   validateFormFields(EFormFieldNames.Login, this.props.login) &&
                   validatePassword
-                ) || password.password === "",
+                ) || password.password === '',
               ...password,
             });
 

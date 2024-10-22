@@ -1,6 +1,6 @@
-import { Block } from "../../framework/Block";
-import { IInput } from "../../types/input";
-import "./styles.pcss";
+import { Block } from '../../framework/Block';
+import { IInput } from '../../types/input';
+import './styles.pcss';
 
 type TInputProps = IInput;
 

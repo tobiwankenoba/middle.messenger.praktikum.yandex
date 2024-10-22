@@ -1,6 +1,6 @@
-import { Block } from "../../framework/Block";
-import { IMessagesState } from "../../types/api";
-import "./styles.pcss";
+import { Block } from '../../framework/Block';
+import { IMessagesState } from '../../types/api';
+import './styles.pcss';
 
 interface IChatItemProps {
   currentChat: IMessagesState;

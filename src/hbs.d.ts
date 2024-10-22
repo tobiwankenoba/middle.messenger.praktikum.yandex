@@ -1,4 +1,4 @@
-declare module "*.hbs?raw" {
+declare module '*.hbs?raw' {
   const value: string;
 
   export default value;

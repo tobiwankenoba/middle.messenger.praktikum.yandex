@@ -1,9 +1,9 @@
-import chatsController from "../../controllers/ChatController";
-import { Block } from "../../framework/Block";
-import { store } from "../../framework/Store";
-import { Button } from "../Button";
-import { Input } from "../Input";
-import "./styles.pcss";
+import chatsController from '../../controllers/ChatController';
+import { Block } from '../../framework/Block';
+import { store } from '../../framework/Store';
+import { Button } from '../Button';
+import { Input } from '../Input';
+import './styles.pcss';
 
 interface IModalProps {
   onClickClose: () => void;
@@ -14,15 +14,15 @@ export class ModalChatCreate extends Block<StringIndexed> {
     super({
       ...props,
       Input: new Input({
-        class: "full-width",
-        id: "createChatInput",
-        placeholder: "Название чата",
+        class: 'full-width',
+        id: 'createChatInput',
+        placeholder: 'Название чата',
         onBlur: (e) => {
           if (e.target instanceof HTMLInputElement) {
             const title = { chatTitle: e.target.value };
 
             this.setProps({
-              disabled: !Boolean(title.chatTitle),
+              disabled: !title.chatTitle,
               ...title,
             });
           }
@@ -30,21 +30,23 @@ export class ModalChatCreate extends Block<StringIndexed> {
       }),
       SaveButton: new Button({
         fullWidth: true,
-        text: "Создать",
+        text: 'Создать',
         disabled: true,
+        // eslint-disable-next-line @typescript-eslint/no-misused-promises
         onClick: async () => {
           if (this.props.chatTitle) {
             await chatsController.create(this.props.chatTitle);
 
-            store.set("modalChatVisible", false);
+            store.set('modalChatVisible', false);
           }
         },
       }),
       CloseButton: new Button({
         fullWidth: true,
-        class: "cancel-btn",
-        text: "Отмена",
+        class: 'cancel-btn',
+        text: 'Отмена',
         onClick: () => {
+          // eslint-disable-next-line @typescript-eslint/no-unused-expressions
           props.onClickClose && props.onClickClose();
         },
       }),

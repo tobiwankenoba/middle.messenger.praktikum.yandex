@@ -1,1 +1,1 @@
-export * from "./ModalRemoveUser";
+export * from './ModalRemoveUser';

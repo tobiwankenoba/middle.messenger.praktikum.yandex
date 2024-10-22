@@ -1,5 +1,5 @@
-import { render } from "../../utils/render";
-import { Block } from "../Block";
+import { render } from '../../utils/render';
+import { Block } from '../Block';
 
 export interface IBlockClassInterface {
   new (props: StringIndexed): Block<StringIndexed>;
@@ -36,6 +36,6 @@ export class Route {
     if (!this.block) {
       this.block = new this._blockClass({});
     }
-    render(this._root, this.block! as Block<StringIndexed>);
+    render(this._root, this.block as Block<StringIndexed>);
   }
 }
